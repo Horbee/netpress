@@ -1,0 +1,7 @@
+{
+  "name": "ionic-react-news",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
