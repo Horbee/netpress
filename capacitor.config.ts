@@ -1,10 +1,10 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'ionic-react-news',
-  webDir: 'build',
-  bundledWebRuntime: false
+  appId: "com.horbee.ionic-react-news",
+  appName: "ionic-react-news",
+  webDir: "build",
+  bundledWebRuntime: false,
 };
 
 export default config;
