@@ -13,5 +13,5 @@ export const useDarkMode = () => {
 
   const toggle = () => setActive((prev) => !prev)
 
-  return { toggle, active, setActive }
+  return { toggle, active }
 }

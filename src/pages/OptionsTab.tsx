@@ -18,10 +18,8 @@ const OptionsTab: React.FC = () => {
   const {
     tabCountHook: { rangeProps, tabCount },
   } = useContext(MenuTabContext)
-  const {
-    darkModeHook: { active, toggle },
-  } = useContext(DarkModeContext)
 
+  const { active, toggle } = useContext(DarkModeContext)
   const { country, setCountry } = useContext(CountryContext)
 
   return (

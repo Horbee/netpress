@@ -3,7 +3,8 @@ import { createContext, FC } from "react";
 import { useDarkMode } from "../hooks/useDarkMode";
 
 type DarkModeContextType = {
-  darkModeHook: ReturnType<typeof useDarkMode>
+  toggle: () => void
+  active: boolean
 }
 
 export const DarkModeContext = createContext<DarkModeContextType>(
@@ -14,7 +15,7 @@ export const DarkModeContextProvider: FC = ({ children }) => {
   const darkModeHook = useDarkMode()
 
   return (
-    <DarkModeContext.Provider value={{ darkModeHook }}>
+    <DarkModeContext.Provider value={{ ...darkModeHook }}>
       {children}
     </DarkModeContext.Provider>
   )
