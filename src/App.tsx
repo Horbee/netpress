@@ -45,7 +45,7 @@ const App: React.FC = () => {
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
             {categories.slice(0, tabCount).map(({ id, name, icon }) => (
-              <IonTabButton key={id} tab={id} href={`/news/${id}`}>
+              <IonTabButton key={id} tab={`/news/${id}`} href={`/news/${id}`}>
                 <IonIcon icon={icon} />
                 <IonLabel>{name}</IonLabel>
               </IonTabButton>
