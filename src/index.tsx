@@ -2,15 +2,18 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import App from "./App";
+import { DarkModeContextProvider } from "./context/DarkModeContext";
 import { MenuTabContextProvider } from "./context/MenuTabContext";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 ReactDOM.render(
   <React.StrictMode>
-    <MenuTabContextProvider>
-      <App />
-    </MenuTabContextProvider>
+    <DarkModeContextProvider>
+      <MenuTabContextProvider>
+        <App />
+      </MenuTabContextProvider>
+    </DarkModeContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )

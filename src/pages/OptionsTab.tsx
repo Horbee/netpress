@@ -9,17 +9,18 @@ import {
 } from "@ionic/react";
 
 import { TabItemReorder } from "../components/TabItemReorder";
-import { categoryOptions, contryOptions, DEFAULT_COUNTRY } from "../config/constants";
+import { contryOptions, DEFAULT_COUNTRY } from "../config/constants";
+import { DarkModeContext } from "../context/DarkModeContext";
 import { MenuTabContext } from "../context/MenuTabContext";
-import { useDarkMode } from "../hooks/useDarkMode";
-import { useTabCount } from "../hooks/useTabCount";
 
 const OptionsTab: React.FC = () => {
-  const { toggle, active } = useDarkMode()
   const [country, setCountry] = useState(DEFAULT_COUNTRY)
   const {
     tabCountHook: { rangeProps, tabCount },
   } = useContext(MenuTabContext)
+  const {
+    darkModeHook: { active, toggle },
+  } = useContext(DarkModeContext)
 
   return (
     <IonPage>

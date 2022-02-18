@@ -1,6 +1,5 @@
-import { createContext, FC, useState } from "react";
+import { createContext, FC } from "react";
 
-import { categoryOptions } from "../config/constants";
 import { useTabCategory } from "../hooks/useTabCategory";
 import { useTabCount } from "../hooks/useTabCount";
 
