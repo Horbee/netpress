@@ -1,7 +1,7 @@
 import "./OptionsTab.css";
 
 import { moonOutline } from "ionicons/icons";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 
 import {
     IonBackButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonItemDivider, IonLabel,
@@ -9,18 +9,20 @@ import {
 } from "@ionic/react";
 
 import { TabItemReorder } from "../components/TabItemReorder";
-import { contryOptions, DEFAULT_COUNTRY } from "../config/constants";
+import { contryOptions } from "../config/constants";
+import { CountryContext } from "../context/CountryContext";
 import { DarkModeContext } from "../context/DarkModeContext";
 import { MenuTabContext } from "../context/MenuTabContext";
 
 const OptionsTab: React.FC = () => {
-  const [country, setCountry] = useState(DEFAULT_COUNTRY)
   const {
     tabCountHook: { rangeProps, tabCount },
   } = useContext(MenuTabContext)
   const {
     darkModeHook: { active, toggle },
   } = useContext(DarkModeContext)
+
+  const { country, setCountry } = useContext(CountryContext)
 
   return (
     <IonPage>

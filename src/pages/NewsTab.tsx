@@ -1,7 +1,7 @@
 import "./NewsTab.css";
 
 import { settingsOutline } from "ionicons/icons";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import {
     IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonRefresher,
@@ -10,6 +10,7 @@ import {
 
 import { ArticleItem } from "../components/ArticleItem";
 import { categoryOptions } from "../config/constants";
+import { CountryContext } from "../context/CountryContext";
 import { ArticleData } from "../models/article-data";
 import { fetchArticles } from "../services/news-service";
 
@@ -21,6 +22,8 @@ const NewsTab: React.FC = () => {
   const categoryId = router.routeInfo.pathname.split('/')[2]
   const category = categoryOptions.find((opt) => opt.id === categoryId)
 
+  const { country } = useContext(CountryContext)
+
   useEffect(() => {
     if (categoryId) {
       refreshArticles()
@@ -31,7 +34,7 @@ const NewsTab: React.FC = () => {
   const refreshArticles = async (event?: CustomEvent<RefresherEventDetail>) => {
     try {
       setIsLoading(true)
-      const response = await fetchArticles(categoryId)
+      const response = await fetchArticles(categoryId, country)
       setArticles(response?.articles || [])
     } catch (err) {
       alert(JSON.stringify(err))

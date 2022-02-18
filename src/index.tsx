@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import App from "./App";
+import { CountryContextProvider } from "./context/CountryContext";
 import { DarkModeContextProvider } from "./context/DarkModeContext";
 import { MenuTabContextProvider } from "./context/MenuTabContext";
 import reportWebVitals from "./reportWebVitals";
@@ -9,11 +10,13 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 ReactDOM.render(
   <React.StrictMode>
-    <DarkModeContextProvider>
-      <MenuTabContextProvider>
-        <App />
-      </MenuTabContextProvider>
-    </DarkModeContextProvider>
+    <CountryContextProvider>
+      <DarkModeContextProvider>
+        <MenuTabContextProvider>
+          <App />
+        </MenuTabContextProvider>
+      </DarkModeContextProvider>
+    </CountryContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )
