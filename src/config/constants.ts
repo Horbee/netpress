@@ -1,12 +1,7 @@
 import {
-  basketballOutline,
-  heartOutline,
-  hardwareChipOutline,
-  schoolOutline,
-  homeOutline,
-  happyOutline,
-  walletOutline,
-} from 'ionicons/icons'
+    basketballOutline, happyOutline, hardwareChipOutline, heartOutline, homeOutline, schoolOutline,
+    walletOutline
+} from "ionicons/icons";
 
 // API KEY for news API
 export const API_KEY = process.env.REACT_APP_NEWS_API_KEY ?? ''
@@ -16,18 +11,16 @@ export const DEFAULT_CATEGORY = 'general'
 
 export const contryOptions = ['hu', 'de', 'gb', 'in']
 
-type CategoryOptions = {
-  [key: string]: [string, string]
-}
+export type CategoryOption = { id: string; name: string; icon: string }
 
-export const categoryOptions: CategoryOptions = {
-  business: ['Üzlet', walletOutline],
-  entertainment: ['Szórakozás', happyOutline],
-  general: ['Általános', homeOutline],
-  health: ['Egészség', heartOutline],
-  science: ['Tudomány', schoolOutline],
-  sports: ['Sport', basketballOutline],
-  technology: ['Tech', hardwareChipOutline],
-}
+export const categoryOptions: CategoryOption[] = [
+  { id: 'business', name: 'Üzlet', icon: walletOutline },
+  { id: 'entertainment', name: 'Szórakozás', icon: happyOutline },
+  { id: 'general', name: 'Általános', icon: homeOutline },
+  { id: 'health', name: 'Egészség', icon: heartOutline },
+  { id: 'science', name: 'Tudomány', icon: schoolOutline },
+  { id: 'sports', name: 'Sport', icon: basketballOutline },
+  { id: 'technology', name: 'Tech', icon: hardwareChipOutline },
+]
 
 export const newsEndpoints = 'https://newsapi.org/v2/top-headlines'

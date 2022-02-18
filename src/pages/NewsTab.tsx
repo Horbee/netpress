@@ -1,49 +1,37 @@
-import {
-  IonButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonIcon,
-  IonList,
-  IonPage,
-  IonRefresher,
-  IonRefresherContent,
-  IonSpinner,
-  IonTitle,
-  IonToolbar,
-  RefresherEventDetail,
-} from '@ionic/react'
-import { useHistory, useParams } from 'react-router'
-import { categoryOptions } from '../config/constants'
-import './NewsTab.css'
-import { settingsOutline } from 'ionicons/icons'
-import { useEffect, useState } from 'react'
-import { ArticleData } from '../models/article-data'
-import { fetchArticles } from '../services/news-service'
-import { ArticleItem } from '../components/ArticleItem'
+import "./NewsTab.css";
 
-interface NewsTabParams {
-  tab: string
-  category: string
-}
+import { settingsOutline } from "ionicons/icons";
+import { useEffect, useState } from "react";
+
+import {
+    IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonRefresher,
+    IonRefresherContent, IonSpinner, IonTitle, IonToolbar, RefresherEventDetail, useIonRouter
+} from "@ionic/react";
+
+import { ArticleItem } from "../components/ArticleItem";
+import { categoryOptions } from "../config/constants";
+import { ArticleData } from "../models/article-data";
+import { fetchArticles } from "../services/news-service";
 
 const NewsTab: React.FC = () => {
   const [articles, setArticles] = useState<ArticleData[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const history = useHistory()
 
-  const { category } = useParams<NewsTabParams>()
-  const [name] = categoryOptions[category ?? 'general']
+  const router = useIonRouter()
+  const categoryId = router.routeInfo.pathname.split('/')[2]
+  const category = categoryOptions.find((opt) => opt.id === categoryId)
 
   useEffect(() => {
-    refreshArticles()
+    if (categoryId) {
+      refreshArticles()
+    }
     // eslint-disable-next-line
-  }, [category])
+  }, [categoryId])
 
   const refreshArticles = async (event?: CustomEvent<RefresherEventDetail>) => {
     try {
       setIsLoading(true)
-      const response = await fetchArticles(category)
+      const response = await fetchArticles(categoryId)
       setArticles(response?.articles || [])
     } catch (err) {
       alert(JSON.stringify(err))
@@ -53,22 +41,24 @@ const NewsTab: React.FC = () => {
     }
   }
 
+  if (!category) return null
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="end">
-            <IonButton onClick={() => history.push('/options')}>
+            <IonButton onClick={() => router.push('/options')}>
               <IonIcon icon={settingsOutline}></IonIcon>
             </IonButton>
           </IonButtons>
-          <IonTitle>{name}</IonTitle>
+          <IonTitle>{category.name}</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">{name}</IonTitle>
+            <IonTitle size="large">{category.name}</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonRefresher slot="fixed" onIonRefresh={refreshArticles}>
