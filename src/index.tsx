@@ -5,18 +5,21 @@ import App from "./App";
 import { CountryContextProvider } from "./context/CountryContext";
 import { DarkModeContextProvider } from "./context/DarkModeContext";
 import { MenuTabContextProvider } from "./context/MenuTabContext";
+import { RSSFeedContextProvider } from "./context/RSSFeedContext";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 ReactDOM.render(
   <React.StrictMode>
-    <CountryContextProvider>
-      <DarkModeContextProvider>
-        <MenuTabContextProvider>
-          <App />
-        </MenuTabContextProvider>
-      </DarkModeContextProvider>
-    </CountryContextProvider>
+    <RSSFeedContextProvider>
+      <CountryContextProvider>
+        <DarkModeContextProvider>
+          <MenuTabContextProvider>
+            <App />
+          </MenuTabContextProvider>
+        </DarkModeContextProvider>
+      </CountryContextProvider>
+    </RSSFeedContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )

@@ -24,7 +24,7 @@ import { IonReactRouter } from "@ionic/react-router";
 
 import { MenuTabContext } from "./context/MenuTabContext";
 import NewsTab from "./pages/NewsTab";
-import OptionsTab from "./pages/OptionsTab";
+import OptionsTab from "./pages/options/OptionsTab";
 
 setupIonicReact()
 
