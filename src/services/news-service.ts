@@ -1,7 +1,14 @@
-import axios from "axios";
+import axios from 'axios'
 
-import { API_KEY, DEFAULT_CATEGORY, DEFAULT_COUNTRY, newsEndpoints } from "../config/constants";
-import { ArticlesResponse } from "../models/headlines-response";
+import {
+  API_KEY,
+  DEFAULT_CATEGORY,
+  DEFAULT_COUNTRY,
+  newsEndpoints,
+  rssConverterEndpoints,
+} from '../config/constants'
+import { ArticlesResponse } from '../models/headlines-response'
+import { FeedResponse } from '../models/rss-feed-data'
 
 export const fetchArticles = async (
   category: string = DEFAULT_CATEGORY,
@@ -24,9 +31,8 @@ export const fetchArticles = async (
 
 export const fetchRSSFeed = async (url: string) => {
   try {
-    // const { data } = await axios.get(url)
-    const { data } = await axios.get(
-      'https://api.rss2json.com/v1/api.json?rss_url=' + url
+    const { data } = await axios.get<FeedResponse>(
+      `${rssConverterEndpoints}?url=${url}`
     )
     return data
   } catch (err) {
