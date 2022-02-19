@@ -25,6 +25,7 @@ import { IonReactRouter } from "@ionic/react-router";
 import { MenuTabContext } from "./context/MenuTabContext";
 import NewsTab from "./pages/NewsTab";
 import OptionsTab from "./pages/options/OptionsTab";
+import RSSTab from "./pages/RSSTab";
 
 setupIonicReact()
 
@@ -40,6 +41,7 @@ const App: React.FC = () => {
         <IonTabs>
           <IonRouterOutlet>
             <Route exact path="/:tab(news)/:category" component={NewsTab} />
+            <Route exact path="/:tab(rss)" component={RSSTab} />
             <Route exact path="/:tab(options)" component={OptionsTab} />
             <Redirect to={`/news/${categories[0].id}`} />
           </IonRouterOutlet>

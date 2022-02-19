@@ -1,5 +1,6 @@
 import "./NewsTab.css";
 
+import { XMLParser } from "fast-xml-parser";
 import { logoRss, settingsOutline } from "ionicons/icons";
 import { useContext, useEffect, useState } from "react";
 
@@ -11,31 +12,36 @@ import {
 import { ArticleItem } from "../components/ArticleItem";
 import { categoryOptions } from "../config/constants";
 import { CountryContext } from "../context/CountryContext";
+import { RSSFeedContext } from "../context/RSSFeedContext";
 import { ArticleData } from "../models/article-data";
-import { fetchArticles } from "../services/news-service";
+import { mapRSStoArticle } from "../services/map-rss-to-article";
+import { fetchArticles, fetchRSSFeed } from "../services/news-service";
 
-const NewsTab: React.FC = () => {
+const parser = new XMLParser({
+  ignoreAttributes: false,
+})
+
+const RSSTab: React.FC = () => {
+  const { rssAddressList } = useContext(RSSFeedContext)
   const [articles, setArticles] = useState<ArticleData[]>([])
   const [isLoading, setIsLoading] = useState(true)
-
   const router = useIonRouter()
-  const categoryId = router.routeInfo.pathname.split('/')[2]
-  const category = categoryOptions.find((opt) => opt.id === categoryId)
-
-  const { country } = useContext(CountryContext)
 
   useEffect(() => {
-    if (categoryId) {
-      refreshArticles()
-    }
+    refreshRSSFeed()
     // eslint-disable-next-line
-  }, [categoryId])
+  }, [])
 
-  const refreshArticles = async (event?: CustomEvent<RefresherEventDetail>) => {
+  const refreshRSSFeed = async (event?: CustomEvent<RefresherEventDetail>) => {
     try {
       setIsLoading(true)
-      const response = await fetchArticles(categoryId, country)
-      setArticles(response?.articles || [])
+      const promises = rssAddressList.map((item) => fetchRSSFeed(item.url))
+      const responses = await Promise.all(promises)
+      // const items = responses.flatMap((r) => parser.parse(r).rss.channel.item)
+      const items = responses.flatMap((r) => r.items)
+      console.log(items)
+      const articles = items.map(mapRSStoArticle)
+      setArticles(articles)
     } catch (err) {
       alert(JSON.stringify(err))
     } finally {
@@ -43,8 +49,6 @@ const NewsTab: React.FC = () => {
       event?.detail.complete()
     }
   }
-
-  if (!category) return null
 
   return (
     <IonPage>
@@ -58,16 +62,16 @@ const NewsTab: React.FC = () => {
               <IonIcon icon={settingsOutline}></IonIcon>
             </IonButton>
           </IonButtons>
-          <IonTitle>{category.name}</IonTitle>
+          <IonTitle>RSS Feed</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">{category.name}</IonTitle>
+            <IonTitle size="large">RSS Feed</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonRefresher slot="fixed" onIonRefresh={refreshArticles}>
+        <IonRefresher slot="fixed" onIonRefresh={refreshRSSFeed}>
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
 
@@ -89,4 +93,4 @@ const NewsTab: React.FC = () => {
   )
 }
 
-export default NewsTab
+export default RSSTab
