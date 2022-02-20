@@ -24,10 +24,10 @@ import {
 
 import { ArticleItem } from '../components/ArticleItem'
 import { RSSFeedContext } from '../context/RSSFeedContext'
+import { useRSSChips } from '../hooks/useRSSChips'
 import { ArticleData } from '../models/article-data'
 import { mapRSStoArticle } from '../services/map-rss-to-article'
 import { fetchRSSFeed } from '../services/news-service'
-import { useRSSChips } from '../hooks/useRSSChips'
 
 const RSSTab: React.FC = () => {
   const { rssAddressList } = useContext(RSSFeedContext)
@@ -48,7 +48,6 @@ const RSSTab: React.FC = () => {
       setIsLoading(true)
       const response = await fetchRSSFeed(selectedFeed!.url)
       const articles = response!.items.map(mapRSStoArticle)
-      console.log({ articles })
       setArticles(articles)
     } catch (err) {
       console.log(err)
