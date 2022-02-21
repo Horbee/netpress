@@ -17,9 +17,7 @@ export const ArticleItem = ({ article }: ArticleItemProps) => {
 
   return (
     <IonCard>
-      {article.urlToImage && (
-        <img src={article.urlToImage} alt="Article Image" />
-      )}
+      {article.urlToImage && <img src={article.urlToImage} alt="Article" />}
       <IonCardHeader>
         <IonCardSubtitle>{domain}</IonCardSubtitle>
         <IonCardTitle
