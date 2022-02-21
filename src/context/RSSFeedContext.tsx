@@ -7,6 +7,7 @@ type RSSFeedContextType = {
   addNewRSSAddress: (rssAddress: RSSFeedAddress) => void
   editRSSAddress: (rssAddress: RSSFeedAddress) => void
   deleteRSSAddress: (rssAddressId: string) => void
+  saveRSSAddressList: (rssAddressList: RSSFeedAddress[]) => void
 }
 
 export const RSSFeedContext = createContext<RSSFeedContextType>(
@@ -56,6 +57,7 @@ export const RSSFeedContextProvider: FC = ({ children }) => {
         addNewRSSAddress,
         editRSSAddress,
         deleteRSSAddress,
+        saveRSSAddressList,
       }}
     >
       {children}

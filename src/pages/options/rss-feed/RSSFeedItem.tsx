@@ -3,7 +3,7 @@ import { useContext } from "react";
 
 import {
     IonButton, IonButtons, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding,
-    IonLabel, useIonAlert
+    IonLabel, IonReorder, useIonAlert
 } from "@ionic/react";
 
 import { RSSFeedContext } from "../../../context/RSSFeedContext";
@@ -45,6 +45,7 @@ export const RSSFeedItem = ({ rss, onItemSelect }: RSSFeedItemProps) => {
           <h2>{rss.name}</h2>
           <p>{rss.url}</p>
         </IonLabel>
+        <IonReorder slot="start" />
       </IonItem>
       <IonItemOptions side="start">
         <IonItemOption color="danger" onClick={deleteRSSAddressInternal}>
