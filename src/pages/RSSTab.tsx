@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 
 import {
-    IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonChip, IonLabel, RefresherEventDetail
+    IonCard, IonCardHeader, IonCardTitle, IonChip, IonLabel, RefresherEventDetail
 } from "@ionic/react";
 
 import { ArticleList } from "../components/ArticleList";
 import { ArticlePageLayout } from "../components/ArticlePageLayout";
+import { DarkModeContext } from "../context/DarkModeContext";
 import { RSSFeedContext } from "../context/RSSFeedContext";
 import { useRSSChips } from "../hooks/useRSSChips";
 import { ArticleData } from "../models/article-data";
@@ -13,6 +14,7 @@ import { mapRSStoArticle } from "../services/map-rss-to-article";
 import { fetchRSSFeed } from "../services/news-service";
 
 const RSSTab: React.FC = () => {
+  const { active: isDarkMode } = useContext(DarkModeContext)
   const { rssAddressList } = useContext(RSSFeedContext)
   const [articles, setArticles] = useState<ArticleData[]>([])
   const [isLoading, setIsLoading] = useState(false)
@@ -35,8 +37,8 @@ const RSSTab: React.FC = () => {
       const articles = response!.items.map(mapRSStoArticle)
       setArticles(articles)
     } catch (err) {
+      alert('A hireket nem sikerült lekerdezni')
       console.log(err)
-      alert(JSON.stringify(err))
     } finally {
       setIsLoading(false)
       e?.detail.complete()
@@ -46,7 +48,7 @@ const RSSTab: React.FC = () => {
   return (
     <ArticlePageLayout title="RSS Feed" refreshFunction={refreshRSSFeed}>
       <div className="ion-padding">
-        {rssAddressList.length == 0 ? (
+        {rssAddressList.length === 0 ? (
           <IonCard className="spinner-wrapper">
             <IonCardHeader>
               <IonCardTitle>RSS lista üres</IonCardTitle>
@@ -57,7 +59,7 @@ const RSSTab: React.FC = () => {
             <IonChip
               key={feed.id}
               outline={!isSelected(feed)}
-              color="primary"
+              color={isDarkMode ? 'warning' : 'tertiary'}
               onClick={() => setSelectedFeed(feed)}
             >
               <IonLabel>{feed.name}</IonLabel>
