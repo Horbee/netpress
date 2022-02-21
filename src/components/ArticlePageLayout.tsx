@@ -6,6 +6,9 @@ import {
     IonRefresherContent, IonTitle, IonToolbar, RefresherEventDetail, useIonRouter
 } from "@ionic/react";
 
+import { useScrollToTop } from "../hooks/useScrollToTop";
+import { ScrollToTopButton } from "./ScrollToTopButton";
+
 interface ArticlePageLayoutProps {
   title: string
   refreshFunction: (e?: CustomEvent<RefresherEventDetail>) => Promise<void>
@@ -17,6 +20,7 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
   refreshFunction,
 }) => {
   const router = useIonRouter()
+  const { isVisible, handleScroll, scrollToTop, contentRef } = useScrollToTop()
 
   return (
     <IonPage>
@@ -33,7 +37,12 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
           <IonTitle>{title}</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent
+        fullscreen
+        scrollEvents
+        onIonScroll={handleScroll}
+        ref={contentRef}
+      >
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">{title}</IonTitle>
@@ -43,6 +52,7 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
         {children}
+        <ScrollToTopButton isVisible={isVisible} onScrollToTop={scrollToTop} />
       </IonContent>
     </IonPage>
   )
