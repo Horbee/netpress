@@ -1,11 +1,11 @@
 import "./OptionsTab.css";
 
-import { moonOutline } from "ionicons/icons";
+import { logoGithub, moonOutline } from "ionicons/icons";
 import { useContext } from "react";
 
 import {
-    IonBackButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonItemDivider, IonLabel,
-    IonPage, IonRange, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
+    IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonItemDivider,
+    IonLabel, IonPage, IonRange, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
 } from "@ionic/react";
 
 import { TabItemReorder } from "../../components/TabItemReorder";
@@ -30,6 +30,19 @@ const OptionsTab: React.FC = () => {
           <IonToolbar>
             <IonButtons slot="start">
               <IonBackButton />
+            </IonButtons>
+            <IonButtons slot="end">
+              <IonButton
+                onClick={() =>
+                  window.open(
+                    'https://github.com/Horbee/ionic-react-news',
+                    '_system',
+                    'location=yes'
+                  )
+                }
+              >
+                <IonIcon icon={logoGithub}></IonIcon>
+              </IonButton>
             </IonButtons>
             <IonTitle>Beállítások</IonTitle>
           </IonToolbar>
