@@ -44,10 +44,10 @@ const OptionsTab: React.FC = () => {
             <IonItem>
               <IonLabel>Ország</IonLabel>
               <IonSelect
-                interface="popover"
                 value={country}
-                placeholder="Válassz"
                 onIonChange={(e) => setCountry(e.detail.value)}
+                okText="Kivalaszt"
+                cancelText="Vissza"
               >
                 {contryOptions.map((opt) => (
                   <IonSelectOption key={opt} value={opt}>
