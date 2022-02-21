@@ -1,22 +1,17 @@
-import "./NewsTab.css";
+import { FC, useContext, useEffect, useState } from "react";
 
-import { logoRss, settingsOutline } from "ionicons/icons";
-import { useContext, useEffect, useState } from "react";
-
-import {
-    IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonRefresher,
-    IonRefresherContent, IonSpinner, IonTitle, IonToolbar, RefresherEventDetail, useIonRouter
-} from "@ionic/react";
+import { IonList, IonSpinner, RefresherEventDetail, useIonRouter } from "@ionic/react";
 
 import { ArticleItem } from "../components/ArticleItem";
+import { ArticlePageLayout } from "../components/ArticlePageLayout";
 import { categoryOptions } from "../config/constants";
 import { CountryContext } from "../context/CountryContext";
 import { ArticleData } from "../models/article-data";
 import { fetchArticles } from "../services/news-service";
 
-const NewsTab: React.FC = () => {
+const NewsTab: FC = () => {
   const [articles, setArticles] = useState<ArticleData[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
 
   const router = useIonRouter()
   const categoryId = router.routeInfo.pathname.split('/')[2]
@@ -25,67 +20,45 @@ const NewsTab: React.FC = () => {
   const { country } = useContext(CountryContext)
 
   useEffect(() => {
-    if (categoryId) {
-      refreshArticles()
-    }
+    refreshArticles()
     // eslint-disable-next-line
   }, [categoryId])
 
-  const refreshArticles = async (event?: CustomEvent<RefresherEventDetail>) => {
+  const refreshArticles = async (e?: CustomEvent<RefresherEventDetail>) => {
+    if (!categoryId) {
+      e?.detail.complete()
+      return
+    }
+
     try {
       setIsLoading(true)
       const response = await fetchArticles(categoryId, country)
       setArticles(response?.articles || [])
     } catch (err) {
-      alert(JSON.stringify(err))
+      alert('A hireket nem sikerült lekerdezni')
+      console.log(err)
     } finally {
       setIsLoading(false)
-      event?.detail.complete()
+      e?.detail.complete()
     }
   }
 
   if (!category) return null
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="end">
-            <IonButton onClick={() => router.push('/rss')}>
-              <IonIcon icon={logoRss}></IonIcon>
-            </IonButton>
-            <IonButton onClick={() => router.push('/options')}>
-              <IonIcon icon={settingsOutline}></IonIcon>
-            </IonButton>
-          </IonButtons>
-          <IonTitle>{category.name}</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">{category.name}</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonRefresher slot="fixed" onIonRefresh={refreshArticles}>
-          <IonRefresherContent></IonRefresherContent>
-        </IonRefresher>
-
-        <div className="ion-padding">
-          {isLoading ? (
-            <div className="spinner-wrapper">
-              <IonSpinner name="lines" color="primary" />
-            </div>
-          ) : (
-            <IonList>
-              {articles.map((article) => (
-                <ArticleItem key={article.url} article={article} />
-              ))}
-            </IonList>
-          )}
+    <ArticlePageLayout title={category.name} refreshFunction={refreshArticles}>
+      {isLoading ? (
+        <div className="spinner-wrapper">
+          <IonSpinner name="lines" color="primary" />
         </div>
-      </IonContent>
-    </IonPage>
+      ) : (
+        <IonList>
+          {articles.map((article) => (
+            <ArticleItem key={article.url} article={article} />
+          ))}
+        </IonList>
+      )}
+    </ArticlePageLayout>
   )
 }
 
