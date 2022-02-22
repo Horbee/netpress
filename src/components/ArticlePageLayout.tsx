@@ -1,17 +1,27 @@
-import { logoRss, settingsOutline } from "ionicons/icons";
-import { FC } from "react";
+import { logoRss, settingsOutline } from 'ionicons/icons'
+import { FC } from 'react'
 
 import {
-    IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonRefresher,
-    IonRefresherContent, IonTitle, IonToolbar, RefresherEventDetail, useIonRouter
-} from "@ionic/react";
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonPage,
+  IonRefresher,
+  IonRefresherContent,
+  IonTitle,
+  IonToolbar,
+  RefresherEventDetail,
+  useIonRouter,
+} from '@ionic/react'
 
-import { useScrollToTop } from "../hooks/useScrollToTop";
-import { ScrollToTopButton } from "./ScrollToTopButton";
+import { useScrollToTop } from '../hooks/useScrollToTop'
+import { ScrollToTopButton } from './ScrollToTopButton'
 
 interface ArticlePageLayoutProps {
   title: string
-  refreshFunction: (e?: CustomEvent<RefresherEventDetail>) => Promise<void>
+  refreshFunction: (e: CustomEvent<RefresherEventDetail>) => Promise<void>
 }
 
 export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({

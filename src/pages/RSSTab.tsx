@@ -1,48 +1,44 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useMemo } from 'react'
 
 import {
-    IonCard, IonCardHeader, IonCardTitle, IonChip, IonLabel, RefresherEventDetail
-} from "@ionic/react";
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonChip,
+  IonLabel,
+  RefresherEventDetail,
+} from '@ionic/react'
 
-import { ArticleList } from "../components/ArticleList";
-import { ArticlePageLayout } from "../components/ArticlePageLayout";
-import { DarkModeContext } from "../context/DarkModeContext";
-import { RSSFeedContext } from "../context/RSSFeedContext";
-import { useRSSChips } from "../hooks/useRSSChips";
-import { ArticleData } from "../models/article-data";
-import { mapRSStoArticle } from "../services/map-rss-to-article";
-import { fetchRSSFeed } from "../services/news-service";
+import { ArticleList } from '../components/ArticleList'
+import { ArticlePageLayout } from '../components/ArticlePageLayout'
+import { DarkModeContext } from '../context/DarkModeContext'
+import { RSSFeedContext } from '../context/RSSFeedContext'
+import { useRSSChips } from '../hooks/useRSSChips'
+import { mapRSStoArticle } from '../services/map-rss-to-article'
+import { fetchRSSFeed } from '../services/news-service'
+import { useQuery } from 'react-query'
 
 const RSSTab: React.FC = () => {
   const { active: isDarkMode } = useContext(DarkModeContext)
   const { rssAddressList } = useContext(RSSFeedContext)
-  const [articles, setArticles] = useState<ArticleData[]>([])
-  const [isLoading, setIsLoading] = useState(false)
   const { selectedFeed, setSelectedFeed, isSelected } = useRSSChips()
 
-  useEffect(() => {
-    refreshRSSFeed()
-    // eslint-disable-next-line
-  }, [selectedFeed])
+  const {
+    data: articleResponse,
+    isLoading,
+    refetch,
+  } = useQuery(['rss', selectedFeed!.url], () =>
+    fetchRSSFeed(selectedFeed!.url)
+  )
 
-  const refreshRSSFeed = async (e?: CustomEvent<RefresherEventDetail>) => {
-    if (!selectedFeed) {
-      e?.detail.complete()
-      return
-    }
+  const articles = useMemo(
+    () => articleResponse?.items.map(mapRSStoArticle) ?? [],
+    [articleResponse?.items]
+  )
 
-    try {
-      setIsLoading(true)
-      const response = await fetchRSSFeed(selectedFeed!.url)
-      const articles = response!.items.map(mapRSStoArticle)
-      setArticles(articles)
-    } catch (err) {
-      alert('A hireket nem sikerült lekerdezni')
-      console.log(err)
-    } finally {
-      setIsLoading(false)
-      e?.detail.complete()
-    }
+  const refreshRSSFeed = async (e: CustomEvent<RefresherEventDetail>) => {
+    refetch()
+    e.detail.complete()
   }
 
   return (
