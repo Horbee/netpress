@@ -1,5 +1,7 @@
 import { ArticleData } from './article-data'
 
 export interface ArticlesResponse {
-    articles: ArticleData[]
+  status: string
+  totalResults: number
+  articles: ArticleData[]
 }

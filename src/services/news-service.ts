@@ -11,17 +11,18 @@ import { FeedResponse } from '../models/rss-feed-data'
 
 export const fetchArticles = async (
   category: string = DEFAULT_CATEGORY,
-  country: string = DEFAULT_COUNTRY
+  country: string = DEFAULT_COUNTRY,
+  page: number = 1
 ) => {
-  const { data } = await axios.get<ArticlesResponse>(
-    `${newsEndpoints}?country=${country}&category=${category}`
-  )
+  const { data } = await axios.get<ArticlesResponse>(newsEndpoints, {
+    params: { country, category, page },
+  })
   return data
 }
 
 export const fetchRSSFeed = async (url: string) => {
-  const { data } = await axios.get<FeedResponse>(
-    `${rssConverterEndpoints}?url=${url}`
-  )
+  const { data } = await axios.get<FeedResponse>(rssConverterEndpoints, {
+    params: { url },
+  })
   return data
 }
