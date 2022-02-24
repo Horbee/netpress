@@ -1,13 +1,10 @@
-import axios from 'axios'
+import axios from "axios";
 
 import {
-  DEFAULT_CATEGORY,
-  DEFAULT_COUNTRY,
-  newsEndpoints,
-  rssConverterEndpoints,
-} from '../config/constants'
-import { ArticlesResponse } from '../models/headlines-response'
-import { FeedResponse } from '../models/rss-feed-data'
+    DEFAULT_CATEGORY, DEFAULT_COUNTRY, newsEndpoints, rssConverterEndpoints
+} from "../config/constants";
+import { ArticlesResponse } from "../models/headlines-response";
+import { FeedResponse } from "../models/rss-feed-data";
 
 export const fetchArticles = async (
   category: string = DEFAULT_CATEGORY,
@@ -20,9 +17,9 @@ export const fetchArticles = async (
   return data
 }
 
-export const fetchRSSFeed = async (url: string) => {
+export const fetchRSSFeed = async (url: string, page: number = 1) => {
   const { data } = await axios.get<FeedResponse>(rssConverterEndpoints, {
-    params: { url },
+    params: { url, page },
   })
   return data
 }

@@ -1,39 +1,24 @@
-import { useContext, useMemo } from 'react'
+import { useContext } from "react";
 
 import {
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonChip,
-  IonLabel,
-  RefresherEventDetail,
-} from '@ionic/react'
+    IonCard, IonCardHeader, IonCardTitle, IonChip, IonLabel, RefresherEventDetail
+} from "@ionic/react";
 
-import { ArticleList } from '../components/ArticleList'
-import { ArticlePageLayout } from '../components/ArticlePageLayout'
-import { DarkModeContext } from '../context/DarkModeContext'
-import { RSSFeedContext } from '../context/RSSFeedContext'
-import { useRSSChips } from '../hooks/useRSSChips'
-import { mapRSStoArticle } from '../services/map-rss-to-article'
-import { fetchRSSFeed } from '../services/news-service'
-import { useQuery } from 'react-query'
+import { ArticleList } from "../components/ArticleList";
+import { ArticlePageLayout } from "../components/ArticlePageLayout";
+import { Paginator } from "../components/Paginator";
+import { DarkModeContext } from "../context/DarkModeContext";
+import { RSSFeedContext } from "../context/RSSFeedContext";
+import { useRSSArticles } from "../hooks/useRSSArticles";
+import { useRSSChips } from "../hooks/useRSSChips";
 
 const RSSTab: React.FC = () => {
   const { active: isDarkMode } = useContext(DarkModeContext)
   const { rssAddressList } = useContext(RSSFeedContext)
   const { selectedFeed, setSelectedFeed, isSelected } = useRSSChips()
 
-  const {
-    data: articleResponse,
-    isLoading,
-    refetch,
-  } = useQuery(['rss', selectedFeed!.url], () =>
-    fetchRSSFeed(selectedFeed!.url)
-  )
-
-  const articles = useMemo(
-    () => articleResponse?.items.map(mapRSStoArticle) ?? [],
-    [articleResponse?.items]
+  const { refetch, isLoading, articles, paginationProps } = useRSSArticles(
+    selectedFeed?.url ?? ''
   )
 
   const refreshRSSFeed = async (e: CustomEvent<RefresherEventDetail>) => {
@@ -65,6 +50,8 @@ const RSSTab: React.FC = () => {
       </div>
 
       <ArticleList isLoading={isLoading} articles={articles} />
+
+      <Paginator {...paginationProps} />
     </ArticlePageLayout>
   )
 }

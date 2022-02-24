@@ -14,6 +14,7 @@ export interface FeedResponse {
   description: string
   link: string
   copyright: string
+  totalItems: number
 }
 
 export interface FeedItem {
