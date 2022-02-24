@@ -1,5 +1,6 @@
 import { buildOutline, trashOutline } from "ionicons/icons";
 import { useContext } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import {
     IonButton, IonButtons, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding,
@@ -16,7 +17,7 @@ interface RSSFeedItemProps {
 
 export const RSSFeedItem = ({ rss, onItemSelect }: RSSFeedItemProps) => {
   const [confirm] = useIonAlert()
-  const { deleteRSSAddress } = useContext(RSSFeedContext)
+  const { deleteRSSAddress, addNewRSSAddress } = useContext(RSSFeedContext)
 
   const deleteRSSAddressInternal = () => {
     confirm({
@@ -28,6 +29,10 @@ export const RSSFeedItem = ({ rss, onItemSelect }: RSSFeedItemProps) => {
         { text: 'Töröl', handler: () => deleteRSSAddress(rss.id) },
       ],
     })
+  }
+
+  const duplicateRSSAddress = () => {
+    addNewRSSAddress({ ...rss, id: uuidv4() })
   }
 
   return (
@@ -53,8 +58,8 @@ export const RSSFeedItem = ({ rss, onItemSelect }: RSSFeedItemProps) => {
         </IonItemOption>
       </IonItemOptions>
       <IonItemOptions side="end">
-        <IonItemOption color="warning" onClick={onItemSelect}>
-          Szerkeszt
+        <IonItemOption color="secondary" onClick={duplicateRSSAddress}>
+          Duplikál
         </IonItemOption>
       </IonItemOptions>
     </IonItemSliding>
