@@ -9,12 +9,14 @@ import {
 interface ArticlePageLayoutProps {
   title: string
   refreshFunction: (e: CustomEvent<RefresherEventDetail>) => Promise<void>
+  virtuosoRef: any
 }
 
 export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
   children,
   title,
   refreshFunction,
+  virtuosoRef,
 }) => {
   const router = useIonRouter()
   const contentRef = useRef<HTMLIonContentElement>(null)
@@ -42,6 +44,10 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
                 router.push('/rss')
                 if (router.routeInfo.pathname === '/rss') {
                   contentRef.current?.scrollToTop(500)
+                  virtuosoRef.current?.scrollToIndex({
+                    index: 0,
+                    behavior: 'smooth',
+                  })
                 }
               }}
             >

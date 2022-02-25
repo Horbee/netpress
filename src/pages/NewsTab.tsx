@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useRef } from "react";
 
 import { IonList, IonSpinner, RefresherEventDetail, useIonRouter } from "@ionic/react";
 
@@ -10,6 +10,8 @@ import { CountryContext } from "../context/CountryContext";
 import { useArticles } from "../hooks/useArticles";
 
 const NewsTab: FC = () => {
+  const virtuosoRef = useRef(null)
+
   const router = useIonRouter()
   const categoryId = router.routeInfo.pathname.split('/')[2]
   const category = categoryOptions.find((opt) => opt.id === categoryId)
@@ -28,7 +30,11 @@ const NewsTab: FC = () => {
   if (!category) return null
 
   return (
-    <ArticlePageLayout title={category.name} refreshFunction={refreshArticles}>
+    <ArticlePageLayout
+      title={category.name}
+      refreshFunction={refreshArticles}
+      virtuosoRef={virtuosoRef}
+    >
       {isLoading && (
         <div className="spinner-wrapper">
           <IonSpinner name="lines" color="primary" />

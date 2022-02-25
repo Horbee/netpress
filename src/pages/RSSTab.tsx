@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 
 import {
     IonCard, IonCardHeader, IonCardTitle, IonChip, IonLabel, RefresherEventDetail
@@ -6,18 +6,18 @@ import {
 
 import { ArticleList } from "../components/ArticleList";
 import { ArticlePageLayout } from "../components/ArticlePageLayout";
-import { Paginator } from "../components/Paginator";
 import { DarkModeContext } from "../context/DarkModeContext";
 import { RSSFeedContext } from "../context/RSSFeedContext";
 import { useRSSArticles } from "../hooks/useRSSArticles";
 import { useRSSChips } from "../hooks/useRSSChips";
 
 const RSSTab: React.FC = () => {
+  const virtuosoRef = useRef(null)
   const { active: isDarkMode } = useContext(DarkModeContext)
   const { rssAddressList } = useContext(RSSFeedContext)
   const { selectedFeed, setSelectedFeed, isSelected } = useRSSChips()
 
-  const { refetch, isLoading, articles, paginationProps } = useRSSArticles(
+  const { refetch, isLoading, articles, loadMore } = useRSSArticles(
     selectedFeed?.url ?? ''
   )
 
@@ -27,7 +27,11 @@ const RSSTab: React.FC = () => {
   }
 
   return (
-    <ArticlePageLayout title="RSS Feed" refreshFunction={refreshRSSFeed}>
+    <ArticlePageLayout
+      title="RSS Feed"
+      refreshFunction={refreshRSSFeed}
+      virtuosoRef={virtuosoRef}
+    >
       <div className="ion-padding">
         {rssAddressList.length === 0 ? (
           <IonCard className="spinner-wrapper">
@@ -49,9 +53,12 @@ const RSSTab: React.FC = () => {
         )}
       </div>
 
-      <ArticleList isLoading={isLoading} articles={articles} />
-
-      <Paginator {...paginationProps} />
+      <ArticleList
+        ref={virtuosoRef}
+        isLoading={isLoading}
+        articles={articles}
+        loadMore={loadMore}
+      />
     </ArticlePageLayout>
   )
 }

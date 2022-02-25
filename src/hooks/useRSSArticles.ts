@@ -1,38 +1,36 @@
-import { useEffect, useMemo } from "react";
-import { useQuery } from "react-query";
+import { useMemo } from "react";
+import { useInfiniteQuery } from "react-query";
 
 import { mapRSStoArticle } from "../services/map-rss-to-article";
-import { fetchRSSFeed } from "../services/news-service";
-import { usePagination } from "./usePagination";
+import { infiniteFetchRSSFeed } from "../services/news-service";
 
 export const useRSSArticles = (selectedFeedURL: string) => {
-  const { currentPage, setTotalResults, ...paginationProps } = usePagination()
-
   const {
     data: feedResponse,
-    isLoading,
+    fetchNextPage,
     refetch,
-  } = useQuery(
-    ['rss', selectedFeedURL, currentPage],
-    () => fetchRSSFeed(selectedFeedURL, currentPage),
-    {
-      enabled: !!selectedFeedURL,
-    }
-  )
+    isLoading,
+  } = useInfiniteQuery(['rss', selectedFeedURL], infiniteFetchRSSFeed, {
+    getNextPageParam: (lastPage) => {
+      if (lastPage.endIndex < lastPage.totalItems) {
+        return {
+          startIndex: lastPage.endIndex,
+          endIndex: lastPage.endIndex + 20,
+        }
+      }
+    },
+    enabled: !!selectedFeedURL,
+  })
 
-  useEffect(() => {
-    if (feedResponse) setTotalResults(feedResponse.totalItems)
-    else setTotalResults(0)
-  }, [feedResponse])
+  const articles = useMemo(() => {
+    const items = feedResponse?.pages.flatMap((page) => page.items) ?? []
+    return items.map(mapRSStoArticle)
+  }, [feedResponse?.pages])
 
-  useEffect(() => {
-    paginationProps.setCurrentPage(1)
-  }, [selectedFeedURL])
-
-  const articles = useMemo(
-    () => feedResponse?.items.map(mapRSStoArticle) ?? [],
-    [feedResponse?.items]
-  )
-
-  return { refetch, isLoading, articles, paginationProps }
+  return {
+    refetch,
+    isLoading,
+    articles,
+    loadMore: fetchNextPage,
+  }
 }

@@ -15,6 +15,8 @@ export interface FeedResponse {
   link: string
   copyright: string
   totalItems: number
+  startIndex: number
+  endIndex: number
 }
 
 export interface FeedItem {
