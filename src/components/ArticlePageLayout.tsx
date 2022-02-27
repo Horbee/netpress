@@ -25,6 +25,10 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
     const handleScrollToTop = (e: any) => {
       if (e.detail.selected) {
         contentRef.current?.scrollToTop(500)
+        virtuosoRef.current?.scrollToIndex({
+          index: 0,
+          behavior: 'smooth',
+        })
       }
     }
     window.addEventListener('ionTabButtonClick', handleScrollToTop)

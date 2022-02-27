@@ -1,10 +1,9 @@
 import { FC, useContext, useRef } from "react";
 
-import { IonList, IonSpinner, RefresherEventDetail, useIonRouter } from "@ionic/react";
+import { RefresherEventDetail, useIonRouter } from "@ionic/react";
 
-import { ArticleItem } from "../components/ArticleItem";
+import { ArticleList } from "../components/ArticleList";
 import { ArticlePageLayout } from "../components/ArticlePageLayout";
-import { Paginator } from "../components/Paginator";
 import { categoryOptions } from "../config/constants";
 import { CountryContext } from "../context/CountryContext";
 import { useArticles } from "../hooks/useArticles";
@@ -17,7 +16,7 @@ const NewsTab: FC = () => {
   const category = categoryOptions.find((opt) => opt.id === categoryId)
   const { country } = useContext(CountryContext)
 
-  const { refetch, isLoading, articleResponse, paginationProps } = useArticles(
+  const { refetch, isLoading, articles, loadMore } = useArticles(
     categoryId,
     country
   )
@@ -35,23 +34,12 @@ const NewsTab: FC = () => {
       refreshFunction={refreshArticles}
       virtuosoRef={virtuosoRef}
     >
-      {isLoading && (
-        <div className="spinner-wrapper">
-          <IonSpinner name="lines" color="primary" />
-        </div>
-      )}
-
-      {articleResponse && (
-        <>
-          <IonList>
-            {articleResponse.articles.map((article) => (
-              <ArticleItem key={article.url} article={article} />
-            ))}
-          </IonList>
-
-          <Paginator {...paginationProps} />
-        </>
-      )}
+      <ArticleList
+        ref={virtuosoRef}
+        isLoading={isLoading}
+        articles={articles}
+        loadMore={loadMore}
+      />
     </ArticlePageLayout>
   )
 }

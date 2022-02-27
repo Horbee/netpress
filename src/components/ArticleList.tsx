@@ -12,7 +12,7 @@ interface ArticleListProps {
   isLoading: boolean
   articles: ArticleData[]
   loadMore: () => void
-  chipWrapper: HTMLDivElement | null
+  chipWrapper?: HTMLDivElement | null
 }
 
 export const ArticleList = forwardRef<any, ArticleListProps>(

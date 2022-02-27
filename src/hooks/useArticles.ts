@@ -1,28 +1,28 @@
-import { useEffect } from "react";
-import { useQuery } from "react-query";
+import { useMemo } from "react";
+import { useInfiniteQuery } from "react-query";
 
-import { fetchArticles } from "../services/news-service";
-import { usePagination } from "./usePagination";
+import { infiniteFetchArticles } from "../services/news-service";
 
 export const useArticles = (categoryId: string, country: string) => {
-  const { currentPage, setTotalResults, ...paginationProps } = usePagination()
-
   const {
     data: articleResponse,
-    isLoading,
+    fetchNextPage,
     refetch,
-  } = useQuery(['news', categoryId, country, currentPage], () =>
-    fetchArticles(categoryId, country, currentPage)
-  )
+    isLoading,
+  } = useInfiniteQuery(['news', categoryId, country], infiniteFetchArticles, {
+    getNextPageParam: (lastPage) => {
+      if (lastPage.endIndex < lastPage.totalResults) {
+        return {
+          startIndex: lastPage.endIndex,
+          endIndex: lastPage.endIndex + 20,
+        }
+      }
+    },
+  })
 
-  useEffect(() => {
-    if (articleResponse) setTotalResults(articleResponse.totalResults)
-    else setTotalResults(0)
-  }, [articleResponse])
+  const articles = useMemo(() => {
+    return articleResponse?.pages.flatMap((page) => page.articles) ?? []
+  }, [articleResponse?.pages])
 
-  useEffect(() => {
-    paginationProps.setCurrentPage(1)
-  }, [categoryId, country])
-
-  return { refetch, isLoading, articleResponse, paginationProps }
+  return { refetch, isLoading, articles, loadMore: fetchNextPage }
 }

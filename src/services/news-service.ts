@@ -10,10 +10,11 @@ import { FeedResponse } from "../models/rss-feed-data";
 export const fetchArticles = async (
   category: string = DEFAULT_CATEGORY,
   country: string = DEFAULT_COUNTRY,
-  page: number = 1
+  startIndex: number,
+  endIndex: number
 ) => {
   const { data } = await axios.get<ArticlesResponse>(newsEndpoints, {
-    params: { country, category, page },
+    params: { country, category, startIndex, endIndex },
   })
   return data
 }
@@ -27,6 +28,18 @@ export const fetchRSSFeed = async (
     params: { url, startIndex, endIndex },
   })
   return data
+}
+
+export const infiniteFetchArticles: QueryFunction<
+  ArticlesResponse,
+  string[]
+> = async ({ queryKey, pageParam }) => {
+  const category = queryKey[1]
+  const country = queryKey[2]
+  const startIndex = pageParam?.startIndex ?? 0
+  const endIndex = pageParam?.endIndex ?? 20
+
+  return fetchArticles(category, country, startIndex, endIndex)
 }
 
 export const infiniteFetchRSSFeed: QueryFunction<
