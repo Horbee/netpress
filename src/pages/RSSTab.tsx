@@ -13,6 +13,7 @@ import { useRSSChips } from "../hooks/useRSSChips";
 
 const RSSTab: React.FC = () => {
   const virtuosoRef = useRef(null)
+  const chipWrapperRef = useRef<HTMLDivElement>(null)
   const { active: isDarkMode } = useContext(DarkModeContext)
   const { rssAddressList } = useContext(RSSFeedContext)
   const { selectedFeed, setSelectedFeed, isSelected } = useRSSChips()
@@ -32,7 +33,7 @@ const RSSTab: React.FC = () => {
       refreshFunction={refreshRSSFeed}
       virtuosoRef={virtuosoRef}
     >
-      <div className="ion-padding">
+      <div className="ion-padding" ref={chipWrapperRef}>
         {rssAddressList.length === 0 ? (
           <IonCard className="spinner-wrapper">
             <IonCardHeader>
@@ -55,6 +56,7 @@ const RSSTab: React.FC = () => {
 
       <ArticleList
         ref={virtuosoRef}
+        chipWrapper={chipWrapperRef.current}
         isLoading={isLoading}
         articles={articles}
         loadMore={loadMore}

@@ -16,21 +16,23 @@ export const ArticleItem = ({ article }: ArticleItemProps) => {
   const domain = new URL(article.url).hostname.replace('www.', '')
 
   return (
-    <IonCard>
-      {article.urlToImage && <img src={article.urlToImage} alt="Article" />}
-      <IonCardHeader>
-        <IonCardSubtitle>{domain}</IonCardSubtitle>
-        <IonCardTitle
-          onClick={() => window.open(article.url, '_system', 'location=yes')}
-        >
-          {article.title}
-        </IonCardTitle>
-      </IonCardHeader>
-      <IonCardContent>{article.description}</IonCardContent>
+    <div style={{ padding: '10px' }}>
+      <IonCard style={{ margin: 0 }}>
+        {article.urlToImage && <img src={article.urlToImage} alt="Article" />}
+        <IonCardHeader>
+          <IonCardSubtitle>{domain}</IonCardSubtitle>
+          <IonCardTitle
+            onClick={() => window.open(article.url, '_system', 'location=yes')}
+          >
+            {article.title}
+          </IonCardTitle>
+        </IonCardHeader>
+        <IonCardContent>{article.description}</IonCardContent>
 
-      <IonCardContent style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        {moment(article.publishedAt).format('LLL')}
-      </IonCardContent>
-    </IonCard>
+        <IonCardContent style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          {moment(article.publishedAt).format('LLL')}
+        </IonCardContent>
+      </IonCard>
+    </div>
   )
 }
