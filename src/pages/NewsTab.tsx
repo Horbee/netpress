@@ -1,4 +1,4 @@
-import { FC, useContext, useRef } from "react";
+import { FC, useContext, useRef, useState } from "react";
 
 import { RefresherEventDetail, useIonRouter } from "@ionic/react";
 
@@ -10,6 +10,7 @@ import { useArticles } from "../hooks/useArticles";
 
 const NewsTab: FC = () => {
   const virtuosoRef = useRef(null)
+  const [scrolledToTop, setScrolledToTop] = useState(true)
 
   const router = useIonRouter()
   const categoryId = router.routeInfo.pathname.split('/')[2]
@@ -33,12 +34,14 @@ const NewsTab: FC = () => {
       title={category.name}
       refreshFunction={refreshArticles}
       virtuosoRef={virtuosoRef}
+      scrolledToTop={scrolledToTop}
     >
       <ArticleList
         ref={virtuosoRef}
         isLoading={isLoading}
         articles={articles}
         loadMore={loadMore}
+        setScrolledToTop={setScrolledToTop}
       />
     </ArticlePageLayout>
   )

@@ -10,6 +10,7 @@ interface ArticlePageLayoutProps {
   title: string
   refreshFunction: (e: CustomEvent<RefresherEventDetail>) => Promise<void>
   virtuosoRef: any
+  scrolledToTop: boolean
 }
 
 export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
@@ -17,6 +18,7 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
   title,
   refreshFunction,
   virtuosoRef,
+  scrolledToTop,
 }) => {
   const router = useIonRouter()
   const contentRef = useRef<HTMLIonContentElement>(null)
@@ -70,9 +72,11 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
             <IonTitle size="large">{title}</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonRefresher slot="fixed" onIonRefresh={refreshFunction}>
-          <IonRefresherContent></IonRefresherContent>
-        </IonRefresher>
+        {scrolledToTop && (
+          <IonRefresher slot="fixed" onIonRefresh={refreshFunction}>
+            <IonRefresherContent></IonRefresherContent>
+          </IonRefresher>
+        )}
         {children}
       </IonContent>
     </IonPage>

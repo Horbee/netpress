@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 
 import {
     IonCard, IonCardHeader, IonCardTitle, IonChip, IonLabel, RefresherEventDetail
@@ -17,6 +17,7 @@ const RSSTab: React.FC = () => {
   const { active: isDarkMode } = useContext(DarkModeContext)
   const { rssAddressList } = useContext(RSSFeedContext)
   const { selectedFeed, setSelectedFeed, isSelected } = useRSSChips()
+  const [scrolledToTop, setScrolledToTop] = useState(true)
 
   const { refetch, isLoading, articles, loadMore } = useRSSArticles(
     selectedFeed?.url ?? ''
@@ -32,6 +33,7 @@ const RSSTab: React.FC = () => {
       title="RSS Feed"
       refreshFunction={refreshRSSFeed}
       virtuosoRef={virtuosoRef}
+      scrolledToTop={scrolledToTop}
     >
       <div className="ion-padding" ref={chipWrapperRef}>
         {rssAddressList.length === 0 ? (
@@ -60,6 +62,7 @@ const RSSTab: React.FC = () => {
         isLoading={isLoading}
         articles={articles}
         loadMore={loadMore}
+        setScrolledToTop={setScrolledToTop}
       />
     </ArticlePageLayout>
   )

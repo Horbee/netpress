@@ -12,11 +12,12 @@ interface ArticleListProps {
   isLoading: boolean
   articles: ArticleData[]
   loadMore: () => void
+  setScrolledToTop: (value: boolean) => void
   chipWrapper?: HTMLDivElement | null
 }
 
 export const ArticleList = forwardRef<any, ArticleListProps>(
-  ({ isLoading, articles, loadMore, chipWrapper }, ref) => {
+  ({ isLoading, articles, loadMore, setScrolledToTop, chipWrapper }, ref) => {
     const virtuosoHeight = useMemo(() => {
       const chipHeight = chipWrapper?.clientHeight ?? 0
       // Toolbar and Tabbar both have 56px height
@@ -32,6 +33,7 @@ export const ArticleList = forwardRef<any, ArticleListProps>(
         ) : (
           <Virtuoso
             ref={ref}
+            atTopStateChange={setScrolledToTop}
             style={{ height: virtuosoHeight }}
             data={articles}
             endReached={loadMore}
