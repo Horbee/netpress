@@ -72,11 +72,13 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
             <IonTitle size="large">{title}</IonTitle>
           </IonToolbar>
         </IonHeader>
-        {scrolledToTop && (
-          <IonRefresher slot="fixed" onIonRefresh={refreshFunction}>
-            <IonRefresherContent></IonRefresherContent>
-          </IonRefresher>
-        )}
+        <IonRefresher
+          slot="fixed"
+          onIonRefresh={refreshFunction}
+          disabled={!scrolledToTop}
+        >
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
         {children}
       </IonContent>
     </IonPage>
