@@ -1,12 +1,12 @@
-import "./ArticleList.css";
+import './ArticleList.css'
 
-import { forwardRef, useMemo } from "react";
-import { Virtuoso } from "react-virtuoso";
+import { forwardRef, useMemo } from 'react'
+import { Virtuoso } from 'react-virtuoso'
 
-import { IonSpinner } from "@ionic/react";
+import { IonSpinner } from '@ionic/react'
 
-import { ArticleData } from "../models/article-data";
-import { ArticleItem } from "./ArticleItem";
+import { ArticleData } from '../models/article-data'
+import { ArticleItem } from './ArticleItem'
 
 interface ArticleListProps {
   isLoading: boolean
@@ -21,7 +21,7 @@ export const ArticleList = forwardRef<any, ArticleListProps>(
     const virtuosoHeight = useMemo(() => {
       const chipHeight = chipWrapper?.clientHeight ?? 0
       // Toolbar and Tabbar both have 56px height
-      return `calc(100vh - 56px - 56px - ${chipHeight}px)`
+      return `calc(100vh - env(safe-area-inset-top) - 56px - 56px - ${chipHeight}px)`
     }, [chipWrapper?.clientHeight])
 
     return (
