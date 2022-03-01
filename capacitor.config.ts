@@ -1,8 +1,8 @@
-import { CapacitorConfig } from "@capacitor/cli";
+import { CapacitorConfig } from '@capacitor/cli'
 
 const config: CapacitorConfig = {
-  appId: 'com.horbee.reactnews',
-  appName: 'ionic-react-news',
+  appId: 'com.horbee.netpress',
+  appName: 'NetPress',
   webDir: 'build',
   bundledWebRuntime: false,
 }
