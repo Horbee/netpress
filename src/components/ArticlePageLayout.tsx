@@ -1,10 +1,21 @@
-import { logoRss, settingsOutline } from "ionicons/icons";
-import { FC, useEffect, useRef } from "react";
+import { logoRss, settingsOutline } from 'ionicons/icons'
+import { FC, useEffect, useRef } from 'react'
 
 import {
-    IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonRefresher,
-    IonRefresherContent, IonTitle, IonToolbar, RefresherEventDetail, useIonRouter
-} from "@ionic/react";
+  IonBackButton,
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonPage,
+  IonRefresher,
+  IonRefresherContent,
+  IonTitle,
+  IonToolbar,
+  RefresherEventDetail,
+  useIonRouter,
+} from '@ionic/react'
 
 interface ArticlePageLayoutProps {
   title: string
@@ -40,15 +51,21 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
     }
   }, [])
 
+  const onRSSPage = () => router.routeInfo.pathname === '/rss'
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton />
+          </IonButtons>
           <IonButtons slot="end">
             <IonButton
+              color={onRSSPage() ? 'primary' : ''}
               onClick={() => {
                 router.push('/rss')
-                if (router.routeInfo.pathname === '/rss') {
+                if (onRSSPage()) {
                   contentRef.current?.scrollToTop(500)
                   virtuosoRef.current?.scrollToIndex({
                     index: 0,
