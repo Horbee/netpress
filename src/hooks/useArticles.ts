@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { useInfiniteQuery } from "react-query";
 
 import { infiniteFetchArticles } from "../services/news-service";
+import { useErrorMessage } from "./useErrorMessage";
 
 export const useArticles = (categoryId: string, country: string) => {
   const {
@@ -9,6 +10,8 @@ export const useArticles = (categoryId: string, country: string) => {
     fetchNextPage,
     refetch,
     isLoading,
+    isError,
+    error,
   } = useInfiniteQuery(['news', categoryId, country], infiniteFetchArticles, {
     getNextPageParam: (lastPage) => {
       if (lastPage.endIndex < lastPage.totalResults) {
@@ -19,6 +22,8 @@ export const useArticles = (categoryId: string, country: string) => {
       }
     },
   })
+
+  useErrorMessage(isError, error)
 
   const articles = useMemo(() => {
     return articleResponse?.pages.flatMap((page) => page.articles) ?? []

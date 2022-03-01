@@ -3,6 +3,7 @@ import { useInfiniteQuery } from "react-query";
 
 import { mapRSStoArticle } from "../services/map-rss-to-article";
 import { infiniteFetchRSSFeed } from "../services/news-service";
+import { useErrorMessage } from "./useErrorMessage";
 
 export const useRSSArticles = (selectedFeedURL: string) => {
   const {
@@ -10,6 +11,8 @@ export const useRSSArticles = (selectedFeedURL: string) => {
     fetchNextPage,
     refetch,
     isLoading,
+    isError,
+    error,
   } = useInfiniteQuery(['rss', selectedFeedURL], infiniteFetchRSSFeed, {
     getNextPageParam: (lastPage) => {
       if (lastPage.endIndex < lastPage.totalItems) {
@@ -21,6 +24,8 @@ export const useRSSArticles = (selectedFeedURL: string) => {
     },
     enabled: !!selectedFeedURL,
   })
+
+  useErrorMessage(isError, error)
 
   const articles = useMemo(() => {
     const items = feedResponse?.pages.flatMap((page) => page.items) ?? []
