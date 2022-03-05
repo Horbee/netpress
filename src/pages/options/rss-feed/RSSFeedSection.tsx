@@ -1,12 +1,18 @@
-import { addOutline } from "ionicons/icons";
-import { useContext } from "react";
+import { addOutline } from 'ionicons/icons'
+import { useContext } from 'react'
 
-import { IonButton, IonButtons, IonIcon, IonItemDivider, IonReorderGroup } from "@ionic/react";
+import {
+  IonButton,
+  IonButtons,
+  IonIcon,
+  IonItemDivider,
+  IonReorderGroup,
+} from '@ionic/react'
 
-import { RSSFeedContext } from "../../../context/RSSFeedContext";
-import { RSSAddressModal } from "./RSSAddressModal";
-import { RSSFeedItem } from "./RSSFeedItem";
-import { useRSSAddressModal } from "./useRSSAddressModal";
+import { RSSFeedContext } from '../../../context/RSSFeedContext'
+import { RSSAddressModal } from './RSSAddressModal'
+import { RSSFeedItem } from './RSSFeedItem'
+import { useRSSAddressModal } from './useRSSAddressModal'
 
 export const RSSFeedSection = () => {
   const { rssAddressList, saveRSSAddressList } = useContext(RSSFeedContext)

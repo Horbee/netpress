@@ -1,12 +1,12 @@
-import { FC, useContext, useRef, useState } from "react";
+import { FC, useContext, useRef, useState } from 'react'
 
-import { RefresherEventDetail, useIonRouter } from "@ionic/react";
+import { RefresherEventDetail, useIonRouter } from '@ionic/react'
 
-import { ArticleList } from "../components/ArticleList";
-import { ArticlePageLayout } from "../components/ArticlePageLayout";
-import { categoryOptions } from "../config/constants";
-import { CountryContext } from "../context/CountryContext";
-import { useArticles } from "../hooks/useArticles";
+import { ArticleList } from '../components/ArticleList'
+import { ArticlePageLayout } from '../components/ArticlePageLayout'
+import { categoryOptions } from '../config/constants'
+import { CountryContext } from '../context/CountryContext'
+import { useArticles } from '../hooks/useArticles'
 
 const NewsTab: FC = () => {
   const virtuosoRef = useRef(null)

@@ -1,9 +1,9 @@
-import { useMemo } from "react";
-import { useInfiniteQuery } from "react-query";
+import { useMemo } from 'react'
+import { useInfiniteQuery } from 'react-query'
 
-import { mapRSStoArticle } from "../services/map-rss-to-article";
-import { infiniteFetchRSSFeed } from "../services/news-service";
-import { useErrorMessage } from "./useErrorMessage";
+import { mapRSStoArticle } from '../services/map-rss-to-article'
+import { infiniteFetchRSSFeed } from '../services/news-service'
+import { useErrorMessage } from './useErrorMessage'
 
 export const useRSSArticles = (selectedFeedURL: string) => {
   const {

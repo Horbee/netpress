@@ -1,11 +1,25 @@
 import {
-    IonButton, IonButtons, IonCheckbox, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonList,
-    IonModal, IonTitle, IonToolbar
-} from "@ionic/react";
+  IonButton,
+  IonButtons,
+  IonCheckbox,
+  IonContent,
+  IonHeader,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonModal,
+  IonSpinner,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/react'
 
-import { RSSAddressDocument, RSSAddressesResponse } from "../../models/rss-addresses-response";
+import {
+  RSSAddressDocument,
+  RSSAddressesResponse,
+} from '../../models/rss-addresses-response'
 
 interface SelectRSSAddressModalProps {
+  isLoading: boolean
   isOpen: boolean
   onClose: () => void
   selectRSSAddress: () => void
@@ -16,6 +30,7 @@ interface SelectRSSAddressModalProps {
 }
 
 export const SelectRSSAddressModal = ({
+  isLoading,
   isOpen,
   onClose,
   selectRSSAddress,
@@ -35,7 +50,7 @@ export const SelectRSSAddressModal = ({
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        {rssAddressList && (
+        {rssAddressList ? (
           <IonList>
             {rssAddressList.documents
               .sort((a, b) => (isInList(a) ? 1 : -1))
@@ -54,6 +69,14 @@ export const SelectRSSAddressModal = ({
                 </IonItem>
               ))}
           </IonList>
+        ) : (
+          <>
+            {isLoading && (
+              <div className="spinner-wrapper">
+                <IonSpinner name="lines" color="primary" />
+              </div>
+            )}
+          </>
         )}
 
         <div className="ion-padding">

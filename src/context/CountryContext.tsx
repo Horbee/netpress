@@ -1,6 +1,6 @@
-import { createContext, FC, useState } from "react";
+import { createContext, FC, useState } from 'react'
 
-import { DEFAULT_COUNTRY } from "../config/constants";
+import { DEFAULT_COUNTRY } from '../config/constants'
 
 type CountryContextType = {
   country: string

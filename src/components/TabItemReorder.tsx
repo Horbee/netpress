@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react'
 
-import { IonItem, IonLabel, IonReorder, IonReorderGroup } from "@ionic/react";
+import { IonItem, IonLabel, IonReorder, IonReorderGroup } from '@ionic/react'
 
-import { MenuTabContext } from "../context/MenuTabContext";
+import { MenuTabContext } from '../context/MenuTabContext'
 
 export const TabItemReorder: React.FC = () => {
   const {

@@ -1,6 +1,6 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from 'react'
 
-import { useIonToast } from "@ionic/react";
+import { useIonToast } from '@ionic/react'
 
 export const useErrorMessage = (
   isError?: boolean,
@@ -25,7 +25,7 @@ export const useErrorMessage = (
       console.error(error)
       showError(customErrorMessage)
     }
-  }, [isError, error, showError])
+  }, [isError, error, showError, customErrorMessage])
 
   return { showError }
 }

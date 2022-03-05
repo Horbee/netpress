@@ -49,7 +49,7 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
     return () => {
       window.removeEventListener('ionTabButtonClick', handleScrollToTop)
     }
-  }, [])
+  }, [virtuosoRef])
 
   const onRSSPage = () => router.routeInfo.pathname === '/rss'
 

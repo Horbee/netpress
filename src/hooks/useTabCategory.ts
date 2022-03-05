@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-import { CategoryOption, categoryOptions } from "../config/constants";
+import { CategoryOption, categoryOptions } from '../config/constants'
 
 const defaultCategoryOrder: CategoryOption[] = localStorage.getItem(
   'categoryOrder'

@@ -1,7 +1,7 @@
-import { createContext, FC, useEffect, useState } from "react";
+import { createContext, FC, useState } from 'react'
 
-import { useEffectIgnoreFirst } from "../hooks/useEffectIgnoreFirst";
-import { RSSFeedAddress } from "../models/rss-feed-data";
+import { useEffectIgnoreFirst } from '../hooks/useEffectIgnoreFirst'
+import { RSSFeedAddress } from '../models/rss-feed-data'
 
 type RSSFeedContextType = {
   rssAddressList: RSSFeedAddress[]

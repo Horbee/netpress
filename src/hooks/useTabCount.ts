@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-import { RangeChangeEventDetail } from "@ionic/core";
+import { RangeChangeEventDetail } from '@ionic/core'
 
-import { categoryOptions } from "../config/constants";
+import { categoryOptions } from '../config/constants'
 
 const defaultTabCount = Number(localStorage.getItem('tabCount') ?? 4)
 const minTabCount = 1

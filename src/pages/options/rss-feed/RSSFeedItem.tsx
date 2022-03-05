@@ -1,14 +1,22 @@
-import { buildOutline, trashOutline } from "ionicons/icons";
-import { useContext } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { buildOutline, trashOutline } from 'ionicons/icons'
+import { useContext } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import {
-    IonButton, IonButtons, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding,
-    IonLabel, IonReorder, useIonAlert
-} from "@ionic/react";
+  IonButton,
+  IonButtons,
+  IonIcon,
+  IonItem,
+  IonItemOption,
+  IonItemOptions,
+  IonItemSliding,
+  IonLabel,
+  IonReorder,
+  useIonAlert,
+} from '@ionic/react'
 
-import { RSSFeedContext } from "../../../context/RSSFeedContext";
-import { RSSFeedAddress } from "../../../models/rss-feed-data";
+import { RSSFeedContext } from '../../../context/RSSFeedContext'
+import { RSSFeedAddress } from '../../../models/rss-feed-data'
 
 interface RSSFeedItemProps {
   rss: RSSFeedAddress

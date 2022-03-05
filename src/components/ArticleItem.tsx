@@ -1,12 +1,16 @@
-import "moment/locale/hu";
+import 'moment/locale/hu'
 
-import moment from "moment";
+import moment from 'moment'
 
 import {
-    IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle
-} from "@ionic/react";
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+} from '@ionic/react'
 
-import { ArticleData } from "../models/article-data";
+import { ArticleData } from '../models/article-data'
 
 interface ArticleItemProps {
   article: ArticleData

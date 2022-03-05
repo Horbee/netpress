@@ -1,8 +1,8 @@
-import { useMemo } from "react";
-import { useInfiniteQuery } from "react-query";
+import { useMemo } from 'react'
+import { useInfiniteQuery } from 'react-query'
 
-import { infiniteFetchArticles } from "../services/news-service";
-import { useErrorMessage } from "./useErrorMessage";
+import { infiniteFetchArticles } from '../services/news-service'
+import { useErrorMessage } from './useErrorMessage'
 
 export const useArticles = (categoryId: string, country: string) => {
   const {

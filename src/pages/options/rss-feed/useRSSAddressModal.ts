@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { useContext, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
-import { InputChangeEventDetail } from "@ionic/react";
+import { InputChangeEventDetail } from '@ionic/react'
 
-import { RSSFeedContext } from "../../../context/RSSFeedContext";
-import { RSSFeedAddress } from "../../../models/rss-feed-data";
+import { RSSFeedContext } from '../../../context/RSSFeedContext'
+import { RSSFeedAddress } from '../../../models/rss-feed-data'
 
 export const useRSSAddressModal = () => {
   const [modalOpen, setModalOpen] = useState(false)

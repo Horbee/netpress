@@ -1,21 +1,27 @@
-import "./RSSTab.css";
+import './RSSTab.css'
 
-import { addOutline } from "ionicons/icons";
-import { useContext, useRef, useState } from "react";
+import { addOutline } from 'ionicons/icons'
+import { useContext, useRef, useState } from 'react'
 
 import {
-    IonButton, IonCard, IonCardHeader, IonCardTitle, IonChip, IonIcon, IonLabel,
-    RefresherEventDetail
-} from "@ionic/react";
+  IonButton,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonChip,
+  IonIcon,
+  IonLabel,
+  RefresherEventDetail,
+} from '@ionic/react'
 
-import { ArticleList } from "../../components/ArticleList";
-import { ArticlePageLayout } from "../../components/ArticlePageLayout";
-import { DarkModeContext } from "../../context/DarkModeContext";
-import { RSSFeedContext } from "../../context/RSSFeedContext";
-import { useRSSArticles } from "../../hooks/useRSSArticles";
-import { useRSSChips } from "../../hooks/useRSSChips";
-import { SelectRSSAddressModal } from "./SelectRSSAddressModal";
-import { useSelectRSSAddressModal } from "./useSelectRSSAddressModal";
+import { ArticleList } from '../../components/ArticleList'
+import { ArticlePageLayout } from '../../components/ArticlePageLayout'
+import { DarkModeContext } from '../../context/DarkModeContext'
+import { RSSFeedContext } from '../../context/RSSFeedContext'
+import { useRSSArticles } from '../../hooks/useRSSArticles'
+import { useRSSChips } from '../../hooks/useRSSChips'
+import { SelectRSSAddressModal } from './SelectRSSAddressModal'
+import { useSelectRSSAddressModal } from './useSelectRSSAddressModal'
 
 const RSSTab: React.FC = () => {
   const virtuosoRef = useRef(null)

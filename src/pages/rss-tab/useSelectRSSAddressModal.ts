@@ -1,11 +1,11 @@
-import { useCallback, useContext, useEffect, useState } from "react";
-import { useQuery } from "react-query";
-import { v4 as uuidv4 } from "uuid";
+import { useCallback, useContext, useState } from 'react'
+import { useQuery } from 'react-query'
+import { v4 as uuidv4 } from 'uuid'
 
-import { RSSFeedContext } from "../../context/RSSFeedContext";
-import { useErrorMessage } from "../../hooks/useErrorMessage";
-import { RSSAddressDocument } from "../../models/rss-addresses-response";
-import { fetchRSSAddresses } from "../../services/news-service";
+import { RSSFeedContext } from '../../context/RSSFeedContext'
+import { useErrorMessage } from '../../hooks/useErrorMessage'
+import { RSSAddressDocument } from '../../models/rss-addresses-response'
+import { fetchRSSAddresses } from '../../services/news-service'
 
 export const useSelectRSSAddressModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
@@ -18,7 +18,7 @@ export const useSelectRSSAddressModal = () => {
     isError,
     error,
     data: rssAddressList,
-  } = useQuery('rss-address-list', fetchRSSAddresses)
+  } = useQuery('rss-address-list', fetchRSSAddresses, { enabled: modalOpen })
 
   useErrorMessage(isError, error, 'A hírcsatorna listát nem tudtuk betölteni.')
 
@@ -65,6 +65,7 @@ export const useSelectRSSAddressModal = () => {
 
   return {
     modalProps: {
+      isLoading,
       isOpen: modalOpen,
       onClose,
       selectRSSAddress,

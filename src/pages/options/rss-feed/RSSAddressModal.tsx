@@ -1,7 +1,16 @@
 import {
-    InputChangeEventDetail, IonButton, IonButtons, IonContent, IonHeader, IonInput, IonItem,
-    IonLabel, IonModal, IonTitle, IonToolbar
-} from "@ionic/react";
+  InputChangeEventDetail,
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonModal,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/react'
 
 interface RSSAddressModalProps {
   isOpen: boolean

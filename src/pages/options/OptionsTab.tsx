@@ -1,19 +1,33 @@
-import "./OptionsTab.css";
+import './OptionsTab.css'
 
-import { logoGithub, moonOutline } from "ionicons/icons";
-import { useContext } from "react";
+import { logoGithub, moonOutline } from 'ionicons/icons'
+import { useContext } from 'react'
 
 import {
-    IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonItemDivider,
-    IonLabel, IonPage, IonRange, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
-} from "@ionic/react";
+  IonBackButton,
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonItem,
+  IonItemDivider,
+  IonLabel,
+  IonPage,
+  IonRange,
+  IonSelect,
+  IonSelectOption,
+  IonTitle,
+  IonToggle,
+  IonToolbar,
+} from '@ionic/react'
 
-import { TabItemReorder } from "../../components/TabItemReorder";
-import { contryOptions } from "../../config/constants";
-import { CountryContext } from "../../context/CountryContext";
-import { DarkModeContext } from "../../context/DarkModeContext";
-import { MenuTabContext } from "../../context/MenuTabContext";
-import { RSSFeedSection } from "./rss-feed/RSSFeedSection";
+import { TabItemReorder } from '../../components/TabItemReorder'
+import { contryOptions } from '../../config/constants'
+import { CountryContext } from '../../context/CountryContext'
+import { DarkModeContext } from '../../context/DarkModeContext'
+import { MenuTabContext } from '../../context/MenuTabContext'
+import { RSSFeedSection } from './rss-feed/RSSFeedSection'
 
 const OptionsTab: React.FC = () => {
   const {

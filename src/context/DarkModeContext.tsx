@@ -1,6 +1,6 @@
-import { createContext, FC } from "react";
+import { createContext, FC } from 'react'
 
-import { useDarkMode } from "../hooks/useDarkMode";
+import { useDarkMode } from '../hooks/useDarkMode'
 
 type DarkModeContextType = {
   toggle: () => void

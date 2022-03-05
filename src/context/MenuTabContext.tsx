@@ -1,7 +1,7 @@
-import { createContext, FC } from "react";
+import { createContext, FC } from 'react'
 
-import { useTabCategory } from "../hooks/useTabCategory";
-import { useTabCount } from "../hooks/useTabCount";
+import { useTabCategory } from '../hooks/useTabCategory'
+import { useTabCount } from '../hooks/useTabCount'
 
 type MenuTabContextType = {
   tabCategoryHook: ReturnType<typeof useTabCategory>

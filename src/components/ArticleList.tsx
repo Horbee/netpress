@@ -1,12 +1,12 @@
-import "./ArticleList.css";
+import './ArticleList.css'
 
-import { forwardRef, useMemo } from "react";
-import { Virtuoso } from "react-virtuoso";
+import { forwardRef, useMemo } from 'react'
+import { Virtuoso } from 'react-virtuoso'
 
-import { IonSpinner, isPlatform } from "@ionic/react";
+import { IonSpinner, isPlatform } from '@ionic/react'
 
-import { ArticleData } from "../models/article-data";
-import { ArticleItem } from "./ArticleItem";
+import { ArticleData } from '../models/article-data'
+import { ArticleItem } from './ArticleItem'
 
 interface ArticleListProps {
   isLoading: boolean

@@ -1,4 +1,4 @@
-import { DependencyList, EffectCallback, useEffect, useRef } from "react";
+import { DependencyList, EffectCallback, useEffect, useRef } from 'react'
 
 export const useEffectIgnoreFirst = (
   effect: EffectCallback,
@@ -12,5 +12,6 @@ export const useEffectIgnoreFirst = (
     } else {
       effect()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps)
 }
