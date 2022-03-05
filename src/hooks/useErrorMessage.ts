@@ -2,7 +2,11 @@ import { useCallback, useEffect } from "react";
 
 import { useIonToast } from "@ionic/react";
 
-export const useErrorMessage = (isError?: boolean, error?: any) => {
+export const useErrorMessage = (
+  isError?: boolean,
+  error?: any,
+  customErrorMessage: string = 'A hireket nem tudtuk betölteni.'
+) => {
   const [showToast] = useIonToast()
 
   const showError = useCallback(
@@ -19,7 +23,7 @@ export const useErrorMessage = (isError?: boolean, error?: any) => {
   useEffect(() => {
     if (isError) {
       console.error(error)
-      showError('A hireket nem tudtuk betölteni.')
+      showError(customErrorMessage)
     }
   }, [isError, error, showError])
 

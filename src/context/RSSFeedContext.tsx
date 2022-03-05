@@ -1,5 +1,6 @@
-import { createContext, FC, useState } from "react";
+import { createContext, FC, useEffect, useState } from "react";
 
+import { useEffectIgnoreFirst } from "../hooks/useEffectIgnoreFirst";
 import { RSSFeedAddress } from "../models/rss-feed-data";
 
 type RSSFeedContextType = {
@@ -25,14 +26,12 @@ const defaultRSSAddressList: RSSFeedAddress[] = localStorage.getItem(
 export const RSSFeedContextProvider: FC = ({ children }) => {
   const [rssAddressList, setRSSAddressList] = useState(defaultRSSAddressList)
 
-  const saveRSSAddressList = (rssAddressList: RSSFeedAddress[]) => {
-    setRSSAddressList(rssAddressList)
+  useEffectIgnoreFirst(() => {
     localStorage.setItem(RSS_ADDRESS_LIST, JSON.stringify(rssAddressList))
-  }
+  }, [rssAddressList])
 
   const addNewRSSAddress = (rssAddress: RSSFeedAddress) => {
-    const newList = [...rssAddressList, rssAddress]
-    saveRSSAddressList(newList)
+    setRSSAddressList((prev) => [...prev, rssAddress])
   }
 
   const editRSSAddress = (rssAddress: RSSFeedAddress) => {
@@ -40,14 +39,14 @@ export const RSSFeedContextProvider: FC = ({ children }) => {
       if (item.id === rssAddress.id) return rssAddress
       return item
     })
-    saveRSSAddressList(newList)
+    setRSSAddressList(newList)
   }
 
   const deleteRSSAddress = (rssAddressId: string) => {
     const newList = rssAddressList.filter(
       (address) => address.id !== rssAddressId
     )
-    saveRSSAddressList(newList)
+    setRSSAddressList(newList)
   }
 
   return (
@@ -57,7 +56,7 @@ export const RSSFeedContextProvider: FC = ({ children }) => {
         addNewRSSAddress,
         editRSSAddress,
         deleteRSSAddress,
-        saveRSSAddressList,
+        saveRSSAddressList: setRSSAddressList,
       }}
     >
       {children}
