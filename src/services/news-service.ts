@@ -1,11 +1,21 @@
-import axios from "axios";
-import { QueryFunction } from "react-query";
+import axios from 'axios'
+import { QueryFunction } from 'react-query'
 
 import {
-    DEFAULT_CATEGORY, DEFAULT_COUNTRY, newsEndpoints, rssConverterEndpoints
-} from "../config/constants";
-import { ArticlesResponse } from "../models/headlines-response";
-import { FeedResponse } from "../models/rss-feed-data";
+  DEFAULT_CATEGORY,
+  DEFAULT_COUNTRY,
+  newsEndpoints,
+  rssAddressesEndpoint,
+  rssConverterEndpoints,
+} from '../config/constants'
+import { ArticlesResponse } from '../models/headlines-response'
+import { RSSAddressesResponse } from '../models/rss-addresses-response'
+import { FeedResponse } from '../models/rss-feed-data'
+
+export const fetchRSSAddresses = async () => {
+  const { data } = await axios.get<RSSAddressesResponse>(rssAddressesEndpoint)
+  return data
+}
 
 export const fetchArticles = async (
   category: string = DEFAULT_CATEGORY,

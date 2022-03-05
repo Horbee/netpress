@@ -29,3 +29,4 @@ export const newsEndpoints =
   process.env.REACT_APP_NEWS_API ?? 'https://newsapi.org/v2/top-headlines'
 export const rssConverterEndpoints =
   process.env.REACT_APP_RSS_CONVERTER_API ?? 'http://localhost:8080/api/feed'
+export const rssAddressesEndpoint = process.env.REACT_APP_RSS_ADDRESSES ?? ''
