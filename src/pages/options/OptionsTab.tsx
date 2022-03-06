@@ -2,24 +2,11 @@ import './OptionsTab.css'
 
 import { logoGithub, moonOutline } from 'ionicons/icons'
 import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import {
-  IonBackButton,
-  IonButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonIcon,
-  IonItem,
-  IonItemDivider,
-  IonLabel,
-  IonPage,
-  IonRange,
-  IonSelect,
-  IonSelectOption,
-  IonTitle,
-  IonToggle,
-  IonToolbar,
+    IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonItemDivider,
+    IonLabel, IonPage, IonRange, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
 } from '@ionic/react'
 
 import { TabItemReorder } from '../../components/TabItemReorder'
@@ -36,6 +23,8 @@ const OptionsTab: React.FC = () => {
 
   const { active, toggle } = useContext(DarkModeContext)
   const { country, setCountry } = useContext(CountryContext)
+
+  const { t } = useTranslation()
 
   return (
     <>
@@ -58,23 +47,23 @@ const OptionsTab: React.FC = () => {
                 <IonIcon icon={logoGithub}></IonIcon>
               </IonButton>
             </IonButtons>
-            <IonTitle>Beállítások</IonTitle>
+            <IonTitle>{t('options.title')}</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>
           <IonHeader collapse="condense">
             <IonToolbar>
-              <IonTitle size="large">Beállítások</IonTitle>
+              <IonTitle size="large">{t('options.title')}</IonTitle>
             </IonToolbar>
           </IonHeader>
           <div className="ion-padding">
             <IonItem>
-              <IonLabel>Ország</IonLabel>
+              <IonLabel>{t('options.country')}</IonLabel>
               <IonSelect
                 value={country}
                 onIonChange={(e) => setCountry(e.detail.value)}
-                okText="Kivalaszt"
-                cancelText="Vissza"
+                okText={t('options.select')}
+                cancelText={t('options.back')}
               >
                 {contryOptions.map((opt) => (
                   <IonSelectOption key={opt} value={opt}>
@@ -86,11 +75,11 @@ const OptionsTab: React.FC = () => {
 
             <IonItem>
               <IonIcon icon={moonOutline} slot="start" />
-              <IonLabel>Sötét téma</IonLabel>
+              <IonLabel>{t('options.darkTheme')}</IonLabel>
               <IonToggle checked={active} onIonChange={toggle} />
             </IonItem>
 
-            <IonItemDivider>Menü ikonok száma</IonItemDivider>
+            <IonItemDivider>{t('options.iconCount')}</IonItemDivider>
             <IonItem>
               <IonRange color="secondary" step={1} snaps {...rangeProps}>
                 <IonLabel slot="start">{tabCount}</IonLabel>

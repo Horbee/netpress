@@ -2,16 +2,11 @@ import './RSSTab.css'
 
 import { addOutline } from 'ionicons/icons'
 import { useContext, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import {
-  IonButton,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
-  IonChip,
-  IonIcon,
-  IonLabel,
-  RefresherEventDetail,
+    IonButton, IonCard, IonCardHeader, IonCardTitle, IonChip, IonIcon, IonLabel,
+    RefresherEventDetail
 } from '@ionic/react'
 
 import { ArticleList } from '../../components/ArticleList'
@@ -30,6 +25,7 @@ const RSSTab: React.FC = () => {
   const { rssAddressList } = useContext(RSSFeedContext)
   const { selectedFeed, setSelectedFeed, isSelected } = useRSSChips()
   const [scrolledToTop, setScrolledToTop] = useState(true)
+  const { t } = useTranslation()
 
   const { openRSSModal, modalProps } = useSelectRSSAddressModal()
 
@@ -44,7 +40,7 @@ const RSSTab: React.FC = () => {
 
   return (
     <ArticlePageLayout
-      title="RSS Feed"
+      title={t('rssTab.title')}
       refreshFunction={refreshRSSFeed}
       virtuosoRef={virtuosoRef}
       scrolledToTop={scrolledToTop}
@@ -54,8 +50,8 @@ const RSSTab: React.FC = () => {
         {rssAddressList.length === 0 ? (
           <IonCard className="spinner-wrapper">
             <IonCardHeader className="rss-warning">
-              <IonCardTitle>Nincs RSS hírcsatorna hozzáadva</IonCardTitle>
-              <IonButton onClick={openRSSModal}>Hozzáadás</IonButton>
+              <IonCardTitle>{t('rssTab.emptyList')}</IonCardTitle>
+              <IonButton onClick={openRSSModal}>{t('rssTab.add')}</IonButton>
             </IonCardHeader>
           </IonCard>
         ) : (
@@ -76,7 +72,7 @@ const RSSTab: React.FC = () => {
               onClick={openRSSModal}
             >
               <IonIcon icon={addOutline} />
-              <IonLabel>Hozzáadás</IonLabel>
+              <IonLabel>{t('rssTab.add')}</IonLabel>
             </IonChip>
           </>
         )}

@@ -1,22 +1,11 @@
-import {
-  IonButton,
-  IonButtons,
-  IonCheckbox,
-  IonContent,
-  IonHeader,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonModal,
-  IonSpinner,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/react'
+import { useTranslation } from 'react-i18next'
 
 import {
-  RSSAddressDocument,
-  RSSAddressesResponse,
-} from '../../models/rss-addresses-response'
+    IonButton, IonButtons, IonCheckbox, IonContent, IonHeader, IonItem, IonLabel, IonList, IonModal,
+    IonSpinner, IonTitle, IonToolbar
+} from '@ionic/react'
+
+import { RSSAddressDocument, RSSAddressesResponse } from '../../models/rss-addresses-response'
 
 interface SelectRSSAddressModalProps {
   isLoading: boolean
@@ -39,13 +28,15 @@ export const SelectRSSAddressModal = ({
   isSelected,
   toggleSelection,
 }: SelectRSSAddressModalProps) => {
+  const { t } = useTranslation()
+
   return (
     <IonModal isOpen={isOpen}>
       <IonHeader translucent>
         <IonToolbar>
-          <IonTitle>RSS Hírcsatornák</IonTitle>
+          <IonTitle>{t('rssTab.title')}</IonTitle>
           <IonButtons slot="end">
-            <IonButton onClick={onClose}>Bezár</IonButton>
+            <IonButton onClick={onClose}>{t('rssTab.close')}</IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
@@ -80,7 +71,7 @@ export const SelectRSSAddressModal = ({
         )}
 
         <div className="ion-padding">
-          <IonButton onClick={selectRSSAddress}>Hozzáadás</IonButton>
+          <IonButton onClick={selectRSSAddress}>{t('rssTab.add')}</IonButton>
         </div>
       </IonContent>
     </IonModal>

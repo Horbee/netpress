@@ -1,5 +1,10 @@
+import './config/i18n'
+
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
+import smoothscroll from 'smoothscroll-polyfill'
 
 import App from './App'
 import { CountryContextProvider } from './context/CountryContext'
@@ -8,9 +13,6 @@ import { MenuTabContextProvider } from './context/MenuTabContext'
 import { RSSFeedContextProvider } from './context/RSSFeedContext'
 import reportWebVitals from './reportWebVitals'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
-import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
-import smoothscroll from 'smoothscroll-polyfill'
 
 smoothscroll.polyfill()
 

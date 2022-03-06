@@ -15,17 +15,11 @@ import '@ionic/react/css/display.css'
 import './theme/variables.css'
 
 import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Redirect, Route } from 'react-router-dom'
 
 import {
-  IonApp,
-  IonIcon,
-  IonLabel,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
-  setupIonicReact,
+    IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, setupIonicReact
 } from '@ionic/react'
 import { IonReactRouter } from '@ionic/react-router'
 
@@ -41,6 +35,7 @@ const App: React.FC = () => {
     tabCategoryHook: { categories },
     tabCountHook: { tabCount },
   } = useContext(MenuTabContext)
+  const { t } = useTranslation()
 
   return (
     <IonApp>
@@ -58,10 +53,10 @@ const App: React.FC = () => {
             </Route>
           </IonRouterOutlet>
           <IonTabBar slot="bottom">
-            {categories.slice(0, tabCount).map(({ id, name, icon }) => (
+            {categories.slice(0, tabCount).map(({ id, icon }) => (
               <IonTabButton key={id} tab={`/news/${id}`} href={`/news/${id}`}>
                 <IonIcon icon={icon} />
-                <IonLabel>{name}</IonLabel>
+                <IonLabel>{t(`category.${id}`)}</IonLabel>
               </IonTabButton>
             ))}
           </IonTabBar>

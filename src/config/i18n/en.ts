@@ -1,0 +1,41 @@
+export const enTranslation = {
+  rssTab: {
+    title: 'RSS Feed',
+    emptyList: 'Your RSS Feed list is empty',
+    add: 'Add',
+    close: 'Close',
+  },
+  options: {
+    title: 'Settings',
+    country: 'Country',
+    darkTheme: 'Dark theme',
+    iconCount: 'Menu icon count',
+    rssFeedList: 'RSS Feed list',
+    select: 'Select',
+    back: 'Back',
+    duplicate: 'Duplicate',
+    delete: 'Delete',
+    rssDeleteModal: {
+      header: 'Delete: {{ name }}',
+      message: 'Are you sure you want to delete this RSS address? {{ url }}',
+      cancel: 'Cancel',
+      delete: 'Delete',
+    },
+    rssAddModal: {
+      header: 'Add RSS Feed',
+      nameField: 'Name',
+      urlField: 'Url',
+      save: 'Save',
+      close: 'Close',
+    },
+  },
+  category: {
+    business: 'Business',
+    entertainment: 'Entertainment',
+    general: 'General',
+    health: 'Health',
+    science: 'Science',
+    sports: 'Sports',
+    technology: 'Tech',
+  },
+}

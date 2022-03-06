@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { IonItem, IonLabel, IonReorder, IonReorderGroup } from '@ionic/react'
 
@@ -9,12 +10,13 @@ export const TabItemReorder: React.FC = () => {
     tabCategoryHook: { categories, doReorder },
     tabCountHook: { tabCount },
   } = useContext(MenuTabContext)
+  const { t } = useTranslation()
 
   return (
     <IonReorderGroup disabled={false} onIonItemReorder={doReorder}>
       {categories.map((item, index) => (
         <IonItem key={item.id} disabled={index >= tabCount}>
-          <IonLabel>{item.name}</IonLabel>
+          <IonLabel>{t(`category.${item.id}`)}</IonLabel>
           <IonReorder slot="start" />
         </IonItem>
       ))}

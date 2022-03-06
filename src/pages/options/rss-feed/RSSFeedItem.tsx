@@ -1,18 +1,11 @@
 import { buildOutline, trashOutline } from 'ionicons/icons'
 import { useContext } from 'react'
+import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
 
 import {
-  IonButton,
-  IonButtons,
-  IonIcon,
-  IonItem,
-  IonItemOption,
-  IonItemOptions,
-  IonItemSliding,
-  IonLabel,
-  IonReorder,
-  useIonAlert,
+    IonButton, IonButtons, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding,
+    IonLabel, IonReorder, useIonAlert
 } from '@ionic/react'
 
 import { RSSFeedContext } from '../../../context/RSSFeedContext'
@@ -26,15 +19,18 @@ interface RSSFeedItemProps {
 export const RSSFeedItem = ({ rss, onItemSelect }: RSSFeedItemProps) => {
   const [confirm] = useIonAlert()
   const { deleteRSSAddress, addNewRSSAddress } = useContext(RSSFeedContext)
+  const { t } = useTranslation()
 
   const deleteRSSAddressInternal = () => {
     confirm({
-      header: `Törlés: ${rss.name}`,
-      message:
-        'Biztos vagy benne hogy törölni szeretnéd ezt az RSS címet? ' + rss.url,
+      header: t('options.rssDeleteModal.header', { name: rss.name }),
+      message: t('options.rssDeleteModal.message', { url: rss.url }),
       buttons: [
-        'Mégsem',
-        { text: 'Töröl', handler: () => deleteRSSAddress(rss.id) },
+        t('options.rssDeleteModal.cancel'),
+        {
+          text: t('options.rssDeleteModal.delete'),
+          handler: () => deleteRSSAddress(rss.id),
+        },
       ],
     })
   }
@@ -62,12 +58,12 @@ export const RSSFeedItem = ({ rss, onItemSelect }: RSSFeedItemProps) => {
       </IonItem>
       <IonItemOptions side="start">
         <IonItemOption color="danger" onClick={deleteRSSAddressInternal}>
-          Töröl
+          {t('options.delete')}
         </IonItemOption>
       </IonItemOptions>
       <IonItemOptions side="end">
         <IonItemOption color="secondary" onClick={duplicateRSSAddress}>
-          Duplikál
+          {t('options.duplicate')}
         </IonItemOption>
       </IonItemOptions>
     </IonItemSliding>

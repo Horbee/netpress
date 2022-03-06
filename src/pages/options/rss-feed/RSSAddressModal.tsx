@@ -1,15 +1,8 @@
+import { useTranslation } from 'react-i18next'
+
 import {
-  InputChangeEventDetail,
-  IonButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonModal,
-  IonTitle,
-  IonToolbar,
+    InputChangeEventDetail, IonButton, IonButtons, IonContent, IonHeader, IonInput, IonItem,
+    IonLabel, IonModal, IonTitle, IonToolbar
 } from '@ionic/react'
 
 interface RSSAddressModalProps {
@@ -33,29 +26,39 @@ export const RSSAddressModal = ({
   nameInputProps,
   urlInputProps,
 }: RSSAddressModalProps) => {
+  const { t } = useTranslation()
+
   return (
     <IonModal isOpen={isOpen}>
       <IonHeader translucent>
         <IonToolbar>
-          <IonTitle>RSS Feed Hozzáadása</IonTitle>
+          <IonTitle>{t('options.rssAddModal.header')}</IonTitle>
           <IonButtons slot="end">
-            <IonButton onClick={onClose}>Bezár</IonButton>
+            <IonButton onClick={onClose}>
+              {t('options.rssAddModal.close')}
+            </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <div className="ion-padding">
           <IonItem>
-            <IonLabel position="floating">Név</IonLabel>
+            <IonLabel position="floating">
+              {t('options.rssAddModal.nameField')}
+            </IonLabel>
             <IonInput {...nameInputProps}></IonInput>
           </IonItem>
 
           <IonItem>
-            <IonLabel position="floating">Url</IonLabel>
+            <IonLabel position="floating">
+              {t('options.rssAddModal.urlField')}
+            </IonLabel>
             <IonInput {...urlInputProps}></IonInput>
           </IonItem>
 
-          <IonButton onClick={saveRSSAddress}>Mentés</IonButton>
+          <IonButton onClick={saveRSSAddress}>
+            {t('options.rssAddModal.save')}
+          </IonButton>
         </div>
       </IonContent>
     </IonModal>
