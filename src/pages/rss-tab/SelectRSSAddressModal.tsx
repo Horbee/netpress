@@ -1,3 +1,4 @@
+import { useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
@@ -5,6 +6,7 @@ import {
     IonSpinner, IonTitle, IonToolbar
 } from '@ionic/react'
 
+import { RSSFeedContext } from '../../context/RSSFeedContext'
 import { RSSAddressDocument, RSSAddressesResponse } from '../../models/rss-addresses-response'
 
 interface SelectRSSAddressModalProps {
@@ -29,6 +31,11 @@ export const SelectRSSAddressModal = ({
   toggleSelection,
 }: SelectRSSAddressModalProps) => {
   const { t } = useTranslation()
+  const { rssAddressList: localRssAddressList } = useContext(RSSFeedContext)
+
+  const sortedList = useMemo(() => {
+    return rssAddressList?.documents.sort((a, b) => (isInList(a) ? 1 : -1))
+  }, [rssAddressList, localRssAddressList])
 
   return (
     <IonModal isOpen={isOpen}>
@@ -41,24 +48,22 @@ export const SelectRSSAddressModal = ({
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-        {rssAddressList ? (
+        {sortedList ? (
           <IonList>
-            {rssAddressList.documents
-              .sort((a, b) => (isInList(a) ? 1 : -1))
-              .map((address) => (
-                <IonItem key={address.name} disabled={isInList(address)}>
-                  <IonCheckbox
-                    slot="start"
-                    color="primary"
-                    checked={isSelected(address) || isInList(address)}
-                    onIonChange={() => toggleSelection(address)}
-                  />
-                  <IonLabel>
-                    <h2>{address.fields.name.stringValue}</h2>
-                    <p>{address.fields.url.stringValue}</p>
-                  </IonLabel>
-                </IonItem>
-              ))}
+            {sortedList.map((address) => (
+              <IonItem key={address.name} disabled={isInList(address)}>
+                <IonCheckbox
+                  slot="start"
+                  color="primary"
+                  checked={isSelected(address) || isInList(address)}
+                  onIonChange={() => toggleSelection(address)}
+                />
+                <IonLabel>
+                  <h2>{address.fields.name.stringValue}</h2>
+                  <p>{address.fields.url.stringValue}</p>
+                </IonLabel>
+              </IonItem>
+            ))}
           </IonList>
         ) : (
           <>
