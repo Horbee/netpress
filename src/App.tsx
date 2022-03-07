@@ -14,12 +14,14 @@ import '@ionic/react/css/display.css'
 /* Theme variables */
 import './theme/variables.css'
 
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Redirect, Route } from 'react-router-dom'
 
+import { Plugins } from '@capacitor/core'
 import {
-    IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, setupIonicReact
+    IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, setupIonicReact,
+    useIonRouter
 } from '@ionic/react'
 import { IonReactRouter } from '@ionic/react-router'
 
@@ -28,14 +30,34 @@ import NewsTab from './pages/NewsTab'
 import OptionsTab from './pages/options/OptionsTab'
 import RSSTab from './pages/rss-tab/RSSTab'
 
+const { App: IonicApp } = Plugins
+
 setupIonicReact()
 
 const App: React.FC = () => {
+  const ionRouter = useIonRouter()
+
   const {
     tabCategoryHook: { categories },
     tabCountHook: { tabCount },
   } = useContext(MenuTabContext)
   const { t } = useTranslation()
+
+  useEffect(() => {
+    const exitAppFunction = (ev: any) => {
+      ev.detail.register(-1, () => {
+        if (!ionRouter.canGoBack()) {
+          IonicApp.exitApp()
+        }
+      })
+    }
+
+    document.addEventListener('ionBackButton', exitAppFunction)
+
+    return () => {
+      document.removeEventListener('ionBackButton', exitAppFunction)
+    }
+  }, [])
 
   return (
     <IonApp>
