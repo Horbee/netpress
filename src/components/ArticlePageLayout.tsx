@@ -2,20 +2,11 @@ import { logoRss, settingsOutline } from 'ionicons/icons'
 import { FC, useEffect, useRef } from 'react'
 
 import {
-  IonBackButton,
-  IonButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonIcon,
-  IonPage,
-  IonRefresher,
-  IonRefresherContent,
-  IonTitle,
-  IonToolbar,
-  RefresherEventDetail,
-  useIonRouter,
+    IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonRefresher,
+    IonRefresherContent, IonTitle, IonToolbar, RefresherEventDetail, useIonRouter
 } from '@ionic/react'
+
+import { AppIonBackButton } from './AppIonBackButton'
 
 interface ArticlePageLayoutProps {
   title: string
@@ -58,7 +49,7 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton />
+            <AppIonBackButton />
           </IonButtons>
           <IonButtons slot="end">
             <IonButton

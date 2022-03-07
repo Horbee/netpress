@@ -5,10 +5,11 @@ import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
-    IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonItemDivider,
-    IonLabel, IonPage, IonRange, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
+    IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonItemDivider, IonLabel,
+    IonPage, IonRange, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
 } from '@ionic/react'
 
+import { AppIonBackButton } from '../../components/AppIonBackButton'
 import { TabItemReorder } from '../../components/TabItemReorder'
 import { contryOptions } from '../../config/constants'
 import { CountryContext } from '../../context/CountryContext'
@@ -32,7 +33,7 @@ const OptionsTab: React.FC = () => {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonBackButton />
+              <AppIonBackButton />
             </IonButtons>
             <IonButtons slot="end">
               <IonButton
