@@ -1,6 +1,7 @@
-import { FC, useContext, useRef, useState } from 'react'
+import { FC, useContext, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+import { Plugins } from '@capacitor/core'
 import { RefresherEventDetail, useIonRouter } from '@ionic/react'
 
 import { ArticleList } from '../components/ArticleList'
@@ -8,6 +9,8 @@ import { ArticlePageLayout } from '../components/ArticlePageLayout'
 import { categoryOptions } from '../config/constants'
 import { CountryContext } from '../context/CountryContext'
 import { useArticles } from '../hooks/useArticles'
+
+const { App: IonicApp } = Plugins
 
 const NewsTab: FC = () => {
   const virtuosoRef = useRef(null)
@@ -23,6 +26,22 @@ const NewsTab: FC = () => {
     categoryId,
     country
   )
+
+  useEffect(() => {
+    const exitAppFunction = (ev: any) => {
+      ev.detail.register(-1, () => {
+        if (!router.canGoBack()) {
+          IonicApp.exitApp()
+        }
+      })
+    }
+
+    document.addEventListener('ionBackButton', exitAppFunction)
+
+    return () => {
+      document.removeEventListener('ionBackButton', exitAppFunction)
+    }
+  }, [])
 
   const refreshArticles = async (e: CustomEvent<RefresherEventDetail>) => {
     refetch()
