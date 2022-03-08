@@ -1,17 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
-const isDark = localStorage.getItem('darkTheme') === 'true'
+import { useSettings } from '../context/SettingsContext'
 
 export const useDarkMode = () => {
-  const [active, setActive] = useState(isDark)
+  const {
+    settings: { darkTheme },
+    saveDarkTheme,
+  } = useSettings()
 
   useEffect(() => {
-    if (active) document.body.classList.add('dark')
+    if (darkTheme) document.body.classList.add('dark')
     else document.body.classList.remove('dark')
-    localStorage.setItem('darkTheme', String(active))
-  }, [active])
+  }, [darkTheme])
 
-  const toggle = () => setActive((prev) => !prev)
+  const toggle = () => saveDarkTheme(!darkTheme)
 
-  return { toggle, active }
+  return { toggle, darkTheme }
 }

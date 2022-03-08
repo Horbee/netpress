@@ -11,8 +11,8 @@ import {
 
 import { ArticleList } from '../../components/ArticleList'
 import { ArticlePageLayout } from '../../components/ArticlePageLayout'
-import { DarkModeContext } from '../../context/DarkModeContext'
 import { RSSFeedContext } from '../../context/RSSFeedContext'
+import { useDarkMode } from '../../hooks/useDarkMode'
 import { useRSSArticles } from '../../hooks/useRSSArticles'
 import { useRSSChips } from '../../hooks/useRSSChips'
 import { SelectRSSAddressModal } from './SelectRSSAddressModal'
@@ -21,7 +21,7 @@ import { useSelectRSSAddressModal } from './useSelectRSSAddressModal'
 const RSSTab: React.FC = () => {
   const virtuosoRef = useRef(null)
   const chipWrapperRef = useRef<HTMLDivElement>(null)
-  const { active: isDarkMode } = useContext(DarkModeContext)
+  const { darkTheme } = useDarkMode()
   const { rssAddressList } = useContext(RSSFeedContext)
   const { selectedFeed, setSelectedFeed, isSelected } = useRSSChips()
   const [scrolledToTop, setScrolledToTop] = useState(true)
@@ -60,7 +60,7 @@ const RSSTab: React.FC = () => {
               <IonChip
                 key={feed.id}
                 outline={!isSelected(feed)}
-                color={isDarkMode ? 'warning' : 'tertiary'}
+                color={darkTheme ? 'warning' : 'tertiary'}
                 onClick={() => setSelectedFeed(feed)}
               >
                 <IonLabel>{feed.name}</IonLabel>
@@ -68,7 +68,7 @@ const RSSTab: React.FC = () => {
             ))}
             <IonChip
               outline
-              color={isDarkMode ? 'warning' : 'tertiary'}
+              color={darkTheme ? 'warning' : 'tertiary'}
               onClick={openRSSModal}
             >
               <IonIcon icon={addOutline} />

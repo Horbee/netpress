@@ -7,10 +7,9 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import smoothscroll from 'smoothscroll-polyfill'
 
 import App from './App'
-import { CountryContextProvider } from './context/CountryContext'
-import { DarkModeContextProvider } from './context/DarkModeContext'
-import { MenuTabContextProvider } from './context/MenuTabContext'
-import { RSSFeedContextProvider } from './context/RSSFeedContext'
+import { ServiceProviders } from './context/ServiceProviders'
+import { SettingsContextProvider } from './context/SettingsContext'
+import { StorageContextProvider } from './context/StorageContext'
 import reportWebVitals from './reportWebVitals'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
@@ -23,15 +22,13 @@ const queryClient = new QueryClient({
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RSSFeedContextProvider>
-        <CountryContextProvider>
-          <DarkModeContextProvider>
-            <MenuTabContextProvider>
-              <App />
-            </MenuTabContextProvider>
-          </DarkModeContextProvider>
-        </CountryContextProvider>
-      </RSSFeedContextProvider>
+      <StorageContextProvider>
+        <SettingsContextProvider>
+          <ServiceProviders>
+            <App />
+          </ServiceProviders>
+        </SettingsContextProvider>
+      </StorageContextProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>,

@@ -13,8 +13,8 @@ import { AppIonBackButton } from '../../components/AppIonBackButton'
 import { TabItemReorder } from '../../components/TabItemReorder'
 import { contryOptions } from '../../config/constants'
 import { CountryContext } from '../../context/CountryContext'
-import { DarkModeContext } from '../../context/DarkModeContext'
 import { MenuTabContext } from '../../context/MenuTabContext'
+import { useDarkMode } from '../../hooks/useDarkMode'
 import { RSSFeedSection } from './rss-feed/RSSFeedSection'
 
 const OptionsTab: React.FC = () => {
@@ -22,7 +22,7 @@ const OptionsTab: React.FC = () => {
     tabCountHook: { rangeProps, tabCount },
   } = useContext(MenuTabContext)
 
-  const { active, toggle } = useContext(DarkModeContext)
+  const { darkTheme: active, toggle } = useDarkMode()
   const { country, setCountry } = useContext(CountryContext)
 
   const { t } = useTranslation()
