@@ -10,7 +10,7 @@ import { fetchRSSAddresses } from '../../services/news-service'
 export const useSelectRSSAddressModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [selected, setSelected] = useState<RSSAddressDocument[]>([])
-  const { addNewRSSAddress, rssAddressList: localRssAddressList } =
+  const { addMultipleRSSAddresses, rssAddressList: localRssAddressList } =
     useContext(RSSFeedContext)
 
   const {
@@ -29,12 +29,12 @@ export const useSelectRSSAddressModal = () => {
   }
 
   const selectRSSAddress = () => {
-    selected.forEach((address) =>
-      addNewRSSAddress({
+    addMultipleRSSAddresses(
+      selected.map((address) => ({
         id: uuidv4(),
         name: address.fields.name.stringValue,
         url: address.fields.url.stringValue,
-      })
+      }))
     )
     onClose()
   }

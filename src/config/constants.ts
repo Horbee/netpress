@@ -3,7 +3,7 @@ import {
     walletOutline
 } from 'ionicons/icons'
 
-export const DEFAULT_COUNTRY = localStorage.getItem('lastCountry') || 'hu'
+export const DEFAULT_COUNTRY = 'hu'
 export const DEFAULT_CATEGORY = 'general'
 
 export const contryOptions = ['hu', 'de', 'gb', 'in']
