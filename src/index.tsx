@@ -1,5 +1,3 @@
-import './config/i18n'
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'

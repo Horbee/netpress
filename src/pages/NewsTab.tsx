@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Plugins } from '@capacitor/core'
@@ -7,8 +7,8 @@ import { RefresherEventDetail, useIonRouter } from '@ionic/react'
 import { ArticleList } from '../components/ArticleList'
 import { ArticlePageLayout } from '../components/ArticlePageLayout'
 import { categoryOptions } from '../config/constants'
-import { CountryContext } from '../context/CountryContext'
 import { useArticles } from '../hooks/useArticles'
+import { useCountry } from '../hooks/useCountry'
 
 const { App: IonicApp } = Plugins
 
@@ -20,7 +20,7 @@ const NewsTab: FC = () => {
   const router = useIonRouter()
   const categoryId = router.routeInfo.pathname.split('/')[2]
   const category = categoryOptions.find((opt) => opt.id === categoryId)
-  const { country } = useContext(CountryContext)
+  const { country } = useCountry()
 
   const { refetch, isLoading, articles, loadMore } = useArticles(
     categoryId,
