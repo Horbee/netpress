@@ -1,6 +1,8 @@
 import { createContext, FC, useContext, useEffect, useState } from 'react'
 
-import { DEFAULT_COUNTRY } from '../config/constants'
+import {
+    CategoryOption, categoryOptions, DEFAULT_COUNTRY, DEFAULT_TABCOUNT
+} from '../config/constants'
 import { initI18n } from '../config/i18n'
 import { RSSFeedAddress } from '../models/rss-feed-data'
 import { useStorage } from './StorageContext'
@@ -10,12 +12,16 @@ type SettingsContextType = {
   saveDarkTheme: (darkTheme: boolean) => void
   saveCountry: (country: string) => void
   saveRSSAddressList: (rssAddressList: RSSFeedAddress[]) => void
+  saveTabCount: (tabCount: number) => void
+  saveCategories: (categories: CategoryOption[]) => void
 }
 
 type SettingsState = {
   darkTheme: boolean
   country: string
   rssAddressList: RSSFeedAddress[]
+  tabCount: number
+  categories: CategoryOption[]
 }
 
 export const SettingsContext = createContext<SettingsContextType>(
@@ -29,6 +35,8 @@ export const SettingsContextProvider: FC = ({ children }) => {
     darkTheme: false,
     country: DEFAULT_COUNTRY,
     rssAddressList: [],
+    tabCount: DEFAULT_TABCOUNT,
+    categories: categoryOptions,
   })
 
   useEffect(() => {
@@ -36,15 +44,20 @@ export const SettingsContextProvider: FC = ({ children }) => {
   }, [storage])
 
   const initSettings = async () => {
-    const [darkTheme, country, rssAddressList] = await Promise.all([
-      get('darkTheme'),
-      get('country'),
-      get('RSSAddressList'),
-    ])
+    const [darkTheme, country, rssAddressList, tabCount, categories] =
+      await Promise.all([
+        get('darkTheme'),
+        get('country'),
+        get('RSSAddressList'),
+        get('tabCount'),
+        get('categoryOrder'),
+      ])
     setSettings({
       darkTheme: darkTheme ?? false,
       country: country ?? DEFAULT_COUNTRY,
       rssAddressList: rssAddressList ?? [],
+      tabCount: tabCount ?? DEFAULT_TABCOUNT,
+      categories: categories ?? categoryOptions,
     })
     initI18n(country)
     setLoading(false)
@@ -65,6 +78,16 @@ export const SettingsContextProvider: FC = ({ children }) => {
     save('RSSAddressList', rssAddressList)
   }
 
+  const saveTabCount = (tabCount: number) => {
+    setSettings((prev) => ({ ...prev, tabCount }))
+    save('tabCount', tabCount)
+  }
+
+  const saveCategories = (categories: CategoryOption[]) => {
+    setSettings((prev) => ({ ...prev, categories }))
+    save('categoryOrder', categories)
+  }
+
   useEffect(() => {
     if (settings.darkTheme) document.body.classList.add('dark')
     else document.body.classList.remove('dark')
@@ -72,7 +95,14 @@ export const SettingsContextProvider: FC = ({ children }) => {
 
   return (
     <SettingsContext.Provider
-      value={{ settings, saveDarkTheme, saveCountry, saveRSSAddressList }}
+      value={{
+        settings,
+        saveDarkTheme,
+        saveCountry,
+        saveRSSAddressList,
+        saveTabCount,
+        saveCategories,
+      }}
     >
       {!loading && children}
     </SettingsContext.Provider>

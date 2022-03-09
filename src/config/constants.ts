@@ -5,6 +5,7 @@ import {
 
 export const DEFAULT_COUNTRY = 'hu'
 export const DEFAULT_CATEGORY = 'general'
+export const DEFAULT_TABCOUNT = 4
 
 export const contryOptions = ['hu', 'de', 'gb', 'in']
 

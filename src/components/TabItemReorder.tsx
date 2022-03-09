@@ -1,15 +1,14 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { IonItem, IonLabel, IonReorder, IonReorderGroup } from '@ionic/react'
 
-import { MenuTabContext } from '../context/MenuTabContext'
+import { useTabCategory } from '../hooks/useTabCategory'
+import { useTabCount } from '../hooks/useTabCount'
 
 export const TabItemReorder: React.FC = () => {
-  const {
-    tabCategoryHook: { categories, doReorder },
-    tabCountHook: { tabCount },
-  } = useContext(MenuTabContext)
+  const { tabCount } = useTabCount()
+  const { categories, doReorder } = useTabCategory()
   const { t } = useTranslation()
 
   return (

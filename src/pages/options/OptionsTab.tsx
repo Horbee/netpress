@@ -1,7 +1,6 @@
 import './OptionsTab.css'
 
 import { logoGithub, moonOutline } from 'ionicons/icons'
-import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import {
@@ -12,16 +11,13 @@ import {
 import { AppIonBackButton } from '../../components/AppIonBackButton'
 import { TabItemReorder } from '../../components/TabItemReorder'
 import { contryOptions } from '../../config/constants'
-import { MenuTabContext } from '../../context/MenuTabContext'
 import { useCountry } from '../../hooks/useCountry'
 import { useDarkMode } from '../../hooks/useDarkMode'
+import { useTabCount } from '../../hooks/useTabCount'
 import { RSSFeedSection } from './rss-feed/RSSFeedSection'
 
 const OptionsTab: React.FC = () => {
-  const {
-    tabCountHook: { rangeProps, tabCount },
-  } = useContext(MenuTabContext)
-
+  const { tabCount, rangeProps } = useTabCount()
   const { darkTheme: active, toggle } = useDarkMode()
   const { country, setCountry } = useCountry()
 

@@ -23,7 +23,8 @@ import {
 } from '@ionic/react'
 import { IonReactRouter } from '@ionic/react-router'
 
-import { MenuTabContext } from './context/MenuTabContext'
+import { useTabCategory } from './hooks/useTabCategory'
+import { useTabCount } from './hooks/useTabCount'
 import NewsTab from './pages/NewsTab'
 import OptionsTab from './pages/options/OptionsTab'
 import RSSTab from './pages/rss-tab/RSSTab'
@@ -31,10 +32,8 @@ import RSSTab from './pages/rss-tab/RSSTab'
 setupIonicReact()
 
 const App: React.FC = () => {
-  const {
-    tabCategoryHook: { categories },
-    tabCountHook: { tabCount },
-  } = useContext(MenuTabContext)
+  const { categories } = useTabCategory()
+  const { tabCount } = useTabCount()
   const { t } = useTranslation()
 
   return (

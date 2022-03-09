@@ -1,25 +1,18 @@
-import { useState } from 'react'
-
-import { CategoryOption, categoryOptions } from '../config/constants'
-
-const defaultCategoryOrder: CategoryOption[] = localStorage.getItem(
-  'categoryOrder'
-)
-  ? JSON.parse(localStorage.getItem('categoryOrder')!)
-  : categoryOptions
+import { useSettings } from '../context/SettingsContext'
 
 export const useTabCategory = () => {
-  const [categories, setCategories] = useState(defaultCategoryOrder)
+  const {
+    settings: { categories },
+    saveCategories,
+  } = useSettings()
 
   const doReorder = (event: CustomEvent) => {
     const newOrder = event.detail.complete(categories)
-    localStorage.setItem('categoryOrder', JSON.stringify(newOrder))
-    setCategories(newOrder)
+    saveCategories(newOrder)
   }
 
   return {
     doReorder,
     categories,
-    setCategories,
   }
 }

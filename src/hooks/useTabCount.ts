@@ -1,20 +1,20 @@
-import { useState } from 'react'
-
 import { RangeChangeEventDetail } from '@ionic/core'
 
 import { categoryOptions } from '../config/constants'
+import { useSettings } from '../context/SettingsContext'
 
-const defaultTabCount = Number(localStorage.getItem('tabCount') ?? 4)
 const minTabCount = 1
 const maxTabCount = categoryOptions.length
 
 export const useTabCount = () => {
-  const [tabCount, setTabCount] = useState(defaultTabCount)
+  const {
+    settings: { tabCount },
+    saveTabCount,
+  } = useSettings()
 
   const setTabCountInternal = (e: CustomEvent<RangeChangeEventDetail>) => {
     const newCount = e.detail.value as number
-    localStorage.setItem('tabCount', newCount.toString())
-    setTabCount(newCount)
+    saveTabCount(newCount)
   }
 
   return {
@@ -25,6 +25,5 @@ export const useTabCount = () => {
       onIonChange: setTabCountInternal,
     },
     tabCount,
-    setTabCount,
   }
 }
