@@ -1,6 +1,6 @@
-import { createContext, FC, useContext, useEffect, useState } from 'react'
+import { createContext, FC, useContext, useEffect, useState } from "react";
 
-import { useStorage } from './StorageContext'
+import { useStorage } from "./StorageContext";
 
 type SettingsContextType = {
   settings: SettingsState
@@ -34,6 +34,11 @@ export const SettingsContextProvider: FC = ({ children }) => {
     setSettings((prev) => ({ ...prev, darkTheme }))
     save('darkTheme', darkTheme)
   }
+
+  useEffect(() => {
+    if (settings.darkTheme) document.body.classList.add('dark')
+    else document.body.classList.remove('dark')
+  }, [settings.darkTheme])
 
   return (
     <SettingsContext.Provider value={{ settings, saveDarkTheme }}>
