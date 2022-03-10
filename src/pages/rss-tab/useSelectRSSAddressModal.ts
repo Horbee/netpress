@@ -3,12 +3,14 @@ import { useQuery } from 'react-query'
 import { v4 as uuidv4 } from 'uuid'
 
 import { RSSFeedContext } from '../../context/RSSFeedContext'
+import { useCountry } from '../../hooks/useCountry'
 import { useErrorMessage } from '../../hooks/useErrorMessage'
 import { RSSAddressDocument } from '../../models/rss-addresses-response'
 import { fetchRSSAddresses } from '../../services/news-service'
 
 export const useSelectRSSAddressModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
+  const { country } = useCountry()
   const [selected, setSelected] = useState<RSSAddressDocument[]>([])
   const { addMultipleRSSAddresses, rssAddressList: localRssAddressList } =
     useContext(RSSFeedContext)
@@ -18,7 +20,13 @@ export const useSelectRSSAddressModal = () => {
     isError,
     error,
     data: rssAddressList,
-  } = useQuery('rss-address-list', fetchRSSAddresses, { enabled: modalOpen })
+  } = useQuery(
+    ['rss-address-list', country],
+    () => fetchRSSAddresses(country),
+    {
+      enabled: modalOpen,
+    }
+  )
 
   useErrorMessage(isError, error, 'A hírcsatorna listát nem tudtuk betölteni.')
 
