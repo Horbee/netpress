@@ -2,7 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import smoothscroll from 'smoothscroll-polyfill'
 
 import App from './App'
 import { ServiceProviders } from './context/ServiceProviders'
@@ -10,8 +9,6 @@ import { SettingsContextProvider } from './context/SettingsContext'
 import { StorageContextProvider } from './context/StorageContext'
 import reportWebVitals from './reportWebVitals'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
-
-smoothscroll.polyfill()
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 3 } },
