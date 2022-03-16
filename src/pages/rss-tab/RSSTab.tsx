@@ -3,7 +3,7 @@ import './RSSTab.css'
 import { useContext, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { RefresherEventDetail } from '@ionic/react'
+import { IonSpinner, RefresherEventDetail } from '@ionic/react'
 
 import { ArticleList } from '../../components/ArticleList'
 import { ArticlePageLayout } from '../../components/ArticlePageLayout'
@@ -18,7 +18,7 @@ import { useSelectRSSAddressModal } from './useSelectRSSAddressModal'
 const RSSTab: React.FC = () => {
   const virtuosoRef = useRef(null)
   const { rssAddressList } = useContext(RSSFeedContext)
-  const { selectedFeed } = useRSSChips()
+  const { selectedFeed, setSelectedFeed, isSelected } = useRSSChips()
   const [scrolledToTop, setScrolledToTop] = useState(true)
   const { t } = useTranslation()
 
@@ -33,7 +33,20 @@ const RSSTab: React.FC = () => {
     e.detail.complete()
   }
 
-  const Header = () => <ChipList openRSSModal={openRSSModal} />
+  const Header = () => (
+    <>
+      <ChipList
+        openRSSModal={openRSSModal}
+        setSelectedFeed={setSelectedFeed}
+        isSelected={isSelected}
+      />
+      {isLoading && (
+        <div className="spinner-wrapper">
+          <IonSpinner name="lines" color="primary" />
+        </div>
+      )}
+    </>
+  )
 
   return (
     <ArticlePageLayout
@@ -48,7 +61,6 @@ const RSSTab: React.FC = () => {
       {!!rssAddressList.length && (
         <ArticleList
           ref={virtuosoRef}
-          isLoading={isLoading}
           articles={articles}
           loadMore={loadMore}
           setScrolledToTop={setScrolledToTop}

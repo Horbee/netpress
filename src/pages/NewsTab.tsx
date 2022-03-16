@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { Plugins } from '@capacitor/core'
-import { RefresherEventDetail, useIonRouter } from '@ionic/react'
+import { IonSpinner, RefresherEventDetail, useIonRouter } from '@ionic/react'
 
 import { ArticleList } from '../components/ArticleList'
 import { ArticlePageLayout } from '../components/ArticlePageLayout'
@@ -50,6 +50,16 @@ const NewsTab: FC = () => {
 
   if (!category) return null
 
+  const Header = () => (
+    <>
+      {isLoading && (
+        <div className="spinner-wrapper">
+          <IonSpinner name="lines" color="primary" />
+        </div>
+      )}
+    </>
+  )
+
   return (
     <ArticlePageLayout
       title={t(`category.${category.id}`)}
@@ -59,10 +69,12 @@ const NewsTab: FC = () => {
     >
       <ArticleList
         ref={virtuosoRef}
-        isLoading={isLoading}
         articles={articles}
         loadMore={loadMore}
         setScrolledToTop={setScrolledToTop}
+        virtuosoProps={{
+          components: { Header },
+        }}
       />
     </ArticlePageLayout>
   )

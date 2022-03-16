@@ -6,17 +6,22 @@ import { IonChip, IonIcon, IonLabel } from '@ionic/react'
 
 import { RSSFeedContext } from '../../context/RSSFeedContext'
 import { useDarkMode } from '../../hooks/useDarkMode'
-import { useRSSChips } from '../../hooks/useRSSChips'
+import { RSSFeedAddress } from '../../models/rss-feed-data'
 
 interface ChipListProps {
   openRSSModal: () => void
+  setSelectedFeed: (feed: RSSFeedAddress) => void
+  isSelected: (feed: RSSFeedAddress) => boolean
 }
 
-export const ChipList = ({ openRSSModal }: ChipListProps) => {
+export const ChipList = ({
+  openRSSModal,
+  setSelectedFeed,
+  isSelected,
+}: ChipListProps) => {
   const { t } = useTranslation()
   const { rssAddressList } = useContext(RSSFeedContext)
   const { darkTheme } = useDarkMode()
-  const { setSelectedFeed, isSelected } = useRSSChips()
 
   return (
     <div className="ion-padding">
