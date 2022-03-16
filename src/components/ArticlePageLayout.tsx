@@ -60,6 +60,7 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
                   contentRef.current?.scrollToTop(500)
                   virtuosoRef.current?.scrollToIndex({
                     index: 0,
+                    align: 'end',
                     behavior: 'smooth',
                   })
                 }

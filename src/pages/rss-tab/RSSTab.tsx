@@ -1,29 +1,24 @@
 import './RSSTab.css'
 
-import { addOutline } from 'ionicons/icons'
 import { useContext, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import {
-    IonButton, IonCard, IonCardHeader, IonCardTitle, IonChip, IonIcon, IonLabel,
-    RefresherEventDetail
-} from '@ionic/react'
+import { RefresherEventDetail } from '@ionic/react'
 
 import { ArticleList } from '../../components/ArticleList'
 import { ArticlePageLayout } from '../../components/ArticlePageLayout'
 import { RSSFeedContext } from '../../context/RSSFeedContext'
-import { useDarkMode } from '../../hooks/useDarkMode'
 import { useRSSArticles } from '../../hooks/useRSSArticles'
 import { useRSSChips } from '../../hooks/useRSSChips'
+import { ChipList } from './ChipList'
+import { EmptyList } from './EmptyList'
 import { SelectRSSAddressModal } from './SelectRSSAddressModal'
 import { useSelectRSSAddressModal } from './useSelectRSSAddressModal'
 
 const RSSTab: React.FC = () => {
   const virtuosoRef = useRef(null)
-  const chipWrapperRef = useRef<HTMLDivElement>(null)
-  const { darkTheme } = useDarkMode()
   const { rssAddressList } = useContext(RSSFeedContext)
-  const { selectedFeed, setSelectedFeed, isSelected } = useRSSChips()
+  const { selectedFeed } = useRSSChips()
   const [scrolledToTop, setScrolledToTop] = useState(true)
   const { t } = useTranslation()
 
@@ -38,6 +33,8 @@ const RSSTab: React.FC = () => {
     e.detail.complete()
   }
 
+  const Header = () => <ChipList openRSSModal={openRSSModal} />
+
   return (
     <ArticlePageLayout
       title={t('rssTab.title')}
@@ -46,46 +43,20 @@ const RSSTab: React.FC = () => {
       scrolledToTop={scrolledToTop}
     >
       <SelectRSSAddressModal {...modalProps} />
-      <div className="ion-padding" ref={chipWrapperRef}>
-        {rssAddressList.length === 0 ? (
-          <IonCard className="spinner-wrapper">
-            <IonCardHeader className="rss-warning">
-              <IonCardTitle>{t('rssTab.emptyList')}</IonCardTitle>
-              <IonButton onClick={openRSSModal}>{t('rssTab.add')}</IonButton>
-            </IonCardHeader>
-          </IonCard>
-        ) : (
-          <>
-            {rssAddressList.map((feed) => (
-              <IonChip
-                key={feed.id}
-                outline={!isSelected(feed)}
-                color={darkTheme ? 'warning' : 'tertiary'}
-                onClick={() => setSelectedFeed(feed)}
-              >
-                <IonLabel>{feed.name}</IonLabel>
-              </IonChip>
-            ))}
-            <IonChip
-              outline
-              color={darkTheme ? 'warning' : 'tertiary'}
-              onClick={openRSSModal}
-            >
-              <IonIcon icon={addOutline} />
-              <IonLabel>{t('rssTab.add')}</IonLabel>
-            </IonChip>
-          </>
-        )}
-      </div>
+      {rssAddressList.length === 0 && <EmptyList openRSSModal={openRSSModal} />}
 
-      <ArticleList
-        ref={virtuosoRef}
-        chipWrapper={chipWrapperRef.current}
-        isLoading={isLoading}
-        articles={articles}
-        loadMore={loadMore}
-        setScrolledToTop={setScrolledToTop}
-      />
+      {!!rssAddressList.length && (
+        <ArticleList
+          ref={virtuosoRef}
+          isLoading={isLoading}
+          articles={articles}
+          loadMore={loadMore}
+          setScrolledToTop={setScrolledToTop}
+          virtuosoProps={{
+            components: { Header },
+          }}
+        />
+      )}
     </ArticlePageLayout>
   )
 }
