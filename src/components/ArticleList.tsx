@@ -13,13 +13,17 @@ interface ArticleListProps {
   loadMore: () => void
   setScrolledToTop: (value: boolean) => void
   virtuosoProps?: VirtuosoProps<any, any>
+  tabbarHeight?: number
 }
 
 export const ArticleList = forwardRef<any, ArticleListProps>(
-  ({ articles, loadMore, setScrolledToTop, virtuosoProps }, ref) => {
+  (
+    { articles, loadMore, setScrolledToTop, virtuosoProps, tabbarHeight = 0 },
+    ref
+  ) => {
     const virtuosoHeight = useMemo(() => {
       const headerHeight = isPlatform('ios') ? 56 : 0
-      return `calc(100% - ${headerHeight}px)`
+      return `calc(100% - ${headerHeight}px - ${tabbarHeight}px)`
     }, [])
 
     return (

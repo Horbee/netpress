@@ -14,18 +14,19 @@ import '@ionic/react/css/display.css'
 /* Theme variables */
 import './theme/variables.css'
 
-import { useContext } from 'react'
-import { useTranslation } from 'react-i18next'
 import { Redirect, Route } from 'react-router-dom'
 
 import {
-    IonApp, IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs, setupIonicReact
+  IonApp,
+  IonRouterOutlet,
+  IonSplitPane,
+  setupIonicReact,
 } from '@ionic/react'
 import { IonReactRouter } from '@ionic/react-router'
 
+import { Menu } from './components/menu/Menu'
 import { useTabCategory } from './hooks/useTabCategory'
-import { useTabCount } from './hooks/useTabCount'
-import NewsTab from './pages/NewsTab'
+import NewsTab from './pages/news/NewsPage'
 import OptionsTab from './pages/options/OptionsTab'
 import RSSTab from './pages/rss-tab/RSSTab'
 
@@ -33,17 +34,16 @@ setupIonicReact()
 
 const App: React.FC = () => {
   const { categories } = useTabCategory()
-  const { tabCount } = useTabCount()
-  const { t } = useTranslation()
 
   return (
     <IonApp>
       <IonReactRouter>
-        <IonTabs>
-          <IonRouterOutlet>
-            <Route exact path="/:tab(news)/:category" component={NewsTab} />
-            <Route exact path="/:tab(rss)" component={RSSTab} />
-            <Route exact path="/:tab(options)" component={OptionsTab} />
+        <IonSplitPane contentId="main">
+          <Menu />
+          <IonRouterOutlet id="main">
+            <Route exact path="/news/:category" component={NewsTab} />
+            <Route exact path="/rss" component={RSSTab} />
+            <Route exact path="/options" component={OptionsTab} />
             <Route exact path="/">
               <Redirect to={`/news/${categories[0].id}`} />
             </Route>
@@ -51,15 +51,7 @@ const App: React.FC = () => {
               <Redirect to={`/news/${categories[0].id}`} />
             </Route>
           </IonRouterOutlet>
-          <IonTabBar slot="bottom">
-            {categories.slice(0, tabCount).map(({ id, icon }) => (
-              <IonTabButton key={id} tab={`/news/${id}`} href={`/news/${id}`}>
-                <IonIcon icon={icon} />
-                <IonLabel>{t(`category.${id}`)}</IonLabel>
-              </IonTabButton>
-            ))}
-          </IonTabBar>
-        </IonTabs>
+        </IonSplitPane>
       </IonReactRouter>
     </IonApp>
   )
