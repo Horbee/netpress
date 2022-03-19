@@ -1,4 +1,9 @@
 export const enTranslation = {
+  menu: {
+    news: 'News',
+    rssFeed: 'RSS Feed',
+    options: 'Options',
+  },
   rssTab: {
     title: 'RSS Feed',
     emptyList: 'Your RSS Feed list is empty',

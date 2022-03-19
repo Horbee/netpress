@@ -1,4 +1,9 @@
 export const huTranslation = {
+  menu: {
+    news: 'Hírek',
+    rssFeed: 'RSS Hírcsatornák',
+    options: 'Beállítások',
+  },
   rssTab: {
     title: 'RSS Hírcsatornák',
     emptyList: 'Nincs RSS hírcsatorna hozzáadva',

@@ -1,23 +1,12 @@
 import './Menu.css'
 
-import {
-  logoGithub,
-  logoRss,
-  newspaperOutline,
-  settingsOutline,
-} from 'ionicons/icons'
+import { logoGithub, logoRss, newspaperOutline, settingsOutline } from 'ionicons/icons'
+import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
 import {
-  IonContent,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
-  IonMenu,
-  IonMenuToggle,
-  IonNote,
+    IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote
 } from '@ionic/react'
 
 import { useTabCategory } from '../../hooks/useTabCategory'
@@ -28,34 +17,37 @@ interface AppPage {
   icon: string
 }
 
-const appPages = (firstTab: string): AppPage[] => [
-  {
-    title: 'News',
-    url: '/news/' + firstTab,
-    icon: newspaperOutline,
-  },
-  {
-    title: 'RSS Feed',
-    url: '/rss',
-    icon: logoRss,
-  },
-  {
-    title: 'Options',
-    url: '/options',
-    icon: settingsOutline,
-  },
-]
-
 export const Menu: React.FC = () => {
   const location = useLocation()
   const { categories } = useTabCategory()
+  const { t } = useTranslation()
+
+  const appPages: AppPage[] = useMemo(() => {
+    return [
+      {
+        title: t('menu.news'),
+        url: '/news/' + categories[0].id,
+        icon: newspaperOutline,
+      },
+      {
+        title: t('menu.rssFeed'),
+        url: '/rss',
+        icon: logoRss,
+      },
+      {
+        title: t('menu.options'),
+        url: '/options',
+        icon: settingsOutline,
+      },
+    ]
+  }, [t, categories])
 
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="menu-list">
           <IonListHeader>NetPress</IonListHeader>
-          {appPages(categories[0].id).map((appPage, index) => {
+          {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
                 <IonItem
