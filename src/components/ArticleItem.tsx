@@ -1,6 +1,6 @@
-import 'moment/locale/hu'
+import { hu, de } from 'date-fns/locale'
 
-import moment from 'moment'
+import { format } from 'date-fns'
 
 import {
   IonCard,
@@ -11,12 +11,16 @@ import {
 } from '@ionic/react'
 
 import { ArticleData } from '../models/article-data'
+import { useTranslation } from 'react-i18next'
 
 interface ArticleItemProps {
   article: ArticleData
 }
 
+const locales: { [key: string]: Locale } = { de, hu }
+
 export const ArticleItem = ({ article }: ArticleItemProps) => {
+  const { i18n } = useTranslation()
   const domain = new URL(article.url).hostname.replace('www.', '')
 
   return (
@@ -34,7 +38,9 @@ export const ArticleItem = ({ article }: ArticleItemProps) => {
         <IonCardContent>{article.description}</IonCardContent>
 
         <IonCardContent style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          {moment(article.publishedAt).format('LLL')}
+          {format(new Date(article.publishedAt), 'Pp', {
+            locale: locales[i18n.language],
+          })}
         </IonCardContent>
       </IonCard>
     </div>

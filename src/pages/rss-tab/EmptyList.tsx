@@ -1,6 +1,8 @@
-import { useTranslation } from 'react-i18next'
+import './EmptyList.css';
 
-import { IonButton, IonCard, IonCardHeader, IonCardTitle } from '@ionic/react'
+import { useTranslation } from 'react-i18next';
+
+import { IonButton, IonCard, IonCardHeader, IonCardTitle } from '@ionic/react';
 
 interface EmptyListProps {
   openRSSModal: () => void
@@ -11,7 +13,7 @@ export const EmptyList = ({ openRSSModal }: EmptyListProps) => {
 
   return (
     <div className="ion-padding">
-      <IonCard className="spinner-wrapper">
+      <IonCard className="empty-list-card">
         <IonCardHeader className="rss-warning">
           <IonCardTitle>{t('rssTab.emptyList')}</IonCardTitle>
           <IonButton onClick={openRSSModal}>{t('rssTab.add')}</IonButton>
