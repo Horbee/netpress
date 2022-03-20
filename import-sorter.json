@@ -1,0 +1,10 @@
+{
+  "importStringConfiguration": {
+    "hasSemicolon": false
+  },
+  "sortConfiguration": {
+    "customOrderingRules": {
+      "defaultNumberOfEmptyLinesAfterGroup": 2
+    }
+  }
+}

@@ -1,18 +1,16 @@
 import './NewsPage.css'
 
+
 import { FC, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
+
 import { Plugins } from '@capacitor/core'
 import {
-  IonIcon,
-  IonLabel,
-  IonSpinner,
-  IonTabBar,
-  IonTabButton,
-  RefresherEventDetail,
-  useIonRouter,
+    IonIcon, IonLabel, IonSpinner, IonTabBar, IonTabButton, RefresherEventDetail, useIonPicker,
+    useIonRouter
 } from '@ionic/react'
+
 
 import { ArticleList } from '../../components/ArticleList'
 import { ArticlePageLayout } from '../../components/ArticlePageLayout'

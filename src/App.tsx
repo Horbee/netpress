@@ -14,17 +14,16 @@ import '@ionic/react/css/display.css'
 /* Theme variables */
 import './theme/variables.css'
 
+
 import { Redirect, Route } from 'react-router-dom'
 
-import {
-  IonApp,
-  IonRouterOutlet,
-  IonSplitPane,
-  setupIonicReact,
-} from '@ionic/react'
+
+import { IonApp, IonRouterOutlet, IonSplitPane, setupIonicReact } from '@ionic/react'
 import { IonReactRouter } from '@ionic/react-router'
 
+
 import { Menu } from './components/menu/Menu'
+import { useCountryPicker } from './hooks/useCountryPicker'
 import { useTabCategory } from './hooks/useTabCategory'
 import NewsTab from './pages/news/NewsPage'
 import OptionsTab from './pages/options/OptionsTab'
@@ -34,6 +33,7 @@ setupIonicReact()
 
 const App: React.FC = () => {
   const { categories } = useTabCategory()
+  useCountryPicker()
 
   return (
     <IonApp>
