@@ -1,9 +1,12 @@
 import './ArticleList.css'
 
+
 import { forwardRef, useMemo } from 'react'
 import { Virtuoso, VirtuosoProps } from 'react-virtuoso'
 
-import { IonSpinner, isPlatform } from '@ionic/react'
+
+import { isPlatform } from '@ionic/react'
+
 
 import { ArticleData } from '../models/article-data'
 import { ArticleItem } from './ArticleItem'
@@ -29,6 +32,7 @@ export const ArticleList = forwardRef<any, ArticleListProps>(
     return (
       <Virtuoso
         ref={ref}
+        className="ion-content-scroll-host"
         atTopStateChange={setScrolledToTop}
         style={{ height: virtuosoHeight }}
         data={articles}

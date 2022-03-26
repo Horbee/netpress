@@ -26,7 +26,7 @@ import { Menu } from './components/menu/Menu'
 import { useCountryPicker } from './hooks/useCountryPicker'
 import { useTabCategory } from './hooks/useTabCategory'
 import NewsTab from './pages/news/NewsPage'
-import OptionsTab from './pages/options/OptionsTab'
+import OptionsPage from './pages/options/OptionsPage'
 import RSSTab from './pages/rss-tab/RSSTab'
 
 setupIonicReact()
@@ -43,7 +43,7 @@ const App: React.FC = () => {
           <IonRouterOutlet id="main">
             <Route exact path="/news/:category" component={NewsTab} />
             <Route exact path="/rss" component={RSSTab} />
-            <Route exact path="/options" component={OptionsTab} />
+            <Route exact path="/options" component={OptionsPage} />
             <Route exact path="/">
               <Redirect to={`/news/${categories[0].id}`} />
             </Route>

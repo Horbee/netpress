@@ -7,8 +7,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Plugins } from '@capacitor/core'
 import {
-    IonIcon, IonLabel, IonSpinner, IonTabBar, IonTabButton, RefresherEventDetail, useIonPicker,
-    useIonRouter
+    IonIcon, IonLabel, IonSpinner, IonTabBar, IonTabButton, RefresherEventDetail, useIonRouter
 } from '@ionic/react'
 
 

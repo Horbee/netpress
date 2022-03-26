@@ -1,13 +1,16 @@
 import './Menu.css'
 
+
 import { logoGithub, logoRss, newspaperOutline, settingsOutline } from 'ionicons/icons'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
+
 import {
     IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote
 } from '@ionic/react'
+
 
 import { useTabCategory } from '../../hooks/useTabCategory'
 
@@ -55,7 +58,7 @@ export const Menu: React.FC = () => {
                     location.pathname === appPage.url ? 'selected' : ''
                   }
                   routerLink={appPage.url}
-                  routerDirection="none"
+                  routerDirection="forward"
                   lines="none"
                   detail={false}
                 >

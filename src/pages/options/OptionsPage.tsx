@@ -1,26 +1,12 @@
-import './OptionsTab.css'
-
 import { logoGithub, moonOutline } from 'ionicons/icons'
 import { useTranslation } from 'react-i18next'
 
+
 import {
-  IonButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonIcon,
-  IonItem,
-  IonItemDivider,
-  IonLabel,
-  IonMenuButton,
-  IonPage,
-  IonRange,
-  IonSelect,
-  IonSelectOption,
-  IonTitle,
-  IonToggle,
-  IonToolbar,
+    IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonItemDivider,
+    IonLabel, IonPage, IonRange, IonSelect, IonSelectOption, IonTitle, IonToggle, IonToolbar
 } from '@ionic/react'
+
 
 import { TabItemReorder } from '../../components/TabItemReorder'
 import { contryOptions } from '../../config/constants'
@@ -29,7 +15,7 @@ import { useDarkMode } from '../../hooks/useDarkMode'
 import { useTabCount } from '../../hooks/useTabCount'
 import { RSSFeedSection } from './rss-feed/RSSFeedSection'
 
-const OptionsTab: React.FC = () => {
+const OptionsPage: React.FC = () => {
   const { tabCount, rangeProps } = useTabCount()
   const { darkTheme: active, toggle } = useDarkMode()
   const { country, setCountry } = useCountry()
@@ -42,7 +28,7 @@ const OptionsTab: React.FC = () => {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonMenuButton />
+              <IonBackButton />
             </IonButtons>
             <IonButtons slot="end">
               <IonButton
@@ -106,4 +92,4 @@ const OptionsTab: React.FC = () => {
   )
 }
 
-export default OptionsTab
+export default OptionsPage
