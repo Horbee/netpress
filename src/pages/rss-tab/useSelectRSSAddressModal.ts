@@ -1,6 +1,8 @@
 import { useCallback, useContext, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { v4 as uuidv4 } from 'uuid'
+
 
 import { RSSFeedContext } from '../../context/RSSFeedContext'
 import { useCountry } from '../../hooks/useCountry'
@@ -9,6 +11,8 @@ import { RSSAddressDocument } from '../../models/rss-addresses-response'
 import { fetchRSSAddresses } from '../../services/news-service'
 
 export const useSelectRSSAddressModal = () => {
+  const { t } = useTranslation()
+
   const [modalOpen, setModalOpen] = useState(false)
   const { country } = useCountry()
   const [selected, setSelected] = useState<RSSAddressDocument[]>([])
@@ -28,7 +32,7 @@ export const useSelectRSSAddressModal = () => {
     }
   )
 
-  useErrorMessage(isError, error, 'A hírcsatorna listát nem tudtuk betölteni.')
+  useErrorMessage(isError, error, t('error.rss'))
 
   const onClose = () => setModalOpen(false)
   const openRSSModal = () => {

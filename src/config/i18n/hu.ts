@@ -44,4 +44,8 @@ export const huTranslation = {
     sports: 'Sport',
     technology: 'Tech',
   },
+  error: {
+    news: 'A hireket nem tudtuk betölteni.',
+    rss: 'A hírcsatorna listát nem tudtuk betölteni.',
+  },
 }

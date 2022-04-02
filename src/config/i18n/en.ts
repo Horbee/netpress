@@ -43,4 +43,8 @@ export const enTranslation = {
     sports: 'Sports',
     technology: 'Tech',
   },
+  error: {
+    news: 'We could not load the news.',
+    rss: 'We could not load the RSS feed list.',
+  },
 }

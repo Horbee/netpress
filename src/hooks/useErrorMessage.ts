@@ -1,13 +1,18 @@
 import { useCallback, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+
 
 import { useIonToast } from '@ionic/react'
 
 export const useErrorMessage = (
   isError?: boolean,
   error?: any,
-  customErrorMessage: string = 'A hireket nem tudtuk betölteni.'
+  customErrorMessage?: string
 ) => {
+  const { t } = useTranslation()
   const [showToast] = useIonToast()
+
+  const errorMessage = customErrorMessage ?? t('error.news')!
 
   const showError = useCallback(
     (message: string) => {
@@ -23,9 +28,9 @@ export const useErrorMessage = (
   useEffect(() => {
     if (isError) {
       console.error(error)
-      showError(customErrorMessage)
+      showError(errorMessage)
     }
-  }, [isError, error, showError, customErrorMessage])
+  }, [isError, error, showError, errorMessage])
 
   return { showError }
 }
