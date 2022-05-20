@@ -5,9 +5,6 @@ import { forwardRef, useMemo } from 'react'
 import { Virtuoso, VirtuosoProps } from 'react-virtuoso'
 
 
-import { isPlatform } from '@ionic/react'
-
-
 import { ArticleData } from '../models/article-data'
 import { ArticleItem } from './ArticleItem'
 
@@ -25,8 +22,7 @@ export const ArticleList = forwardRef<any, ArticleListProps>(
     ref
   ) => {
     const virtuosoHeight = useMemo(() => {
-      const headerHeight = isPlatform('ios') ? 56 : 0
-      return `calc(100% - ${headerHeight}px - ${tabbarHeight}px)`
+      return `calc(100% - ${tabbarHeight}px)`
     }, [])
 
     return (

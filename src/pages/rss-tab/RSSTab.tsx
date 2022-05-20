@@ -1,9 +1,12 @@
 import './RSSTab.css'
 
+
 import { useContext, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { IonSpinner, RefresherEventDetail } from '@ionic/react'
+
+import { IonHeader, IonSpinner, IonTitle, IonToolbar, RefresherEventDetail } from '@ionic/react'
+
 
 import { ArticleList } from '../../components/ArticleList'
 import { ArticlePageLayout } from '../../components/ArticlePageLayout'
@@ -35,11 +38,21 @@ const RSSTab: React.FC = () => {
 
   const Header = () => (
     <>
+      {/* Prints error message: <ion-header> must be used inside ion-content */}
+      {!isLoading && (
+        <IonHeader collapse="condense">
+          <IonToolbar>
+            <IonTitle size="large">{t('rssTab.title')}</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+      )}
+
       <ChipList
         openRSSModal={openRSSModal}
         setSelectedFeed={setSelectedFeed}
         isSelected={isSelected}
       />
+
       {isLoading && (
         <div className="spinner-wrapper">
           <IonSpinner name="lines" color="primary" />

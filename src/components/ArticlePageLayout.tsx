@@ -1,20 +1,10 @@
 import { logoRss, settingsOutline } from 'ionicons/icons'
 import { FC, useEffect, useRef } from 'react'
 
+
 import {
-  IonButton,
-  IonButtons,
-  IonContent,
-  IonHeader,
-  IonIcon,
-  IonMenuButton,
-  IonPage,
-  IonRefresher,
-  IonRefresherContent,
-  IonTitle,
-  IonToolbar,
-  RefresherEventDetail,
-  useIonRouter,
+    IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonMenuButton, IonPage, IonRefresher,
+    IonRefresherContent, IonTitle, IonToolbar, RefresherEventDetail, useIonRouter
 } from '@ionic/react'
 
 interface ArticlePageLayoutProps {
@@ -85,11 +75,6 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen ref={contentRef}>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">{title}</IonTitle>
-          </IonToolbar>
-        </IonHeader>
         <IonRefresher
           slot="fixed"
           onIonRefresh={refreshFunction}

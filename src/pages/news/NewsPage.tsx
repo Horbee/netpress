@@ -7,7 +7,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Plugins } from '@capacitor/core'
 import {
-    IonIcon, IonLabel, IonSpinner, IonTabBar, IonTabButton, RefresherEventDetail, useIonRouter
+    IonHeader, IonIcon, IonLabel, IonSpinner, IonTabBar, IonTabButton, IonTitle, IonToolbar,
+    RefresherEventDetail, useIonRouter
 } from '@ionic/react'
 
 
@@ -22,7 +23,7 @@ import { useTabCount } from '../../hooks/useTabCount'
 const { App: IonicApp } = Plugins
 
 const NewsTab: FC = () => {
-  const virtuosoRef = useRef(null)
+  const virtuosoRef = useRef<any>(null)
   const [scrolledToTop, setScrolledToTop] = useState(true)
   const { t } = useTranslation()
   const { tabCount } = useTabCount()
@@ -67,10 +68,16 @@ const NewsTab: FC = () => {
 
   const Header = () => (
     <>
-      {isLoading && (
+      {isLoading ? (
         <div className="spinner-wrapper">
           <IonSpinner name="lines" color="primary" />
         </div>
+      ) : (
+        <IonHeader collapse="condense">
+          <IonToolbar>
+            <IonTitle size="large">{t(`category.${category.id}`)}</IonTitle>
+          </IonToolbar>
+        </IonHeader>
       )}
     </>
   )
