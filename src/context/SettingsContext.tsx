@@ -1,5 +1,6 @@
 import { createContext, FC, useContext, useEffect, useState } from 'react'
 
+
 import {
     CategoryOption, categoryOptions, DEFAULT_COUNTRY, DEFAULT_TABCOUNT
 } from '../config/constants'
@@ -28,6 +29,10 @@ export const SettingsContext = createContext<SettingsContextType>(
   undefined as any
 )
 
+const prefersDarkTheme = window.matchMedia(
+  '(prefers-color-scheme: dark)'
+).matches
+
 export const SettingsContextProvider: FC = ({ children }) => {
   const { get, save, storage } = useStorage()
   const [loading, setLoading] = useState(true)
@@ -53,7 +58,7 @@ export const SettingsContextProvider: FC = ({ children }) => {
         get('categoryOrder'),
       ])
     setSettings({
-      darkTheme: darkTheme ?? false,
+      darkTheme: darkTheme ?? prefersDarkTheme ?? false,
       country: country ?? DEFAULT_COUNTRY,
       rssAddressList: rssAddressList ?? [],
       tabCount: tabCount ?? DEFAULT_TABCOUNT,
