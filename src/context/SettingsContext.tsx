@@ -115,5 +115,10 @@ export const SettingsContextProvider: FC = ({ children }) => {
 }
 
 export const useSettings = () => {
-  return useContext(SettingsContext)
+  const ctx = useContext(SettingsContext)
+  if (ctx === undefined) {
+    throw new Error('useSettings must be used within a SettingsContextProvider')
+  }
+
+  return ctx
 }

@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next'
 import { IonHeader, IonSpinner, IonTitle, IonToolbar, RefresherEventDetail } from '@ionic/react'
 
 
-import { ArticleList } from '../../components/ArticleList'
+import { ArticleList } from '../../components/article-list/ArticleList'
 import { ArticlePageLayout } from '../../components/ArticlePageLayout'
 import { RSSFeedContext } from '../../context/RSSFeedContext'
 import { useRSSArticles } from '../../hooks/useRSSArticles'

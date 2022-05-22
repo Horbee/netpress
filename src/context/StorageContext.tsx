@@ -1,6 +1,7 @@
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver'
 import { createContext, FC, useContext, useEffect, useState } from 'react'
 
+
 import { Drivers, Storage } from '@ionic/storage'
 
 type StorageContextType = {
@@ -44,5 +45,10 @@ export const StorageContextProvider: FC = ({ children }) => {
 }
 
 export const useStorage = () => {
-  return useContext(StorageContext)
+  const ctx = useContext(StorageContext)
+  if (ctx === undefined) {
+    throw new Error('useStorage must be used within a StorageContextProvider')
+  }
+
+  return ctx
 }

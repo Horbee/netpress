@@ -20,7 +20,7 @@ interface AppPage {
   icon: string
 }
 
-export const Menu: React.FC = () => {
+export const Menu = () => {
   const location = useLocation()
   const { categories } = useTabCategory()
   const { t } = useTranslation()
@@ -72,6 +72,7 @@ export const Menu: React.FC = () => {
 
         <IonList id="menu-footer">
           <IonItem
+            style={{ cursor: 'pointer' }}
             lines="none"
             onClick={() =>
               window.open(

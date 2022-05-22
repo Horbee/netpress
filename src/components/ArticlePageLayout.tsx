@@ -24,6 +24,8 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
   const router = useIonRouter()
   const contentRef = useRef<HTMLIonContentElement>(null)
 
+  const onRSSPage = router.routeInfo.pathname === '/rss'
+
   useEffect(() => {
     const handleScrollToTop = (e: any) => {
       if (e.detail.selected) {
@@ -41,8 +43,6 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
     }
   }, [virtuosoRef])
 
-  const onRSSPage = () => router.routeInfo.pathname === '/rss'
-
   return (
     <IonPage>
       <IonHeader>
@@ -52,10 +52,10 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
           </IonButtons>
           <IonButtons slot="end">
             <IonButton
-              color={onRSSPage() ? 'primary' : ''}
+              color={onRSSPage ? 'primary' : ''}
               onClick={() => {
                 router.push('/rss')
-                if (onRSSPage()) {
+                if (onRSSPage) {
                   contentRef.current?.scrollToTop(500)
                   virtuosoRef.current?.scrollToIndex({
                     index: 0,

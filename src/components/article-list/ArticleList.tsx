@@ -1,12 +1,12 @@
-import './ArticleList.css'
+import './ArticleList.scss'
 
 
 import { forwardRef, useMemo } from 'react'
 import { Virtuoso, VirtuosoProps } from 'react-virtuoso'
 
 
-import { ArticleData } from '../models/article-data'
-import { ArticleItem } from './ArticleItem'
+import { ArticleData } from '../../models/article-data'
+import { ArticleItem } from '../article-item/ArticleItem'
 
 interface ArticleListProps {
   articles: ArticleData[]

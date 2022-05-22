@@ -12,7 +12,7 @@ import {
 } from '@ionic/react'
 
 
-import { ArticleList } from '../../components/ArticleList'
+import { ArticleList } from '../../components/article-list/ArticleList'
 import { ArticlePageLayout } from '../../components/ArticlePageLayout'
 import { categoryOptions } from '../../config/constants'
 import { useSettings } from '../../context/SettingsContext'

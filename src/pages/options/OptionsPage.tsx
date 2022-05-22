@@ -15,7 +15,7 @@ import { useDarkMode } from '../../hooks/useDarkMode'
 import { useTabCount } from '../../hooks/useTabCount'
 import { RSSFeedSection } from './rss-feed/RSSFeedSection'
 
-const OptionsPage: React.FC = () => {
+const OptionsPage = () => {
   const { tabCount, rangeProps } = useTabCount()
   const { darkTheme: active, toggle } = useDarkMode()
   const { country, setCountry } = useCountry()
