@@ -25,8 +25,8 @@ type SettingsState = {
   categories: CategoryOption[]
 }
 
-export const SettingsContext = createContext<SettingsContextType>(
-  undefined as any
+const SettingsContext = createContext<SettingsContextType | undefined>(
+  undefined
 )
 
 const prefersDarkTheme = window.matchMedia(
