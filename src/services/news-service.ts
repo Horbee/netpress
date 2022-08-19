@@ -1,12 +1,29 @@
 import axios from 'axios'
 import { QueryFunction } from 'react-query'
 
+
+import { getPlatforms } from '@ionic/react'
+
+
 import {
-    DEFAULT_CATEGORY, DEFAULT_COUNTRY, newsEndpoints, rssAddressesEndpoint, rssConverterEndpoints
+    APP_VERSION, DEFAULT_CATEGORY, DEFAULT_COUNTRY, logErrorEndpoints, newsEndpoints,
+    rssAddressesEndpoint, rssConverterEndpoints
 } from '../config/constants'
 import { ArticlesResponse } from '../models/headlines-response'
 import { RSSAddressesResponse } from '../models/rss-addresses-response'
 import { FeedResponse } from '../models/rss-feed-data'
+
+export const sendErrorLog = async (info: string, error: string) => {
+  const appInfo = `${APP_VERSION}: ${getPlatforms().join(', ')}`
+
+  const { data } = await axios.post(logErrorEndpoints, {
+    appVersion: appInfo,
+    info,
+    error,
+    time: new Date().toISOString(),
+  })
+  return data
+}
 
 export const fetchRSSAddresses = async (country: string) => {
   const { data } = await axios.get<RSSAddressesResponse>(

@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 
+
 import App from './App'
+import { ErrorBoundary } from './components/error-boundary/ErrorBoundary'
 import { ServiceProviders } from './context/ServiceProviders'
 import { SettingsContextProvider } from './context/SettingsContext'
 import { StorageContextProvider } from './context/StorageContext'
@@ -16,16 +18,18 @@ const queryClient = new QueryClient({
 
 ReactDOM.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <StorageContextProvider>
-        <SettingsContextProvider>
-          <ServiceProviders>
-            <App />
-          </ServiceProviders>
-        </SettingsContextProvider>
-      </StorageContextProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <StorageContextProvider>
+          <SettingsContextProvider>
+            <ServiceProviders>
+              <App />
+            </ServiceProviders>
+          </SettingsContextProvider>
+        </StorageContextProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </ErrorBoundary>
   </React.StrictMode>,
   document.getElementById('root')
 )

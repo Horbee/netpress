@@ -12,6 +12,7 @@ import {
 } from '@ionic/react'
 
 
+import { APP_VERSION } from '../../config/constants'
 import { useTabCategory } from '../../hooks/useTabCategory'
 
 interface AppPage {
@@ -83,7 +84,7 @@ export const Menu = () => {
             }
           >
             <IonIcon icon={logoGithub} slot="end"></IonIcon>
-            <IonLabel>v1.0.0</IonLabel>
+            <IonLabel>v{APP_VERSION}</IonLabel>
           </IonItem>
         </IonList>
       </IonContent>

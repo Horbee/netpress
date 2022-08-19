@@ -4,6 +4,9 @@ import { useTranslation } from 'react-i18next'
 
 import { useIonToast } from '@ionic/react'
 
+
+import { sendErrorLog } from '../services/news-service'
+
 export const useErrorMessage = (
   isError?: boolean,
   error?: any,
@@ -29,6 +32,7 @@ export const useErrorMessage = (
     if (isError) {
       console.error(error)
       showError(errorMessage)
+      sendErrorLog(errorMessage, JSON.stringify(error))
     }
   }, [isError, error, showError, errorMessage])
 
