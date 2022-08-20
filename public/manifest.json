@@ -1,6 +1,6 @@
 {
-  "short_name": "Ionic App",
-  "name": "My Ionic App",
+  "short_name": "NetPress",
+  "name": "NetPress",
   "icons": [
     {
       "src": "assets/icon/favicon.png",
@@ -11,6 +11,23 @@
       "src": "assets/icon/icon.png",
       "type": "image/png",
       "sizes": "512x512",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icon/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon/android-chrome-maskable-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/icon/android-chrome-maskable-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "maskable"
     }
   ],
