@@ -1,0 +1,21 @@
+.error-boundary {
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.error-boundary img {
+  width: 100%;
+  max-width: 550px;
+}
+
+.error-boundary ion-text {
+  margin-top: 2rem;
+}
+
+.error-boundary ion-text p {
+  margin: 0;
+}

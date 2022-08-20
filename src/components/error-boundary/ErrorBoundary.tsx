@@ -1,6 +1,13 @@
+import './ErrorBoundary.css'
+
+
 import { Component } from 'react'
 
 
+import { IonContent, IonPage, IonText } from '@ionic/react'
+
+
+import errorImage from '../../images/undraw_server_down.svg'
 import { sendErrorLog } from '../../services/news-service'
 
 interface State {
@@ -30,7 +37,19 @@ export class ErrorBoundary extends Component<{}, State> {
   render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>
+      return (
+        <IonPage>
+          <IonContent fullscreen className="ion-padding">
+            <div className="error-boundary">
+              <img src={errorImage} alt="Error" />
+              <IonText>
+                <h2>Something went wrong.</h2>
+                <p>Please restart the application.</p>
+              </IonText>
+            </div>
+          </IonContent>
+        </IonPage>
+      )
     }
 
     return this.props.children

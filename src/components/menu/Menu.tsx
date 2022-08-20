@@ -8,7 +8,7 @@ import { useLocation } from 'react-router-dom'
 
 
 import {
-    IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote
+    IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle
 } from '@ionic/react'
 
 
