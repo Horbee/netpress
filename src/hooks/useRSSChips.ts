@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 
-import { RSSFeedContext } from '../context/RSSFeedContext'
+
+import { RSSFeedContext } from '../context/RSSFeedProvider'
 import { RSSFeedAddress } from '../models/rss-feed-data'
 
 export const useRSSChips = () => {

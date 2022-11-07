@@ -6,9 +6,9 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 
 import App from './App'
 import { ErrorBoundary } from './components/error-boundary/ErrorBoundary'
-import { ServiceProviders } from './context/ServiceProviders'
-import { SettingsContextProvider } from './context/SettingsContext'
-import { StorageContextProvider } from './context/StorageContext'
+import { RSSFeedProvider } from './context/RSSFeedProvider'
+import { SettingsProvider } from './context/SettingsProvider'
+import { StorageProvider } from './context/StorageProvider'
 import reportWebVitals from './reportWebVitals'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
@@ -20,13 +20,13 @@ ReactDOM.render(
   <React.StrictMode>
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
-        <StorageContextProvider>
-          <SettingsContextProvider>
-            <ServiceProviders>
+        <StorageProvider>
+          <SettingsProvider>
+            <RSSFeedProvider>
               <App />
-            </ServiceProviders>
-          </SettingsContextProvider>
-        </StorageContextProvider>
+            </RSSFeedProvider>
+          </SettingsProvider>
+        </StorageProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ErrorBoundary>

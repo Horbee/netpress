@@ -1,9 +1,11 @@
 import { useContext, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
+
 import { InputChangeEventDetail } from '@ionic/react'
 
-import { RSSFeedContext } from '../../../context/RSSFeedContext'
+
+import { RSSFeedContext } from '../../../context/RSSFeedProvider'
 import { RSSFeedAddress } from '../../../models/rss-feed-data'
 
 export const useRSSAddressModal = () => {

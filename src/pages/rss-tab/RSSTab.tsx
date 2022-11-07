@@ -10,7 +10,7 @@ import { IonHeader, IonSpinner, IonTitle, IonToolbar, RefresherEventDetail } fro
 
 import { ArticleList } from '../../components/article-list/ArticleList'
 import { ArticlePageLayout } from '../../components/ArticlePageLayout'
-import { RSSFeedContext } from '../../context/RSSFeedContext'
+import { RSSFeedContext } from '../../context/RSSFeedProvider'
 import { useRSSArticles } from '../../hooks/useRSSArticles'
 import { useRSSChips } from '../../hooks/useRSSChips'
 import { ChipList } from './ChipList'

@@ -5,7 +5,7 @@ import { useIonPicker } from '@ionic/react'
 
 
 import { contryOptions } from '../config/constants'
-import { useStorage } from '../context/StorageContext'
+import { useStorage } from '../context/StorageProvider'
 import { useCountry } from './useCountry'
 
 export const useCountryPicker = () => {

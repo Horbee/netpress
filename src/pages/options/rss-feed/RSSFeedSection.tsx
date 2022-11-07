@@ -2,9 +2,11 @@ import { addOutline } from 'ionicons/icons'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
+
 import { IonButton, IonButtons, IonIcon, IonItemDivider, IonReorderGroup } from '@ionic/react'
 
-import { RSSFeedContext } from '../../../context/RSSFeedContext'
+
+import { RSSFeedContext } from '../../../context/RSSFeedProvider'
 import { RSSAddressModal } from './RSSAddressModal'
 import { RSSFeedItem } from './RSSFeedItem'
 import { useRSSAddressModal } from './useRSSAddressModal'

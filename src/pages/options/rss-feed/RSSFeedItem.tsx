@@ -3,12 +3,14 @@ import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
 
+
 import {
     IonButton, IonButtons, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding,
     IonLabel, IonReorder, useIonAlert
 } from '@ionic/react'
 
-import { RSSFeedContext } from '../../../context/RSSFeedContext'
+
+import { RSSFeedContext } from '../../../context/RSSFeedProvider'
 import { RSSFeedAddress } from '../../../models/rss-feed-data'
 
 interface RSSFeedItemProps {

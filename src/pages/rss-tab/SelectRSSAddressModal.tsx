@@ -8,7 +8,7 @@ import {
 } from '@ionic/react'
 
 
-import { RSSFeedContext } from '../../context/RSSFeedContext'
+import { RSSFeedContext } from '../../context/RSSFeedProvider'
 import { RSSAddressDocument, RSSAddressesResponse } from '../../models/rss-addresses-response'
 
 interface SelectRSSAddressModalProps {

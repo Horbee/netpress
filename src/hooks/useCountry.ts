@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 
 
-import { useSettings } from '../context/SettingsContext'
+import { useSettings } from '../context/SettingsProvider'
 
 export const useCountry = () => {
   const {

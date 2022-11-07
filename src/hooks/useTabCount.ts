@@ -1,7 +1,8 @@
 import { RangeChangeEventDetail } from '@ionic/core'
 
+
 import { categoryOptions } from '../config/constants'
-import { useSettings } from '../context/SettingsContext'
+import { useSettings } from '../context/SettingsProvider'
 
 const minTabCount = 1
 const maxTabCount = categoryOptions.length

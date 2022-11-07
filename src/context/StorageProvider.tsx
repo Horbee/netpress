@@ -1,5 +1,5 @@
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
 
 import { Drivers, Storage } from '@ionic/storage'
@@ -16,11 +16,7 @@ export const StorageContext = createContext<StorageContextType>(
   undefined as any
 )
 
-export const StorageContextProvider = ({
-  children,
-}: {
-  children: ReactNode
-}) => {
+export const StorageProvider = ({ children }: { children: ReactNode }) => {
   const [storage, setStorage] = useState<Storage>()
 
   useEffect(() => {
@@ -40,8 +36,11 @@ export const StorageContextProvider = ({
     initDb()
   }, [])
 
-  const save = async (key: string, value: any) => storage?.set(key, value)
-  const get = async (key: string) => storage?.get(key)
+  const save = useCallback(
+    async (key: string, value: any) => storage?.set(key, value),
+    [storage]
+  )
+  const get = useCallback(async (key: string) => storage?.get(key), [storage])
 
   return (
     <StorageContext.Provider value={{ save, get, storage }}>

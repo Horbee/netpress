@@ -6,7 +6,7 @@ import {
 } from '../config/constants'
 import { initI18n } from '../config/i18n'
 import { RSSFeedAddress } from '../models/rss-feed-data'
-import { useStorage } from './StorageContext'
+import { useStorage } from './StorageProvider'
 
 import type { ReactNode } from 'react'
 
@@ -35,11 +35,7 @@ const prefersDarkTheme = window.matchMedia(
   '(prefers-color-scheme: dark)'
 ).matches
 
-export const SettingsContextProvider = ({
-  children,
-}: {
-  children: ReactNode
-}) => {
+export const SettingsProvider = ({ children }: { children: ReactNode }) => {
   const { get, save, storage } = useStorage()
   const [loading, setLoading] = useState(true)
   const [settings, setSettings] = useState<SettingsState>({
@@ -51,28 +47,28 @@ export const SettingsContextProvider = ({
   })
 
   useEffect(() => {
-    if (storage) initSettings()
-  }, [storage])
+    const initSettings = async () => {
+      const [darkTheme, country, rssAddressList, tabCount, categories] =
+        await Promise.all([
+          get('darkTheme'),
+          get('country'),
+          get('RSSAddressList'),
+          get('tabCount'),
+          get('categoryOrder'),
+        ])
+      setSettings({
+        darkTheme: darkTheme ?? prefersDarkTheme ?? false,
+        country: country ?? DEFAULT_COUNTRY,
+        rssAddressList: rssAddressList ?? [],
+        tabCount: tabCount ?? DEFAULT_TABCOUNT,
+        categories: categories ?? categoryOptions,
+      })
+      initI18n(country)
+      setLoading(false)
+    }
 
-  const initSettings = async () => {
-    const [darkTheme, country, rssAddressList, tabCount, categories] =
-      await Promise.all([
-        get('darkTheme'),
-        get('country'),
-        get('RSSAddressList'),
-        get('tabCount'),
-        get('categoryOrder'),
-      ])
-    setSettings({
-      darkTheme: darkTheme ?? prefersDarkTheme ?? false,
-      country: country ?? DEFAULT_COUNTRY,
-      rssAddressList: rssAddressList ?? [],
-      tabCount: tabCount ?? DEFAULT_TABCOUNT,
-      categories: categories ?? categoryOptions,
-    })
-    initI18n(country)
-    setLoading(false)
-  }
+    if (storage) initSettings()
+  }, [storage, get])
 
   const saveDarkTheme = (darkTheme: boolean) => {
     setSettings((prev) => ({ ...prev, darkTheme }))

@@ -2,9 +2,11 @@ import { addOutline } from 'ionicons/icons'
 import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
+
 import { IonChip, IonIcon, IonLabel } from '@ionic/react'
 
-import { RSSFeedContext } from '../../context/RSSFeedContext'
+
+import { RSSFeedContext } from '../../context/RSSFeedProvider'
 import { useDarkMode } from '../../hooks/useDarkMode'
 import { RSSFeedAddress } from '../../models/rss-feed-data'
 

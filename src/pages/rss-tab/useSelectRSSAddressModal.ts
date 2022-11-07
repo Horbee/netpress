@@ -4,7 +4,7 @@ import { useQuery } from 'react-query'
 import { v4 as uuidv4 } from 'uuid'
 
 
-import { RSSFeedContext } from '../../context/RSSFeedContext'
+import { RSSFeedContext } from '../../context/RSSFeedProvider'
 import { useCountry } from '../../hooks/useCountry'
 import { useErrorMessage } from '../../hooks/useErrorMessage'
 import { RSSAddressDocument } from '../../models/rss-addresses-response'
