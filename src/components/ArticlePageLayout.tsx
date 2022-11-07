@@ -1,5 +1,5 @@
 import { logoRss, settingsOutline } from 'ionicons/icons'
-import { FC, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 
 import {
@@ -7,20 +7,23 @@ import {
     IonRefresherContent, IonTitle, IonToolbar, RefresherEventDetail, useIonRouter
 } from '@ionic/react'
 
+import type { ReactNode } from 'react'
+
 interface ArticlePageLayoutProps {
   title: string
   refreshFunction: (e: CustomEvent<RefresherEventDetail>) => Promise<void>
   virtuosoRef: any
   scrolledToTop: boolean
+  children: ReactNode
 }
 
-export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
+export const ArticlePageLayout = ({
   children,
   title,
   refreshFunction,
   virtuosoRef,
   scrolledToTop,
-}) => {
+}: ArticlePageLayoutProps) => {
   const router = useIonRouter()
   const contentRef = useRef<HTMLIonContentElement>(null)
 

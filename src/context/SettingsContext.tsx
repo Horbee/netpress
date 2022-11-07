@@ -1,4 +1,4 @@
-import { createContext, FC, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 
 import {
@@ -7,6 +7,8 @@ import {
 import { initI18n } from '../config/i18n'
 import { RSSFeedAddress } from '../models/rss-feed-data'
 import { useStorage } from './StorageContext'
+
+import type { ReactNode } from 'react'
 
 type SettingsContextType = {
   settings: SettingsState
@@ -33,7 +35,11 @@ const prefersDarkTheme = window.matchMedia(
   '(prefers-color-scheme: dark)'
 ).matches
 
-export const SettingsContextProvider: FC = ({ children }) => {
+export const SettingsContextProvider = ({
+  children,
+}: {
+  children: ReactNode
+}) => {
   const { get, save, storage } = useStorage()
   const [loading, setLoading] = useState(true)
   const [settings, setSettings] = useState<SettingsState>({

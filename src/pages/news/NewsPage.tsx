@@ -1,7 +1,7 @@
 import './NewsPage.css'
 
 
-import { FC, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 
@@ -22,7 +22,7 @@ import { useTabCount } from '../../hooks/useTabCount'
 
 const { App: IonicApp } = Plugins
 
-const NewsTab: FC = () => {
+const NewsPage = () => {
   const virtuosoRef = useRef<any>(null)
   const [scrolledToTop, setScrolledToTop] = useState(true)
   const { t } = useTranslation()
@@ -112,4 +112,4 @@ const NewsTab: FC = () => {
   )
 }
 
-export default NewsTab
+export default NewsPage

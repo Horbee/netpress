@@ -1,8 +1,10 @@
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver'
-import { createContext, FC, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 
 import { Drivers, Storage } from '@ionic/storage'
+
+import type { ReactNode } from 'react'
 
 type StorageContextType = {
   save: (key: string, value: any) => Promise<any>
@@ -14,7 +16,11 @@ export const StorageContext = createContext<StorageContextType>(
   undefined as any
 )
 
-export const StorageContextProvider: FC = ({ children }) => {
+export const StorageContextProvider = ({
+  children,
+}: {
+  children: ReactNode
+}) => {
   const [storage, setStorage] = useState<Storage>()
 
   useEffect(() => {

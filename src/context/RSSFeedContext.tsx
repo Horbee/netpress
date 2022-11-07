@@ -1,7 +1,10 @@
-import { createContext, FC } from 'react'
+import { createContext } from 'react'
+
 
 import { RSSFeedAddress } from '../models/rss-feed-data'
 import { useSettings } from './SettingsContext'
+
+import type { ReactNode } from 'react'
 
 type RSSFeedContextType = {
   rssAddressList: RSSFeedAddress[]
@@ -16,7 +19,11 @@ export const RSSFeedContext = createContext<RSSFeedContextType>(
   undefined as any
 )
 
-export const RSSFeedContextProvider: FC = ({ children }) => {
+export const RSSFeedContextProvider = ({
+  children,
+}: {
+  children: ReactNode
+}) => {
   const {
     settings: { rssAddressList },
     saveRSSAddressList,

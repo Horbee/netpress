@@ -25,13 +25,13 @@ import { IonReactRouter } from '@ionic/react-router'
 import { Menu } from './components/menu/Menu'
 import { useCountryPicker } from './hooks/useCountryPicker'
 import { useTabCategory } from './hooks/useTabCategory'
-import NewsTab from './pages/news/NewsPage'
+import NewsPage from './pages/news/NewsPage'
 import OptionsPage from './pages/options/OptionsPage'
-import RSSTab from './pages/rss-tab/RSSTab'
+import RSSPage from './pages/rss-tab/RSSTab'
 
 setupIonicReact()
 
-const App: React.FC = () => {
+const App = () => {
   const { categories } = useTabCategory()
   useCountryPicker()
 
@@ -41,8 +41,8 @@ const App: React.FC = () => {
         <IonSplitPane contentId="main">
           <Menu />
           <IonRouterOutlet id="main">
-            <Route exact path="/news/:category" component={NewsTab} />
-            <Route exact path="/rss" component={RSSTab} />
+            <Route exact path="/news/:category" component={NewsPage} />
+            <Route exact path="/rss" component={RSSPage} />
             <Route exact path="/options" component={OptionsPage} />
             <Route exact path="/">
               <Redirect to={`/news/${categories[0].id}`} />

@@ -18,7 +18,7 @@ import { EmptyList } from './EmptyList'
 import { SelectRSSAddressModal } from './SelectRSSAddressModal'
 import { useSelectRSSAddressModal } from './useSelectRSSAddressModal'
 
-const RSSTab: React.FC = () => {
+const RSSPage = () => {
   const virtuosoRef = useRef(null)
   const { rssAddressList } = useContext(RSSFeedContext)
   const { selectedFeed, setSelectedFeed, isSelected } = useRSSChips()
@@ -86,4 +86,4 @@ const RSSTab: React.FC = () => {
   )
 }
 
-export default RSSTab
+export default RSSPage
