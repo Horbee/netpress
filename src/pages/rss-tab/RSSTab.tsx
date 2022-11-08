@@ -1,7 +1,7 @@
 import './RSSTab.css'
 
 
-import { useContext, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 
@@ -10,7 +10,7 @@ import { IonHeader, IonSpinner, IonTitle, IonToolbar, RefresherEventDetail } fro
 
 import { ArticleList } from '../../components/article-list/ArticleList'
 import { ArticlePageLayout } from '../../components/ArticlePageLayout'
-import { RSSFeedContext } from '../../context/RSSFeedProvider'
+import { useRSSFeed } from '../../context/RSSFeedProvider'
 import { useRSSArticles } from '../../hooks/useRSSArticles'
 import { useRSSChips } from '../../hooks/useRSSChips'
 import { ChipList } from './ChipList'
@@ -20,7 +20,7 @@ import { useSelectRSSAddressModal } from './useSelectRSSAddressModal'
 
 const RSSPage = () => {
   const virtuosoRef = useRef(null)
-  const { rssAddressList } = useContext(RSSFeedContext)
+  const { rssAddressList } = useRSSFeed()
   const { selectedFeed, setSelectedFeed, isSelected } = useRSSChips()
   const [scrolledToTop, setScrolledToTop] = useState(true)
   const { t } = useTranslation()

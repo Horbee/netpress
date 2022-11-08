@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
-import { RSSFeedContext } from '../context/RSSFeedProvider'
+import { useRSSFeed } from '../context/RSSFeedProvider'
 import { RSSFeedAddress } from '../models/rss-feed-data'
 
 export const useRSSChips = () => {
-  const { rssAddressList } = useContext(RSSFeedContext)
+  const { rssAddressList } = useRSSFeed()
 
   const [selectedFeed, setSelectedFeed] = useState<RSSFeedAddress | undefined>()
 

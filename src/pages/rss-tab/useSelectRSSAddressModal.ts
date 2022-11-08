@@ -1,15 +1,15 @@
-import { useCallback, useContext, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { v4 as uuidv4 } from 'uuid'
 
 
-import { RSSFeedContext } from '../../context/RSSFeedProvider'
+import { useRSSFeed } from '../../context/RSSFeedProvider'
 import { useCountry } from '../../hooks/useCountry'
 import { useErrorMessage } from '../../hooks/useErrorMessage'
-import { RSSAddressDocument } from '../../models/rss-addresses-response'
 import { fetchRSSAddresses } from '../../services/news-service'
 
+import type { RSSAddressDocument } from '../../models/rss-addresses-response'
 export const useSelectRSSAddressModal = () => {
   const { t } = useTranslation()
 
@@ -17,7 +17,7 @@ export const useSelectRSSAddressModal = () => {
   const { country } = useCountry()
   const [selected, setSelected] = useState<RSSAddressDocument[]>([])
   const { addMultipleRSSAddresses, rssAddressList: localRssAddressList } =
-    useContext(RSSFeedContext)
+    useRSSFeed()
 
   const {
     isLoading,

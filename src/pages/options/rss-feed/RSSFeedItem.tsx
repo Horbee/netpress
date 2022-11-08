@@ -1,5 +1,4 @@
 import { buildOutline, trashOutline } from 'ionicons/icons'
-import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -10,8 +9,9 @@ import {
 } from '@ionic/react'
 
 
-import { RSSFeedContext } from '../../../context/RSSFeedProvider'
-import { RSSFeedAddress } from '../../../models/rss-feed-data'
+import { useRSSFeed } from '../../../context/RSSFeedProvider'
+
+import type { RSSFeedAddress } from '../../../models/rss-feed-data'
 
 interface RSSFeedItemProps {
   rss: RSSFeedAddress
@@ -20,7 +20,7 @@ interface RSSFeedItemProps {
 
 export const RSSFeedItem = ({ rss, onItemSelect }: RSSFeedItemProps) => {
   const [confirm] = useIonAlert()
-  const { deleteRSSAddress, addNewRSSAddress } = useContext(RSSFeedContext)
+  const { deleteRSSAddress, addNewRSSAddress } = useRSSFeed()
   const { t } = useTranslation()
 
   const deleteRSSAddressInternal = () => {

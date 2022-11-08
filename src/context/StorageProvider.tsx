@@ -6,15 +6,14 @@ import { Drivers, Storage } from '@ionic/storage'
 
 import type { ReactNode } from 'react'
 
-type StorageContextType = {
-  save: (key: string, value: any) => Promise<any>
-  get: (key: string) => Promise<any>
-  storage?: Storage
-}
-
-export const StorageContext = createContext<StorageContextType>(
-  undefined as any
-)
+export const StorageContext = createContext<
+  | {
+      save: (key: string, value: any) => Promise<any>
+      get: (key: string) => Promise<any>
+      storage?: Storage
+    }
+  | undefined
+>(undefined)
 
 export const StorageProvider = ({ children }: { children: ReactNode }) => {
   const [storage, setStorage] = useState<Storage>()

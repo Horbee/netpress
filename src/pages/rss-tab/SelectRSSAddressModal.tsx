@@ -1,4 +1,4 @@
-import { useContext, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 
@@ -8,7 +8,6 @@ import {
 } from '@ionic/react'
 
 
-import { RSSFeedContext } from '../../context/RSSFeedProvider'
 import { RSSAddressDocument, RSSAddressesResponse } from '../../models/rss-addresses-response'
 
 interface SelectRSSAddressModalProps {
@@ -33,11 +32,10 @@ export const SelectRSSAddressModal = ({
   toggleSelection,
 }: SelectRSSAddressModalProps) => {
   const { t } = useTranslation()
-  const { rssAddressList: localRssAddressList } = useContext(RSSFeedContext)
 
   const sortedList = useMemo(() => {
     return rssAddressList?.documents?.sort((a, b) => (isInList(a) ? 1 : -1))
-  }, [rssAddressList, localRssAddressList])
+  }, [rssAddressList, isInList])
 
   return (
     <IonModal isOpen={isOpen}>

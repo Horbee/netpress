@@ -1,18 +1,17 @@
 import { addOutline } from 'ionicons/icons'
-import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
 
 import { IonButton, IonButtons, IonIcon, IonItemDivider, IonReorderGroup } from '@ionic/react'
 
 
-import { RSSFeedContext } from '../../../context/RSSFeedProvider'
+import { useRSSFeed } from '../../../context/RSSFeedProvider'
 import { RSSAddressModal } from './RSSAddressModal'
 import { RSSFeedItem } from './RSSFeedItem'
 import { useRSSAddressModal } from './useRSSAddressModal'
 
 export const RSSFeedSection = () => {
-  const { rssAddressList, saveRSSAddressList } = useContext(RSSFeedContext)
+  const { rssAddressList, saveRSSAddressList } = useRSSFeed()
   const { openRSSModal, modalProps } = useRSSAddressModal()
   const { t } = useTranslation()
 

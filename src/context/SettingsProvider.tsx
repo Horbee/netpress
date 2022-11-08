@@ -10,15 +10,6 @@ import { useStorage } from './StorageProvider'
 
 import type { ReactNode } from 'react'
 
-type SettingsContextType = {
-  settings: SettingsState
-  saveDarkTheme: (darkTheme: boolean) => void
-  saveCountry: (country: string) => void
-  saveRSSAddressList: (rssAddressList: RSSFeedAddress[]) => void
-  saveTabCount: (tabCount: number) => void
-  saveCategories: (categories: CategoryOption[]) => void
-}
-
 type SettingsState = {
   darkTheme: boolean
   country: string
@@ -27,9 +18,17 @@ type SettingsState = {
   categories: CategoryOption[]
 }
 
-const SettingsContext = createContext<SettingsContextType | undefined>(
-  undefined
-)
+const SettingsContext = createContext<
+  | {
+      settings: SettingsState
+      saveDarkTheme: (darkTheme: boolean) => void
+      saveCountry: (country: string) => void
+      saveRSSAddressList: (rssAddressList: RSSFeedAddress[]) => void
+      saveTabCount: (tabCount: number) => void
+      saveCategories: (categories: CategoryOption[]) => void
+    }
+  | undefined
+>(undefined)
 
 const prefersDarkTheme = window.matchMedia(
   '(prefers-color-scheme: dark)'

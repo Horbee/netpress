@@ -1,4 +1,4 @@
-import { createContext } from 'react'
+import { createContext, useContext } from 'react'
 
 
 import { RSSFeedAddress } from '../models/rss-feed-data'
@@ -6,18 +6,17 @@ import { useSettings } from './SettingsProvider'
 
 import type { ReactNode } from 'react'
 
-type RSSFeedContextType = {
-  rssAddressList: RSSFeedAddress[]
-  addNewRSSAddress: (rssAddress: RSSFeedAddress) => void
-  editRSSAddress: (rssAddress: RSSFeedAddress) => void
-  deleteRSSAddress: (rssAddressId: string) => void
-  saveRSSAddressList: (rssAddressList: RSSFeedAddress[]) => void
-  addMultipleRSSAddresses: (rssAddresses: RSSFeedAddress[]) => void
-}
-
-export const RSSFeedContext = createContext<RSSFeedContextType>(
-  undefined as any
-)
+const RSSFeedContext = createContext<
+  | {
+      rssAddressList: RSSFeedAddress[]
+      addNewRSSAddress: (rssAddress: RSSFeedAddress) => void
+      editRSSAddress: (rssAddress: RSSFeedAddress) => void
+      deleteRSSAddress: (rssAddressId: string) => void
+      saveRSSAddressList: (rssAddressList: RSSFeedAddress[]) => void
+      addMultipleRSSAddresses: (rssAddresses: RSSFeedAddress[]) => void
+    }
+  | undefined
+>(undefined)
 
 export const RSSFeedProvider = ({ children }: { children: ReactNode }) => {
   const {
@@ -62,4 +61,13 @@ export const RSSFeedProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </RSSFeedContext.Provider>
   )
+}
+
+export const useRSSFeed = () => {
+  const ctx = useContext(RSSFeedContext)
+  if (ctx === undefined) {
+    throw new Error('useRSSFeed must be used within a RSSFeedProvider')
+  }
+
+  return ctx
 }
