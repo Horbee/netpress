@@ -24,7 +24,11 @@ ion-menu.md ion-note {
 }
 
 ion-menu.md ion-list#menu-list {
-  border-bottom: 1px solid var(--ion-color-step-150, #d7d8da);
+  border-bottom: 1px solid #d7d8da;
+}
+
+.ion-palette-dark ion-menu.md ion-list#menu-list {
+  border-bottom: 1px solid #363636;
 }
 
 ion-menu.md ion-list#menu-list ion-list-header {
