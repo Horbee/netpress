@@ -1,19 +1,19 @@
-# NetPress - ionic-react-news
+# NetPress
 
-This application was created with ionic using react and capacitor for demo purposes only.
+NetPress is a news aggregation application built with the Ionic framework, using React and Capacitor for a modern cross-platform experience.
 
-The application displays the news separated by countries via NewsAPI. You can also assemble and collect your own RSS-Feeds.
+## Key Features
 
-If you want to try the application, you can use a developer key by registering an account with NewsAPI. If you want to use your application in production, you must upgrade your NewsAPI to a paid plan.
+- **RSS Feed Integration**: Easily collect and manage your favorite news feeds via RSS.
+- **Serverless Architecture**: The app uses serverless functions for enhanced scalability and flexibility.
 
-The Application uses serverless functions for the following tasks:
+### Serverless Functions
 
-- fetch the news (this function hides the API key and acts as a Proxy)
-- convert the RSS-Feeds from XML to JSON
-- log errors to a firestore database
-- weekly job which collects the error logs of the last week and sends a summary Email (optional)
+- **RSS to JSON Conversion**: Converts RSS feeds from XML format to JSON for efficient data handling.
+- **Error Logging**: Captures and logs application errors to a Firestore database for future reference.
+- **Weekly Error Summary** (optional): A scheduled task compiles error logs from the previous week and sends a summary email.
 
-These functions are currently deployed to Netlify.
+These functions are currently deployed on **Netlify**.
 
 ## Resources
 

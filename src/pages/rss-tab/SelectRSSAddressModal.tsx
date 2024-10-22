@@ -1,12 +1,8 @@
-import { useContext, useMemo } from 'react'
+import { MutableRefObject, useContext, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
-
-import {
-    IonButton, IonButtons, IonCheckbox, IonContent, IonHeader, IonItem, IonLabel, IonList, IonModal,
-    IonSpinner, IonTitle, IonToolbar
-} from '@ionic/react'
-
+import { IonButton, IonButtons, IonCheckbox, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonModal, IonSpinner, IonTitle, IonToolbar } from '@ionic/react'
+import { closeOutline, addOutline } from 'ionicons/icons'
 
 import { RSSFeedContext } from '../../context/RSSFeedContext'
 import { RSSAddressDocument, RSSAddressesResponse } from '../../models/rss-addresses-response'
@@ -20,6 +16,7 @@ interface SelectRSSAddressModalProps {
   isInList: (item: RSSAddressDocument) => boolean
   isSelected: (item: RSSAddressDocument) => boolean
   toggleSelection: (item: RSSAddressDocument) => void
+  pageRef: MutableRefObject<HTMLElement | undefined>
 }
 
 export const SelectRSSAddressModal = ({
@@ -31,6 +28,7 @@ export const SelectRSSAddressModal = ({
   isInList,
   isSelected,
   toggleSelection,
+  pageRef,
 }: SelectRSSAddressModalProps) => {
   const { t } = useTranslation()
   const { rssAddressList: localRssAddressList } = useContext(RSSFeedContext)
@@ -40,12 +38,19 @@ export const SelectRSSAddressModal = ({
   }, [rssAddressList, localRssAddressList])
 
   return (
-    <IonModal isOpen={isOpen}>
-      <IonHeader translucent>
+    <IonModal isOpen={isOpen} presentingElement={pageRef.current} onIonModalDidDismiss={onClose}>
+      <IonHeader>
         <IonToolbar>
-          <IonTitle>{t('rssTab.title')}</IonTitle>
+          <IonButtons slot="start">
+            <IonButton onClick={onClose}>
+              <IonIcon slot="icon-only" icon={closeOutline}></IonIcon>
+            </IonButton>
+          </IonButtons>
+          <IonTitle style={{ textAlign: 'center' }}>{t('rssTab.title')}</IonTitle>
           <IonButtons slot="end">
-            <IonButton onClick={onClose}>{t('rssTab.close')}</IonButton>
+            <IonButton onClick={selectRSSAddress}>
+              <IonIcon slot="icon-only" icon={addOutline}></IonIcon>
+            </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
@@ -53,13 +58,8 @@ export const SelectRSSAddressModal = ({
         {sortedList ? (
           <IonList>
             {sortedList.map((address) => (
-              <IonItem key={address.name} disabled={isInList(address)}>
-                <IonCheckbox
-                  slot="start"
-                  color="primary"
-                  checked={isSelected(address) || isInList(address)}
-                  onIonChange={() => toggleSelection(address)}
-                />
+              <IonItem key={address.name} onClick={() => toggleSelection(address)}>
+                <IonCheckbox slot="start" color="primary" checked={isSelected(address) || isInList(address)} onIonChange={() => toggleSelection(address)} />
                 <IonLabel>
                   <h2>{address.fields.name.stringValue}</h2>
                   <p>{address.fields.url.stringValue}</p>
@@ -76,10 +76,6 @@ export const SelectRSSAddressModal = ({
             )}
           </>
         )}
-
-        <div className="ion-padding">
-          <IonButton onClick={selectRSSAddress}>{t('rssTab.add')}</IonButton>
-        </div>
       </IonContent>
     </IonModal>
   )

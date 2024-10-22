@@ -1,20 +1,17 @@
 import './ErrorBoundary.css'
 
-
-import { Component } from 'react'
-
-
 import { IonContent, IonPage, IonText } from '@ionic/react'
-
 
 import errorImage from '../../images/undraw_server_down.svg'
 import { sendErrorLog } from '../../services/news-service'
+
+import { Component, PropsWithChildren } from 'react'
 
 interface State {
   hasError: boolean
 }
 
-export class ErrorBoundary extends Component<{}, State> {
+export class ErrorBoundary extends Component<PropsWithChildren<{}>, State> {
   constructor(props: any) {
     super(props)
     this.state = { hasError: false }
@@ -28,10 +25,7 @@ export class ErrorBoundary extends Component<{}, State> {
   componentDidCatch(error: any, errorInfo: any) {
     // You can also log the error to an error reporting service
 
-    sendErrorLog(
-      JSON.stringify(errorInfo),
-      JSON.stringify(error, Object.getOwnPropertyNames(error))
-    )
+    sendErrorLog(JSON.stringify(errorInfo), JSON.stringify(error, Object.getOwnPropertyNames(error)))
   }
 
   render() {

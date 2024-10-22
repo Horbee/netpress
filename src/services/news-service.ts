@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { QueryFunction } from 'react-query'
 
 import { getPlatforms } from '@ionic/react'
 
@@ -7,6 +6,7 @@ import { APP_VERSION, DEFAULT_CATEGORY, DEFAULT_COUNTRY, logErrorEndpoints, news
 import { ArticlesResponse } from '../models/headlines-response'
 import { RSSAddressesResponse } from '../models/rss-addresses-response'
 import { FeedResponse } from '../models/rss-feed-data'
+import { QueryFunction } from '@tanstack/react-query'
 
 export const sendErrorLog = async (info: string, error: string) => {
   const appInfo = `${APP_VERSION}: ${getPlatforms().join(', ')}`
@@ -39,7 +39,7 @@ export const fetchRSSFeed = async (url: string, startIndex: number, endIndex: nu
   return data
 }
 
-export const infiniteFetchArticles: QueryFunction<ArticlesResponse, string[]> = async ({ queryKey, pageParam }) => {
+export const infiniteFetchArticles: QueryFunction<ArticlesResponse, string[], { startIndex: number; endIndex: number } | undefined> = async ({ queryKey, pageParam }) => {
   const category = queryKey[1]
   const country = queryKey[2]
   const startIndex = pageParam?.startIndex ?? 0
@@ -48,7 +48,7 @@ export const infiniteFetchArticles: QueryFunction<ArticlesResponse, string[]> = 
   return fetchArticles(category, country, startIndex, endIndex)
 }
 
-export const infiniteFetchRSSFeed: QueryFunction<FeedResponse, string[]> = async ({ queryKey, pageParam }) => {
+export const infiniteFetchRSSFeed: QueryFunction<FeedResponse, string[], { startIndex: number; endIndex: number } | undefined> = async ({ queryKey, pageParam }) => {
   const url = queryKey[1]
   const startIndex = pageParam?.startIndex ?? 0
   const endIndex = pageParam?.endIndex ?? 20

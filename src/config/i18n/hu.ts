@@ -6,8 +6,11 @@ export const huTranslation = {
   },
   rssTab: {
     title: 'RSS Hírcsatornák',
-    emptyList: 'Nincs RSS hírcsatorna hozzáadva',
-    add: 'Hozzáadás',
+    emptyList: {
+      title: 'RSS hírcsatorna hozzáadása',
+      content: 'A kezdéshez kattints a „Hozzáadás” gombra, és válassz ki néhányat a listából. Ha saját RSS-feedeket szeretnél hozzáadni, azt a beállítások oldalon teheted meg.',
+    },
+    add: 'Hozzáad',
     close: 'Bezár',
   },
   options: {

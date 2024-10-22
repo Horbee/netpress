@@ -1,16 +1,11 @@
 import './Menu.css'
 
-
 import { logoGithub, logoRss, newspaperOutline, settingsOutline } from 'ionicons/icons'
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 
-
-import {
-    IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle
-} from '@ionic/react'
-
+import { IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle } from '@ionic/react'
 
 import { APP_VERSION } from '../../config/constants'
 import { useTabCategory } from '../../hooks/useTabCategory'
@@ -54,15 +49,7 @@ export const Menu = () => {
           {appPages.map((appPage, index) => {
             return (
               <IonMenuToggle key={index} autoHide={false}>
-                <IonItem
-                  className={
-                    location.pathname === appPage.url ? 'selected' : ''
-                  }
-                  routerLink={appPage.url}
-                  routerDirection="forward"
-                  lines="none"
-                  detail={false}
-                >
+                <IonItem className={location.pathname === appPage.url ? 'selected' : ''} routerLink={appPage.url} routerDirection="forward" lines="none" detail={false}>
                   <IonIcon slot="start" icon={appPage.icon} />
                   <IonLabel>{appPage.title}</IonLabel>
                 </IonItem>
@@ -72,17 +59,7 @@ export const Menu = () => {
         </IonList>
 
         <IonList id="menu-footer">
-          <IonItem
-            style={{ cursor: 'pointer' }}
-            lines="none"
-            onClick={() =>
-              window.open(
-                'https://github.com/Horbee/ionic-react-news',
-                '_system',
-                'location=yes'
-              )
-            }
-          >
+          <IonItem style={{ cursor: 'pointer' }} lines="none" onClick={() => window.open('https://github.com/Horbee/netpress', '_system', 'location=yes')}>
             <IonIcon icon={logoGithub} slot="end"></IonIcon>
             <IonLabel>v{APP_VERSION}</IonLabel>
           </IonItem>

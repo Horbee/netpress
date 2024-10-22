@@ -6,7 +6,10 @@ export const enTranslation = {
   },
   rssTab: {
     title: 'RSS Feed',
-    emptyList: 'Your RSS Feed list is empty',
+    emptyList: {
+      title: 'Add RSS Feed',
+      content: 'To get started click on the "Add" button and pick a few from the list. If you want to add your own custom RSS Feeds, you can do that on the options page.',
+    },
     add: 'Add',
     close: 'Close',
   },

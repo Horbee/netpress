@@ -1,0 +1,9 @@
+ion-modal.country-picker {
+  --height: auto;
+
+  align-items: end;
+}
+
+ion-picker.country-picker {
+  margin-bottom: var(--ion-safe-area-bottom);
+}

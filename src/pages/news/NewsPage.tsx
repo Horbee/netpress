@@ -1,16 +1,10 @@
 import './NewsPage.css'
 
-
 import { FC, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-
 import { Plugins } from '@capacitor/core'
-import {
-    IonHeader, IonIcon, IonLabel, IonSpinner, IonTabBar, IonTabButton, IonTitle, IonToolbar,
-    RefresherEventDetail, useIonRouter
-} from '@ionic/react'
-
+import { IonHeader, IonIcon, IonLabel, IonSpinner, IonTabBar, IonTabButton, IonTitle, IonToolbar, RefresherEventDetail, useIonRouter } from '@ionic/react'
 
 import { ArticleList } from '../../components/article-list/ArticleList'
 import { ArticlePageLayout } from '../../components/ArticlePageLayout'
@@ -38,10 +32,7 @@ const NewsTab: FC = () => {
 
   const { country } = useCountry()
 
-  const { refetch, isLoading, articles, loadMore } = useArticles(
-    categoryId,
-    country
-  )
+  const { refetch, isLoading, articles, loadMore } = useArticles(categoryId, country)
 
   useEffect(() => {
     const exitAppFunction = (ev: any) => {
@@ -83,31 +74,30 @@ const NewsTab: FC = () => {
   )
 
   return (
-    <ArticlePageLayout
-      title={t(`category.${category.id}`)}
-      refreshFunction={refreshArticles}
-      virtuosoRef={virtuosoRef}
-      scrolledToTop={scrolledToTop}
-    >
-      <ArticleList
-        ref={virtuosoRef}
-        articles={articles}
-        loadMore={loadMore}
-        setScrolledToTop={setScrolledToTop}
-        virtuosoProps={{
-          components: { Header },
-        }}
-        tabbarHeight={60}
-      />
+    <ArticlePageLayout title={t(`category.${category.id}`)} refreshFunction={refreshArticles} virtuosoRef={virtuosoRef} scrolledToTop={scrolledToTop}>
+      {(props) => (
+        <>
+          <ArticleList
+            ref={virtuosoRef}
+            articles={articles}
+            loadMore={loadMore}
+            setScrolledToTop={setScrolledToTop}
+            virtuosoProps={{
+              components: { Header },
+            }}
+            tabbarHeight={60}
+          />
 
-      <IonTabBar className="news-tabbar">
-        {categories.slice(0, tabCount).map(({ id, icon }) => (
-          <IonTabButton key={id} tab={`/news/${id}`} href={`/news/${id}`}>
-            <IonIcon icon={icon} />
-            <IonLabel>{t(`category.${id}`)}</IonLabel>
-          </IonTabButton>
-        ))}
-      </IonTabBar>
+          <IonTabBar className="news-tabbar">
+            {categories.slice(0, tabCount).map(({ id, icon }) => (
+              <IonTabButton key={id} tab={`/news/${id}`} href={`/news/${id}`}>
+                <IonIcon icon={icon} />
+                <IonLabel>{t(`category.${id}`)}</IonLabel>
+              </IonTabButton>
+            ))}
+          </IonTabBar>
+        </>
+      )}
     </ArticlePageLayout>
   )
 }

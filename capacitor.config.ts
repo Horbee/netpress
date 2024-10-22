@@ -1,10 +1,9 @@
-import { CapacitorConfig } from '@capacitor/cli'
+import type { CapacitorConfig } from '@capacitor/cli'
 
 const config: CapacitorConfig = {
   appId: 'com.horbee.netpress',
   appName: 'NetPress',
-  webDir: 'build',
-  bundledWebRuntime: false,
+  webDir: 'dist',
 }
 
 export default config

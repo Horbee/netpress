@@ -1,12 +1,10 @@
-import { createContext, FC, useContext, useEffect, useState } from 'react'
+import { createContext, type FC, type PropsWithChildren, useContext, useEffect, useState } from 'react'
 
-
-import {
-    CategoryOption, categoryOptions, DEFAULT_COUNTRY, DEFAULT_TABCOUNT
-} from '../config/constants'
+import { CategoryOption, categoryOptions, DEFAULT_COUNTRY, DEFAULT_TABCOUNT } from '../config/constants'
 import { initI18n } from '../config/i18n'
-import { RSSFeedAddress } from '../models/rss-feed-data'
 import { useStorage } from './StorageContext'
+
+import type { RSSFeedAddress } from '../models/rss-feed-data'
 
 type SettingsContextType = {
   settings: SettingsState
@@ -25,15 +23,11 @@ type SettingsState = {
   categories: CategoryOption[]
 }
 
-const SettingsContext = createContext<SettingsContextType | undefined>(
-  undefined
-)
+const SettingsContext = createContext<SettingsContextType | undefined>(undefined)
 
-const prefersDarkTheme = window.matchMedia(
-  '(prefers-color-scheme: dark)'
-).matches
+const prefersDarkTheme = window.matchMedia('(prefers-color-scheme: dark)').matches
 
-export const SettingsContextProvider: FC = ({ children }) => {
+export const SettingsContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const { get, save, storage } = useStorage()
   const [loading, setLoading] = useState(true)
   const [settings, setSettings] = useState<SettingsState>({
@@ -49,14 +43,13 @@ export const SettingsContextProvider: FC = ({ children }) => {
   }, [storage])
 
   const initSettings = async () => {
-    const [darkTheme, country, rssAddressList, tabCount, categories] =
-      await Promise.all([
-        get('darkTheme'),
-        get('country'),
-        get('RSSAddressList'),
-        get('tabCount'),
-        get('categoryOrder'),
-      ])
+    const [darkTheme, country, rssAddressList, tabCount, categories] = await Promise.all([
+      get('darkTheme'),
+      get('country'),
+      get('RSSAddressList'),
+      get('tabCount'),
+      get('categoryOrder'),
+    ])
     setSettings({
       darkTheme: darkTheme ?? prefersDarkTheme ?? false,
       country: country ?? DEFAULT_COUNTRY,
@@ -94,8 +87,7 @@ export const SettingsContextProvider: FC = ({ children }) => {
   }
 
   useEffect(() => {
-    if (settings.darkTheme) document.body.classList.add('dark')
-    else document.body.classList.remove('dark')
+    document.documentElement.classList.toggle('ion-palette-dark', settings.darkTheme)
   }, [settings.darkTheme])
 
   return (

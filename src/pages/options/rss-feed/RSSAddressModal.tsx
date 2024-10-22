@@ -1,9 +1,7 @@
+import { InputChangeEventDetail, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonTitle, IonToolbar } from '@ionic/react'
+import { closeOutline } from 'ionicons/icons'
+import { MutableRefObject } from 'react'
 import { useTranslation } from 'react-i18next'
-
-import {
-    InputChangeEventDetail, IonButton, IonButtons, IonContent, IonHeader, IonInput, IonItem,
-    IonLabel, IonModal, IonTitle, IonToolbar
-} from '@ionic/react'
 
 interface RSSAddressModalProps {
   isOpen: boolean
@@ -17,46 +15,39 @@ interface RSSAddressModalProps {
     value: string
     onIonChange: (e: CustomEvent<InputChangeEventDetail>) => void
   }
+  pageRef: MutableRefObject<HTMLElement | undefined>
 }
 
-export const RSSAddressModal = ({
-  isOpen,
-  onClose,
-  saveRSSAddress,
-  nameInputProps,
-  urlInputProps,
-}: RSSAddressModalProps) => {
+export const RSSAddressModal = ({ isOpen, onClose, saveRSSAddress, nameInputProps, urlInputProps, pageRef }: RSSAddressModalProps) => {
   const { t } = useTranslation()
 
+  const isInvalid = !nameInputProps.value.trim() || !urlInputProps.value.trim()
+
   return (
-    <IonModal isOpen={isOpen}>
+    <IonModal isOpen={isOpen} onIonModalDidDismiss={onClose} presentingElement={pageRef.current}>
       <IonHeader translucent>
         <IonToolbar>
           <IonTitle>{t('options.rssAddModal.header')}</IonTitle>
           <IonButtons slot="end">
             <IonButton onClick={onClose}>
-              {t('options.rssAddModal.close')}
+              <IonIcon icon={closeOutline}></IonIcon>
             </IonButton>
           </IonButtons>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <div className="ion-padding">
-          <IonItem>
-            <IonLabel position="floating">
-              {t('options.rssAddModal.nameField')}
-            </IonLabel>
-            <IonInput {...nameInputProps}></IonInput>
-          </IonItem>
+          <IonList>
+            <IonItem>
+              <IonInput label={t('options.rssAddModal.nameField')} labelPlacement="floating" {...nameInputProps}></IonInput>
+            </IonItem>
 
-          <IonItem>
-            <IonLabel position="floating">
-              {t('options.rssAddModal.urlField')}
-            </IonLabel>
-            <IonInput {...urlInputProps}></IonInput>
-          </IonItem>
+            <IonItem>
+              <IonInput label={t('options.rssAddModal.urlField')} labelPlacement="floating" {...urlInputProps}></IonInput>
+            </IonItem>
+          </IonList>
 
-          <IonButton onClick={saveRSSAddress}>
+          <IonButton onClick={saveRSSAddress} disabled={isInvalid}>
             {t('options.rssAddModal.save')}
           </IonButton>
         </div>

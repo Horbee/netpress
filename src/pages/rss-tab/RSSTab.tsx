@@ -1,12 +1,7 @@
-import './RSSTab.css'
-
-
 import { useContext, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-
 import { IonHeader, IonSpinner, IonTitle, IonToolbar, RefresherEventDetail } from '@ionic/react'
-
 
 import { ArticleList } from '../../components/article-list/ArticleList'
 import { ArticlePageLayout } from '../../components/ArticlePageLayout'
@@ -27,9 +22,7 @@ const RSSTab: React.FC = () => {
 
   const { openRSSModal, modalProps } = useSelectRSSAddressModal()
 
-  const { refetch, isLoading, articles, loadMore } = useRSSArticles(
-    selectedFeed?.url ?? ''
-  )
+  const { refetch, isLoading, articles, loadMore } = useRSSArticles(selectedFeed?.url ?? '')
 
   const refreshRSSFeed = async (e: CustomEvent<RefresherEventDetail>) => {
     refetch()
@@ -47,11 +40,7 @@ const RSSTab: React.FC = () => {
         </IonHeader>
       )}
 
-      <ChipList
-        openRSSModal={openRSSModal}
-        setSelectedFeed={setSelectedFeed}
-        isSelected={isSelected}
-      />
+      <ChipList openRSSModal={openRSSModal} setSelectedFeed={setSelectedFeed} isSelected={isSelected} />
 
       {isLoading && (
         <div className="spinner-wrapper">
@@ -62,25 +51,24 @@ const RSSTab: React.FC = () => {
   )
 
   return (
-    <ArticlePageLayout
-      title={t('rssTab.title')}
-      refreshFunction={refreshRSSFeed}
-      virtuosoRef={virtuosoRef}
-      scrolledToTop={scrolledToTop}
-    >
-      <SelectRSSAddressModal {...modalProps} />
-      {rssAddressList.length === 0 && <EmptyList openRSSModal={openRSSModal} />}
+    <ArticlePageLayout title={t('rssTab.title')} refreshFunction={refreshRSSFeed} virtuosoRef={virtuosoRef} scrolledToTop={scrolledToTop}>
+      {({ pageRef }) => (
+        <>
+          <SelectRSSAddressModal {...modalProps} pageRef={pageRef} />
+          {rssAddressList.length === 0 && <EmptyList openRSSModal={openRSSModal} />}
 
-      {!!rssAddressList.length && (
-        <ArticleList
-          ref={virtuosoRef}
-          articles={articles}
-          loadMore={loadMore}
-          setScrolledToTop={setScrolledToTop}
-          virtuosoProps={{
-            components: { Header },
-          }}
-        />
+          {!!rssAddressList.length && (
+            <ArticleList
+              ref={virtuosoRef}
+              articles={articles}
+              loadMore={loadMore}
+              setScrolledToTop={setScrolledToTop}
+              virtuosoProps={{
+                components: { Header },
+              }}
+            />
+          )}
+        </>
       )}
     </ArticlePageLayout>
   )

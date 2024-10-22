@@ -1,9 +1,9 @@
 import { useMemo } from 'react'
-import { useInfiniteQuery } from 'react-query'
 
 import { mapRSStoArticle } from '../services/map-rss-to-article'
 import { infiniteFetchRSSFeed } from '../services/news-service'
 import { useErrorMessage } from './useErrorMessage'
+import { useInfiniteQuery } from '@tanstack/react-query'
 
 export const useRSSArticles = (selectedFeedURL: string) => {
   const {
@@ -13,7 +13,10 @@ export const useRSSArticles = (selectedFeedURL: string) => {
     isLoading,
     isError,
     error,
-  } = useInfiniteQuery(['rss', selectedFeedURL], infiniteFetchRSSFeed, {
+  } = useInfiniteQuery({
+    queryKey: ['rss', selectedFeedURL],
+    queryFn: infiniteFetchRSSFeed,
+    initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
       if (lastPage.endIndex < lastPage.totalItems) {
         return {

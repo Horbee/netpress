@@ -1,6 +1,5 @@
 import { useCallback, useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useQuery } from 'react-query'
 import { v4 as uuidv4 } from 'uuid'
 
 import { RSSFeedContext } from '../../context/RSSFeedContext'
@@ -8,21 +7,24 @@ import { useCountry } from '../../hooks/useCountry'
 import { useErrorMessage } from '../../hooks/useErrorMessage'
 import { RSSAddressDocument } from '../../models/rss-addresses-response'
 import { fetchRSSAddresses } from '../../services/news-service'
+import { useQuery } from '@tanstack/react-query'
 
 export const useSelectRSSAddressModal = () => {
   const { t } = useTranslation()
 
   const [modalOpen, setModalOpen] = useState(false)
   const { country } = useCountry()
-  const [selected, setSelected] = useState<RSSAddressDocument[]>([])
   const { addMultipleRSSAddresses, rssAddressList: localRssAddressList } = useContext(RSSFeedContext)
+  const [selected, setSelected] = useState<RSSAddressDocument[]>([])
 
   const {
     isLoading,
     isError,
     error,
     data: rssAddressList,
-  } = useQuery(['rss-address-list', country], () => fetchRSSAddresses(country), {
+  } = useQuery({
+    queryKey: ['rss-address-list', country],
+    queryFn: () => fetchRSSAddresses(country),
     enabled: modalOpen,
   })
 

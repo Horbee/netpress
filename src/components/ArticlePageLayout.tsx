@@ -1,10 +1,22 @@
 import { logoRss, settingsOutline } from 'ionicons/icons'
-import { FC, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
+import type { FC, MutableRefObject, ReactNode } from 'react'
 
 import {
-    IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonMenuButton, IonPage, IonRefresher,
-    IonRefresherContent, IonTitle, IonToolbar, RefresherEventDetail, useIonRouter
+  IonButton,
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonMenuButton,
+  IonPage,
+  IonRefresher,
+  IonRefresherContent,
+  IonTitle,
+  IonToolbar,
+  RefresherEventDetail,
+  useIonRouter,
 } from '@ionic/react'
 
 interface ArticlePageLayoutProps {
@@ -12,17 +24,13 @@ interface ArticlePageLayoutProps {
   refreshFunction: (e: CustomEvent<RefresherEventDetail>) => Promise<void>
   virtuosoRef: any
   scrolledToTop: boolean
+  children: (props: { pageRef: MutableRefObject<HTMLElement | undefined> }) => ReactNode
 }
 
-export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
-  children,
-  title,
-  refreshFunction,
-  virtuosoRef,
-  scrolledToTop,
-}) => {
+export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({ children, title, refreshFunction, virtuosoRef, scrolledToTop }) => {
   const router = useIonRouter()
   const contentRef = useRef<HTMLIonContentElement>(null)
+  const pageRef = useRef<HTMLElement>()
 
   const onRSSPage = router.routeInfo.pathname === '/rss'
 
@@ -44,7 +52,7 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
   }, [virtuosoRef])
 
   return (
-    <IonPage>
+    <IonPage ref={pageRef}>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
@@ -75,14 +83,10 @@ export const ArticlePageLayout: FC<ArticlePageLayoutProps> = ({
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen ref={contentRef}>
-        <IonRefresher
-          slot="fixed"
-          onIonRefresh={refreshFunction}
-          disabled={!scrolledToTop}
-        >
+        <IonRefresher slot="fixed" onIonRefresh={refreshFunction} disabled={!scrolledToTop}>
           <IonRefresherContent></IonRefresherContent>
         </IonRefresher>
-        {children}
+        {children({ pageRef })}
       </IonContent>
     </IonPage>
   )

@@ -1,5 +1,5 @@
 import { addOutline } from 'ionicons/icons'
-import { useContext } from 'react'
+import { MutableRefObject, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { IonButton, IonButtons, IonIcon, IonItemDivider, IonReorderGroup } from '@ionic/react'
@@ -9,7 +9,11 @@ import { RSSAddressModal } from './RSSAddressModal'
 import { RSSFeedItem } from './RSSFeedItem'
 import { useRSSAddressModal } from './useRSSAddressModal'
 
-export const RSSFeedSection = () => {
+type Props = {
+  pageRef: MutableRefObject<HTMLElement | undefined>
+}
+
+export const RSSFeedSection = ({ pageRef }: Props) => {
   const { rssAddressList, saveRSSAddressList } = useContext(RSSFeedContext)
   const { openRSSModal, modalProps } = useRSSAddressModal()
   const { t } = useTranslation()
@@ -21,7 +25,7 @@ export const RSSFeedSection = () => {
 
   return (
     <>
-      <RSSAddressModal {...modalProps} />
+      <RSSAddressModal {...modalProps} pageRef={pageRef} />
       <IonItemDivider>
         <IonButtons slot="end">
           <IonButton onClick={() => openRSSModal()}>
@@ -32,11 +36,7 @@ export const RSSFeedSection = () => {
       </IonItemDivider>
       <IonReorderGroup disabled={false} onIonItemReorder={doReorder}>
         {rssAddressList.map((rss) => (
-          <RSSFeedItem
-            key={rss.id}
-            rss={rss}
-            onItemSelect={() => openRSSModal(rss)}
-          />
+          <RSSFeedItem key={rss.id} rss={rss} onItemSelect={() => openRSSModal(rss)} />
         ))}
       </IonReorderGroup>
     </>

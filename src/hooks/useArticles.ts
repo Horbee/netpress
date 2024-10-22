@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
-import { useInfiniteQuery } from 'react-query'
 
 import { infiniteFetchArticles } from '../services/news-service'
 import { useErrorMessage } from './useErrorMessage'
+import { useInfiniteQuery } from '@tanstack/react-query'
 
 export const useArticles = (categoryId: string, country: string) => {
   const {
@@ -12,7 +12,10 @@ export const useArticles = (categoryId: string, country: string) => {
     isLoading,
     isError,
     error,
-  } = useInfiniteQuery(['news', categoryId, country], infiniteFetchArticles, {
+  } = useInfiniteQuery({
+    queryKey: ['news', categoryId, country],
+    queryFn: infiniteFetchArticles,
+    initialPageParam: undefined,
     getNextPageParam: (lastPage) => {
       if (lastPage.endIndex < lastPage.totalResults) {
         return {

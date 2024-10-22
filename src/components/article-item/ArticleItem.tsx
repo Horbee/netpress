@@ -1,13 +1,10 @@
 import './ArticleItem.scss'
 
-
 import { format } from 'date-fns'
-import { de, hu } from 'date-fns/locale'
+import { de, hu, Locale } from 'date-fns/locale'
 import { useTranslation } from 'react-i18next'
 
-
 import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/react'
-
 
 import { ArticleData } from '../../models/article-data'
 
@@ -27,11 +24,7 @@ export const ArticleItem = ({ article }: ArticleItemProps) => {
         {article.urlToImage && <img src={article.urlToImage} alt="Article" />}
         <IonCardHeader>
           <IonCardSubtitle>{domain}</IonCardSubtitle>
-          <IonCardTitle
-            onClick={() => window.open(article.url, '_system', 'location=yes')}
-          >
-            {article.title}
-          </IonCardTitle>
+          <IonCardTitle onClick={() => window.open(article.url, '_system', 'location=yes')}>{article.title}</IonCardTitle>
         </IonCardHeader>
         <IonCardContent>{article.description}</IonCardContent>
 
