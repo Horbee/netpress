@@ -1,17 +1,11 @@
 import { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
-
 import { useIonToast } from '@ionic/react'
-
 
 import { sendErrorLog } from '../services/news-service'
 
-export const useErrorMessage = (
-  isError?: boolean,
-  error?: any,
-  customErrorMessage?: string
-) => {
+export const useErrorMessage = (isError?: boolean, error?: any, customErrorMessage?: string) => {
   const { t } = useTranslation()
   const [showToast] = useIonToast()
 

@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 import { useQuery } from 'react-query'
 import { v4 as uuidv4 } from 'uuid'
 
-
 import { RSSFeedContext } from '../../context/RSSFeedContext'
 import { useCountry } from '../../hooks/useCountry'
 import { useErrorMessage } from '../../hooks/useErrorMessage'
@@ -16,21 +15,16 @@ export const useSelectRSSAddressModal = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const { country } = useCountry()
   const [selected, setSelected] = useState<RSSAddressDocument[]>([])
-  const { addMultipleRSSAddresses, rssAddressList: localRssAddressList } =
-    useContext(RSSFeedContext)
+  const { addMultipleRSSAddresses, rssAddressList: localRssAddressList } = useContext(RSSFeedContext)
 
   const {
     isLoading,
     isError,
     error,
     data: rssAddressList,
-  } = useQuery(
-    ['rss-address-list', country],
-    () => fetchRSSAddresses(country),
-    {
-      enabled: modalOpen,
-    }
-  )
+  } = useQuery(['rss-address-list', country], () => fetchRSSAddresses(country), {
+    enabled: modalOpen,
+  })
 
   useErrorMessage(isError, error, t('error.rss'))
 
@@ -61,9 +55,7 @@ export const useSelectRSSAddressModal = () => {
 
   const isInList = useCallback(
     (item: RSSAddressDocument) => {
-      return localRssAddressList.some(
-        (i) => i.url === item.fields.url.stringValue
-      )
+      return localRssAddressList.some((i) => i.url === item.fields.url.stringValue)
     },
     [localRssAddressList]
   )

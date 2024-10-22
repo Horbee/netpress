@@ -1,7 +1,4 @@
-import {
-    basketballOutline, happyOutline, hardwareChipOutline, heartOutline, homeOutline, schoolOutline,
-    walletOutline
-} from 'ionicons/icons'
+import { basketballOutline, happyOutline, hardwareChipOutline, heartOutline, homeOutline, schoolOutline, walletOutline } from 'ionicons/icons'
 
 export const DEFAULT_COUNTRY = 'hu'
 export const DEFAULT_CATEGORY = 'general'
@@ -22,16 +19,10 @@ export const categoryOptions: CategoryOption[] = [
   { id: 'technology', icon: hardwareChipOutline },
 ]
 
-export const newsEndpoints =
-  process.env.REACT_APP_NEWS_API ??
-  'http://localhost:9999/.netlify/functions/news'
+export const newsEndpoints = process.env.REACT_APP_NEWS_API ?? 'http://localhost:9999/.netlify/functions/news'
 
-export const rssConverterEndpoints =
-  process.env.REACT_APP_RSS_CONVERTER_API ??
-  'http://localhost:9999/.netlify/functions/feed'
+export const rssConverterEndpoints = process.env.REACT_APP_RSS_CONVERTER_API ?? 'http://localhost:9999/.netlify/functions/feed'
 
-export const logErrorEndpoints =
-  process.env.REACT_APP_LOG_ERROR_API ??
-  'http://localhost:9999/.netlify/functions/log-error'
+export const logErrorEndpoints = process.env.REACT_APP_LOG_ERROR_API ?? 'http://localhost:9999/.netlify/functions/log-error'
 
 export const rssAddressesEndpoint = process.env.REACT_APP_RSS_ADDRESSES ?? ''

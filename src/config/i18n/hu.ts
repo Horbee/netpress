@@ -22,8 +22,7 @@ export const huTranslation = {
     delete: 'Töröl',
     rssDeleteModal: {
       header: 'Törlés: {{ name }}',
-      message:
-        'Biztos vagy benne hogy törölni szeretnéd ezt az RSS címet? {{ url }}',
+      message: 'Biztos vagy benne hogy törölni szeretnéd ezt az RSS címet? {{ url }}',
       cancel: 'Mégsem',
       delete: 'Töröl',
     },

@@ -44,13 +44,11 @@ export const useRSSAddressModal = () => {
       saveRSSAddress,
       nameInputProps: {
         value: name,
-        onIonChange: (e: CustomEvent<InputChangeEventDetail>) =>
-          setName(e.detail.value as any),
+        onIonChange: (e: CustomEvent<InputChangeEventDetail>) => setName(e.detail.value as any),
       },
       urlInputProps: {
         value: url,
-        onIonChange: (e: CustomEvent<InputChangeEventDetail>) =>
-          setUrl(e.detail.value as any),
+        onIonChange: (e: CustomEvent<InputChangeEventDetail>) => setUrl(e.detail.value as any),
       },
     },
     openRSSModal,

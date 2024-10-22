@@ -1,8 +1,6 @@
 import { useEffect } from 'react'
 
-
 import { useIonPicker } from '@ionic/react'
-
 
 import { contryOptions } from '../config/constants'
 import { useStorage } from '../context/StorageContext'
