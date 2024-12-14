@@ -32,7 +32,6 @@ import { Redirect, Route } from 'react-router-dom'
 import { IonApp, IonRouterOutlet, IonSplitPane, setupIonicReact } from '@ionic/react'
 import { IonReactRouter } from '@ionic/react-router'
 import { Menu } from './components/menu/Menu'
-import { useTabCategory } from './hooks/useTabCategory'
 import { CountryPicker } from './components/country-picker/CountryPicker'
 import NewsTab from './pages/news/NewsPage'
 import OptionsPage from './pages/options/OptionsPage'
@@ -41,8 +40,6 @@ import RSSTab from './pages/rss-tab/RSSTab'
 setupIonicReact()
 
 const App: React.FC = () => {
-  const { categories } = useTabCategory()
-
   return (
     <IonApp>
       <IonReactRouter>
@@ -53,10 +50,10 @@ const App: React.FC = () => {
             <Route exact path="/rss" component={RSSTab} />
             <Route exact path="/options" component={OptionsPage} />
             <Route exact path="/">
-              <Redirect to={`/news/${categories[0].id}`} />
+              <Redirect to="/rss" />
             </Route>
             <Route>
-              <Redirect to={`/news/${categories[0].id}`} />
+              <Redirect to="/rss" />
             </Route>
           </IonRouterOutlet>
           <CountryPicker />
